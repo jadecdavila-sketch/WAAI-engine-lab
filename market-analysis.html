@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WAAI Engine Lab: Market Analysis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#000000; --cream:#F5EFE3; --paper:#FFFDF8;
+    --orange:#C7481B; --orange-soft:#FBE9E0;
+    --teal:#0E6B66; --teal-deep:#0A4F4B; --teal-soft:#DCEBE9;
+    --mute:#5F5A52; --rule:#D9D0C0; --sand:#E7DFCB;
+    --max:1120px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto} *{transition:none!important;animation:none!important} }
+  body{margin:0;background:var(--cream);color:var(--ink);font-family:"Archivo",system-ui,-apple-system,"Helvetica Neue",Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased}
+  a{color:var(--teal-deep)}
+  a:focus-visible,button:focus-visible,[tabindex]:focus-visible{outline:3px solid var(--orange);outline-offset:3px}
+  .wrap{max-width:var(--max);margin:0 auto;padding:0 28px}
+  h2{font-weight:900;font-stretch:90%;font-size:clamp(26px,3.4vw,38px);line-height:1.05;letter-spacing:-.015em;margin:0 0 8px}
+  h3{font-weight:800;font-size:17px;line-height:1.25;margin:0 0 6px}
+  p{margin:0 0 10px}
+  .lead{color:var(--mute);font-size:17px;max-width:66ch;margin:0 0 24px}
+  ul{margin:0 0 10px;padding-left:20px} li{margin:0 0 5px}
+  section{margin:0 0 64px}
+  main{padding:48px 0 80px}
+
+  /* hero */
+  header.hero{background:var(--ink);color:var(--cream);padding:56px 0 46px}
+  .hero .kicker{font-size:15px;color:#BFB8AA;margin:0 0 20px}
+  .hero h1{font-weight:900;font-stretch:90%;font-size:clamp(38px,6.2vw,76px);line-height:.98;letter-spacing:-.02em;margin:0 0 26px;max-width:15ch}
+  .hero p.lede{font-size:clamp(18px,2.1vw,22px);line-height:1.4;max-width:58ch;margin:0 0 30px;color:#EAE3D5}
+  .hero .meta{display:flex;flex-wrap:wrap;gap:18px 34px;font-size:14px;color:#BFB8AA}
+  .hero .meta b{color:var(--cream);font-weight:600}
+  
+  /* pills */
+  .tag{display:inline-block;font-size:12px;font-weight:700;padding:2px 8px;border-radius:3px;vertical-align:middle;white-space:nowrap}
+  .tag.verified{background:var(--teal);color:#fff}
+  .tag.reported{background:var(--sand);color:#4E4738}
+  .tag.myth{background:var(--orange);color:#fff}
+  .tag.jade{background:var(--ink);color:var(--cream)}
+  .tag.fit-strong{background:var(--teal);color:#fff}
+  .tag.fit-maybe{background:var(--sand);color:#4E4738}
+  .tag.fit-no{background:#F1D9CF;color:#7A2E14}
+
+  /* findings: one row of four */
+  .findings{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:3px solid var(--ink)}
+  .finding{padding:20px 22px 22px 0;border-right:1px solid var(--rule);border-bottom:1px solid var(--rule);padding-left:20px}
+  .finding:first-child{padding-left:0}
+  .finding:last-child{border-right:0}
+  .finding h3{margin-bottom:8px;font-size:18px}
+  .finding p{font-size:15px;margin:0;color:#2B2822}
+  @media(max-width:900px){ .findings{grid-template-columns:1fr 1fr} .finding{padding-left:20px} .finding:nth-child(odd){padding-left:0;border-right:1px solid var(--rule)} .finding:nth-child(even){border-right:0} }
+  @media(max-width:560px){ .findings{grid-template-columns:1fr} .finding{padding-left:0;border-right:0!important} }
+
+  /* map */
+  .map{background:var(--paper);border:2px solid var(--ink);padding:22px 22px 10px;margin:8px 0 12px}
+  .map svg{width:100%;height:auto;display:block}
+  .map text{font-family:inherit}
+  .map .axis{font-size:13px;fill:var(--mute)}
+  .map .pt{cursor:pointer}
+  .map .pt circle{fill:var(--ink)}
+  .map .pt:hover circle,.map .pt:focus-visible circle{fill:var(--teal)}
+  .map .pt text{font-size:13px;fill:var(--ink);font-weight:600}
+  .map .pt:hover text{text-decoration:underline}
+  .map .lab circle{fill:var(--orange)}
+  .map .lab .big{font-size:15px;fill:var(--orange);font-weight:900}
+  .map .lab .sub{font-size:12px;fill:var(--mute);font-weight:400}
+  .caption{font-size:14px;color:var(--mute);max-width:72ch}
+
+  /* programs table */
+  .tblwrap{overflow-x:auto;border:2px solid var(--ink);background:var(--paper);margin:8px 0 10px}
+  table{border-collapse:collapse;width:100%;font-size:14px;min-width:900px}
+  th,td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--rule)}
+  th{background:var(--ink);color:var(--cream);font-weight:700}
+  tbody tr{cursor:pointer}
+  tbody tr:hover td,tbody tr:focus-visible td{background:var(--teal-soft)}
+  tbody tr.lab td{background:var(--orange-soft)}
+  tbody tr.lab:hover td{background:#F6D8C9}
+  td.name{font-weight:800;white-space:nowrap}
+  td.name span{border-bottom:2px solid var(--orange)}
+  tr:last-child td{border-bottom:0}
+  .hint{font-size:14px;color:var(--mute)}
+
+  /* drawer */
+  .scrim{position:fixed;inset:0;background:rgba(0,0,0,.45);opacity:0;pointer-events:none;transition:opacity .2s;z-index:20}
+  .scrim.on{opacity:1;pointer-events:auto}
+  .drawer{position:fixed;top:0;right:0;height:100%;width:min(520px,100%);background:var(--paper);z-index:21;transform:translateX(100%);transition:transform .25s;overflow-y:auto;border-left:3px solid var(--ink);box-shadow:-8px 0 24px rgba(0,0,0,.15)}
+  .drawer.on{transform:none}
+  .drawer .inner{padding:28px 30px 40px}
+  .drawer .close{position:absolute;top:16px;right:18px;background:var(--ink);color:var(--cream);border:0;font:inherit;font-weight:700;padding:8px 12px;cursor:pointer}
+  .drawer h3{font-size:26px;font-weight:900;font-stretch:90%;letter-spacing:-.01em;margin:18px 0 4px;line-height:1.05}
+  .drawer .sub{color:var(--mute);margin:0 0 18px;font-size:15px}
+  .drawer dl{display:grid;grid-template-columns:120px 1fr;gap:6px 14px;font-size:14px;margin:0 0 20px;padding:14px 0;border-top:2px solid var(--ink);border-bottom:1px solid var(--rule)}
+  .drawer dt{color:var(--mute);font-weight:600} .drawer dd{margin:0}
+  .drawer .take{background:var(--teal-soft);padding:14px 16px;margin:18px 0 0}
+  .drawer .take h4{margin:0 0 6px;font-size:14px;font-weight:800;color:var(--teal-deep)}
+  .drawer .take p{margin:0;font-size:15px}
+  .drawer .src{font-size:13px;color:var(--mute);margin-top:14px}
+
+  /* mechanisms: cycle diagram */
+  .cycle{background:var(--paper);border:2px solid var(--ink);padding:26px 26px 22px;margin:8px 0 18px}
+  .cycle svg{width:100%;height:auto;display:block}
+  .cycle text{font-family:inherit}
+  .cycle .bar{fill:var(--ink)}
+  .cycle .tick{stroke:var(--cream);stroke-width:2}
+  .cycle .wk{font-size:11px;fill:var(--cream);font-weight:700}
+  .cycle .mech{font-size:15px;font-weight:900;fill:var(--ink)}
+  .cycle .from{font-size:12px;fill:var(--teal-deep);font-weight:700}
+  .cycle .desc{font-size:12px;fill:var(--mute)}
+  .cycle .pin{stroke:var(--orange);stroke-width:2}
+  .cycle .knob{fill:var(--orange)}
+  .cycle .phase{font-size:13px;fill:var(--mute);font-style:italic}
+  .mechgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:3px solid var(--ink)}
+  .mech{padding:18px 20px 20px 0;border-bottom:1px solid var(--rule);border-right:1px solid var(--rule);padding-left:18px}
+  .mech:nth-child(3n+1){padding-left:0}
+  .mech:nth-child(3n){border-right:0}
+  .mech h3{font-size:17px;margin-bottom:6px}
+  .mech .from{font-size:13px;color:var(--teal-deep);font-weight:700;margin:0 0 8px}
+  .mech p{font-size:14px;margin:0;color:#2B2822}
+  @media(max-width:860px){ .mechgrid{grid-template-columns:1fr 1fr} .mech{padding-left:18px} .mech:nth-child(odd){padding-left:0;border-right:1px solid var(--rule)} .mech:nth-child(even){border-right:0} }
+  @media(max-width:560px){ .mechgrid{grid-template-columns:1fr} .mech{padding-left:0;border-right:0!important} }
+
+  /* completion bars */
+  .bars{display:grid;grid-template-columns:1fr 1fr;gap:26px;background:var(--paper);border:2px solid var(--ink);padding:22px 24px;margin-top:22px}
+  .bar-row{margin:0 0 12px}
+  .bar-row .lbl{display:flex;justify-content:space-between;font-size:14px;margin-bottom:5px}
+  .bar-row .lbl b{font-weight:800}
+  .track{height:18px;background:var(--sand)}
+  .fill{height:100%;background:var(--ink)}
+  .fill.claim{background:repeating-linear-gradient(45deg,var(--orange) 0 6px,#E9977A 6px 12px)}
+  .bars .note{font-size:14px;color:var(--mute);align-self:center}
+  @media(max-width:700px){ .bars{grid-template-columns:1fr} }
+
+  /* caution: failure arc */
+  .arc{background:var(--paper);border:2px solid var(--ink);padding:24px 26px;margin:8px 0 18px}
+  .arc ol{list-style:none;padding:0;margin:0 0 16px;display:grid;grid-template-columns:repeat(5,1fr);gap:0}
+  .arc li{position:relative;padding:12px 14px 12px 0;border-top:6px solid var(--ink);font-size:14px}
+  .arc li b{display:block;font-size:15px;font-weight:900;margin-bottom:4px}
+  .arc li:nth-child(4),.arc li:nth-child(5){border-top-color:var(--orange)}
+  .arc li:nth-child(5) b{color:var(--orange)}
+  .arc .fix{background:var(--teal-soft);padding:14px 16px;font-size:15px}
+  .arc .fix b{color:var(--teal-deep)}
+  @media(max-width:760px){ .arc ol{grid-template-columns:1fr} .arc li{border-top:0;border-left:6px solid var(--ink);padding:6px 0 6px 14px} .arc li:nth-child(4),.arc li:nth-child(5){border-left-color:var(--orange)} }
+  .twoup{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .card{background:var(--paper);border:2px solid var(--ink);padding:22px 24px}
+  .card h3{font-size:20px;font-weight:900;font-stretch:90%;margin-bottom:8px}
+  .card .fix{background:var(--teal-soft);padding:12px 14px;font-size:15px;margin-top:12px}
+  .card .fix b{color:var(--teal-deep)}
+  .card p{font-size:15px}
+  @media(max-width:760px){ .twoup{grid-template-columns:1fr} }
+
+  /* evidence ledger */
+  .ledger{border:2px solid var(--ink);background:var(--paper);overflow-x:auto;margin:8px 0 0}
+  .ledger table{min-width:860px;font-size:14px}
+  .ledger th:nth-child(1){width:26%} .ledger th:nth-child(2){width:11%} .ledger th:nth-child(3){width:33%}
+  .ledger td.claim{font-weight:800}
+  .ledger td.change{background:var(--teal-soft)}
+  .ledger tbody tr{cursor:default}
+  .ledger tbody tr:hover td{background:inherit}
+  .ledger tbody tr:hover td.change{background:var(--teal-soft)}
+
+  /* band: where we differ */
+  .band{background:var(--teal-deep);color:#fff;padding:44px 0 40px;margin:0 0 64px}
+  .band h2{color:#fff}
+  .band .lead{color:#CFE5E2}
+  .diffgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:0;margin:0 0 22px}
+  .diff{padding:20px 20px 22px 20px;border-right:1px solid #2C7F79}
+  .diff:last-child{border-right:0}
+  .diff h3{font-size:18px;color:#fff;margin-bottom:8px}
+  .diff p{font-size:14.5px;color:#EAF3F2;margin:0}
+  .diff.hero-diff{background:#03302D;border-right:0;padding:22px 22px 24px}
+  .diff.hero-diff h3{font-size:22px;color:#F7B693}
+  .diff.hero-diff p{color:#fff;font-size:15px}
+  .diff.wide{background:#0C5C57;padding:18px 20px 22px;margin:0 0 22px;border-right:0}
+  .diff.wide h3{font-size:20px}
+  .diff.wide p{max-width:80ch;font-size:15px}
+  .diff.wide p.q{font-weight:900;font-size:17px;color:#F7B693;margin-top:12px}
+  @media(max-width:860px){ .diffgrid{grid-template-columns:1fr} .diff{border-right:0;border-bottom:1px solid #2C7F79} .diff:last-child{border-bottom:0} }
+
+  /* legal three-up */
+  .threeup{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+  .threeup .card p,.threeup .card li{font-size:14.5px}
+  .threeup .card h3{font-size:18px}
+  @media(max-width:860px){ .threeup{grid-template-columns:1fr} }
+
+  /* partners ladder */
+  .ladder{border:2px solid var(--ink);background:var(--paper)}
+  .rung{display:grid;grid-template-columns:200px 120px 1fr;gap:16px;padding:14px 18px;border-bottom:1px solid var(--rule);align-items:start;font-size:14.5px}
+  .rung:last-child{border-bottom:0}
+  .rung b{font-weight:800;font-size:15px}
+  .rung p{margin:0;color:#2B2822}
+  @media(max-width:700px){ .rung{grid-template-columns:1fr;gap:6px} }
+
+  .decisions{background:var(--paper);border:2px solid var(--ink);padding:22px 24px}
+  .decisions ol{margin:0;padding-left:22px}
+  @media(min-width:760px){ .decisions ol{columns:2;column-gap:40px} .decisions li{break-inside:avoid} }
+
+  footer{background:var(--ink);color:#BFB8AA;font-size:14px;padding:28px 0}
+  .grid2{display:grid;grid-template-columns:1fr;gap:6px 36px}
+  @media(min-width:760px){ .grid2{grid-template-columns:1fr 1fr} }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="kicker">A brief for Women Applying AI leadership</p>
+    <h1>WAAI Engine Lab: Market Analysis</h1>
+    <p class="lede">A dozen programs that help people build products were examined, from volunteer apprenticeships to venture accelerators to women only residencies.</p>
+    <div class="meta">
+      <span><b>Prepared by</b> Jade Davila</span>
+      <span><b>Date</b> September 2026</span>
+      <span><b>Companion</b> <a href="index.html" style="color:#fff;font-weight:600">WAAI Engine Lab: How It Works</a></span>
+    </div>
+  </div>
+</header>
+
+
+
+<main>
+<div class="wrap">
+
+<section id="two-minute">
+  <h2>Tl;dr</h2>
+  <p class="lead">Four things to know before approving the Lab.</p>
+  <div class="findings">
+    <div class="finding">
+      <h3>The closest models exist and were built for people like WAAI members</h3>
+      <p>Tech Fleet (volunteer product apprenticeships with an observer tier, guilds, and a "training, not volunteering" framing) and Chingu (six week team cycles gated by a small solo project) are the two programs the Lab draft most resembles. Both serve first time builders working part time.</p>
+    </div>
+    <div class="finding">
+      <h3>Structure leads to better completion rates</h3>
+      <p>Fixed cycles, weekly rituals, a pre work gate, and credentials earned by building something recur across every program that ships. Claims that cohorts finish at ninety percent plus are vendor self report. The Lab will measure its own.</p>
+    </div>
+    <div class="finding">
+      <h3>Programs die from people problems</h3>
+      <p>Civic tech post mortems point to maintainer succession, burnout, and no sustaining owner. Buildspace shut down in 2024 with cash in the bank because it depended on one founder. The Lab designs succession and ownership in from day one.</p>
+    </div>
+    <div class="finding">
+      <h3>Nobody in the landscape does what the Lab proposes</h3>
+      <p>Build the organization's own products and teach members to build their own, at five to eight hours a week, with skill exchange between experienced professional women as the teaching method. That combination does not exist yet.</p>
+    </div>
+  </div>
+</section>
+
+<section id="map">
+  <h2>The landscape at a glance</h2>
+  <p class="lead">Programs placed by weekly time demand and by who the product is for. Placement is approximate, from each program's published materials. Click a dot for detail.</p>
+  <div class="map">
+    <svg viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Chart placing builder programs by hours per week (horizontal) and by whether products serve an individual or a community (vertical). The AI Engine Lab sits at low hours and toward community products, where no other program sits.">
+      <line x1="70" y1="440" x2="870" y2="440" stroke="#000" stroke-width="2"/>
+      <line x1="70" y1="30" x2="70" y2="440" stroke="#000" stroke-width="2"/>
+      <text class="axis" x="470" y="482" text-anchor="middle">Hours per week asked of a participant (low to extreme)</text>
+      <text class="axis" x="22" y="235" text-anchor="middle" transform="rotate(-90 22 235)">Who the product serves</text>
+      <text class="axis" x="80" y="48">Community or organization</text>
+      <text class="axis" x="80" y="428">The individual builder</text>
+
+      <g class="pt" data-program="sheai" tabindex="0" role="button"><circle cx="170" cy="395" r="7"/><text x="182" y="399">SheAI buildathon</text></g>
+      <g class="pt" data-program="pf" tabindex="0" role="button"><circle cx="230" cy="345" r="7"/><text x="242" y="349">Product Faculty</text></g>
+      <g class="pt" data-program="bcw" tabindex="0" role="button"><circle cx="300" cy="405" r="7"/><text x="312" y="409">Build Club, Women in AI</text></g>
+      <g class="pt" data-program="chingu" tabindex="0" role="button"><circle cx="340" cy="320" r="7"/><text x="352" y="324">Chingu</text></g>
+      <g class="pt" data-program="aim" tabindex="0" role="button"><circle cx="390" cy="370" r="7"/><text x="402" y="374">AI Makerspace</text></g>
+      <g class="pt" data-program="cbc" tabindex="0" role="button"><circle cx="300" cy="265" r="7"/><text x="312" y="269">Claude Builder Clubs</text></g>
+      <g class="pt" data-program="tf" tabindex="0" role="button"><circle cx="420" cy="140" r="7"/><text x="432" y="144">Tech Fleet</text></g>
+      <g class="pt" data-program="civic" tabindex="0" role="button"><circle cx="230" cy="105" r="7"/><text x="242" y="109">Civic tech brigades, DemocracyLab</text></g>
+      <g class="pt" data-program="bs" tabindex="0" role="button"><circle cx="560" cy="360" r="7"/><text x="572" y="364">Buildspace (closed)</text></g>
+      <g class="pt" data-program="bca" tabindex="0" role="button"><circle cx="720" cy="300" r="7"/><text x="732" y="304">Build Club accelerator</text></g>
+      <g class="pt" data-program="fh" tabindex="0" role="button"><circle cx="690" cy="385" r="7"/><text x="702" y="389">FoundHer House</text></g>
+      <g class="pt" data-program="gauntlet" tabindex="0" role="button"><circle cx="830" cy="415" r="7"/><text x="818" y="419" text-anchor="end">Gauntlet AI</text></g>
+
+      <g class="pt lab" data-program="lab" tabindex="0" role="button">
+        <circle cx="170" cy="200" r="12"/>
+        <text class="big" x="190" y="196">The AI Engine Lab</text>
+        <text class="sub" x="190" y="216">products for WAAI and for members, 5 to 8 hours a week</text>
+      </g>
+    </svg>
+  </div>
+  <p class="caption">The empty space around the Lab is the opportunity. Programs that build for a community ask for near full time commitment or run as open ended volunteering. Programs that respect part time lives build only for the individual. The Lab intends to do both at once.</p>
+</section>
+
+<section id="programs">
+  <h2>The programs</h2>
+  <p class="lead">The twelve programs examined, with the Lab in the first row for comparison. Click any row to open the detail.</p>
+  <div class="tblwrap">
+    <table id="programs-table">
+      <thead><tr><th>Program</th><th>Entry</th><th>Cycle</th><th>Hours a week</th><th>Review and quality gate</th><th>Credential</th><th>Who owns the work</th><th>Cost to member</th></tr></thead>
+      <tbody>
+        <tr class="lab" data-program="lab" tabindex="0"><td class="name"><span>AI Engine Lab (proposed)</span></td><td>Observer, no application. Builder, one completed artifact. Solo founder, the course.</td><td>8 weeks</td><td>5 to 8</td><td>Weekly Council critique through eight lenses; acceptance check on every activity; release checklist</td><td>Foundations and Practitioner, earned by artifacts</td><td>WAAI owns Lab products; members own their own</td><td>Free</td></tr>
+        <tr data-program="tf" tabindex="0"><td class="name"><span>Tech Fleet</span></td><td>Observer, no application. Apprentice and Lead apply; no portfolio needed</td><td>8 weeks</td><td>About 15</td><td>Agile team ceremonies, leads coach; client does not expect expert output</td><td>None formal; portfolio case study</td><td>Nonprofit client; member may show in portfolio</td><td>Free, 501(c)(3)</td></tr>
+        <tr data-program="chingu" tabindex="0"><td class="name"><span>Chingu</span></td><td>Solo pre work project, evaluated and tiered</td><td>6 weeks</td><td>8 to 12</td><td>Weekly check in survey; inactive members removed</td><td>Completion; portfolio project</td><td>Team owns its MVP</td><td>Free</td></tr>
+        <tr data-program="bcw" tabindex="0"><td class="name"><span>Build Club, Women in AI Accelerator</span></td><td>Application; open to women with day jobs</td><td>6 weeks</td><td>Self paced</td><td>Three workshops; ship a working product; showcase</td><td>Showcase</td><td>Builder owns</td><td>Free, 25 plus partners</td></tr>
+        <tr data-program="bca" tabindex="0"><td class="name"><span>Build Club, flagship accelerator</span></td><td>Highly selective</td><td>6 weeks</td><td>Near full time</td><td>Daily code reviews; demo day to investors</td><td>Demo day</td><td>Founder keeps all equity</td><td>Free</td></tr>
+        <tr data-program="cbc" tabindex="0"><td class="name"><span>Claude Builder Clubs</span></td><td>Student led; leads apply per cohort</td><td>Term based</td><td>Variable</td><td>Project pods; demo nights; hackathons</td><td>None formal</td><td>Member owns</td><td>Free; Anthropic credits</td></tr>
+        <tr data-program="bs" tabindex="0"><td class="name"><span>Buildspace (closed 2024)</span></td><td>Open, short video application</td><td>6 weeks</td><td>Nights and weekends</td><td>Challenge based; emphasis on shipping</td><td>None</td><td>Builder owns</td><td>Free</td></tr>
+        <tr data-program="gauntlet" tabindex="0"><td class="name"><span>Gauntlet AI</span></td><td>Aptitude test, about 2 percent accepted</td><td>10 to 12 weeks</td><td>80 to 100</td><td>Ship weekly under pressure</td><td>Job placement</td><td>Not applicable</td><td>Free, employer funded</td></tr>
+        <tr data-program="pf" tabindex="0"><td class="name"><span>Product Faculty fellowship</span></td><td>Paid membership</td><td>Cohorts</td><td>4 to 6</td><td>Live sessions; capstone review</td><td>Certification, capstone based</td><td>Fellow owns</td><td>Paid</td></tr>
+        <tr data-program="aim" tabindex="0"><td class="name"><span>AI Makerspace</span></td><td>Selective, paid</td><td>7 to 10 weeks</td><td>10 plus</td><td>Weekly build requirement; certification challenge; demo day</td><td>Certification, two year validity</td><td>Builder owns</td><td>About 4 to 5 thousand dollars</td></tr>
+        <tr data-program="fh" tabindex="0"><td class="name"><span>FoundHer House</span></td><td>Application and interview; 6 to 8 residents</td><td>3 months, residential</td><td>Full time</td><td>Peer support; demo day to investors</td><td>None</td><td>Founder owns</td><td>Subsidized rent</td></tr>
+        <tr data-program="sheai" tabindex="0"><td class="name"><span>SheAI, AI Sisterhood</span></td><td>Free community; paid courses</td><td>4 week bootcamp; 3 day buildathon</td><td>Light</td><td>Community feedback; submit by last day</td><td>Certificates of completion</td><td>Member owns</td><td>Free tier, paid courses</td></tr>
+        <tr data-program="civic" tabindex="0"><td class="name"><span>Civic tech brigades, DemocracyLab</span></td><td>Open, rolling</td><td>Ongoing</td><td>Volunteer defined</td><td>Project lead defined</td><td>None</td><td>Project owner</td><td>Free</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p class="hint">Figures are from each program's own materials unless the detail panel says otherwise.</p>
+</section>
+
+<section id="borrow">
+  <h2>Mechanisms worth borrowing</h2>
+  <p class="lead">Six practices shared by the programs that ship, placed on the Lab's eight week cycle.</p>
+  <div class="cycle">
+    <svg viewBox="0 0 1000 330" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="An eight week Lab cycle drawn as a bar, with six borrowed mechanisms pinned to where they happen: observer entry and a pre work artifact before the cycle, weekly Council sessions and guild roles during it, a showcase at week eight, and an artifact based credential after.">
+      <text class="phase" x="20" y="150">Before</text>
+      <text class="mech" x="160" y="128">An eight week cycle with a public end date</text>
+      <text class="from" x="160" y="146">from Tech Fleet, Chingu, Build Club</text>
+      <text class="phase" x="980" y="150" text-anchor="end">After</text>
+      <rect class="bar" x="160" y="160" width="700" height="34"/>
+      <g class="ticks">
+        <line class="tick" x1="247.5" y1="160" x2="247.5" y2="194"/><line class="tick" x1="335" y1="160" x2="335" y2="194"/><line class="tick" x1="422.5" y1="160" x2="422.5" y2="194"/><line class="tick" x1="510" y1="160" x2="510" y2="194"/><line class="tick" x1="597.5" y1="160" x2="597.5" y2="194"/><line class="tick" x1="685" y1="160" x2="685" y2="194"/><line class="tick" x1="772.5" y1="160" x2="772.5" y2="194"/>
+        <text class="wk" x="203" y="182" text-anchor="middle">wk 1</text><text class="wk" x="291" y="182" text-anchor="middle">2</text><text class="wk" x="378" y="182" text-anchor="middle">3</text><text class="wk" x="466" y="182" text-anchor="middle">4</text><text class="wk" x="553" y="182" text-anchor="middle">5</text><text class="wk" x="641" y="182" text-anchor="middle">6</text><text class="wk" x="728" y="182" text-anchor="middle">7</text><text class="wk" x="816" y="182" text-anchor="middle">8</text>
+      </g>
+
+      <line class="pin" x1="60" y1="177" x2="60" y2="80"/><circle class="knob" cx="60" cy="177" r="6"/>
+      <text class="mech" x="20" y="52">Observer first entry</text>
+      <text class="from" x="20" y="70">from Tech Fleet</text>
+
+      <line class="pin" x1="150" y1="177" x2="150" y2="250"/><circle class="knob" cx="150" cy="177" r="6"/>
+      <text class="mech" x="90" y="278">A small artifact to enter</text>
+      <text class="from" x="90" y="296">from Chingu</text>
+
+      <line class="pin" x1="440" y1="177" x2="440" y2="250"/><circle class="knob" cx="440" cy="177" r="6"/>
+      <text class="mech" x="380" y="278">Named roles and guilds</text>
+      <text class="from" x="380" y="296">from Tech Fleet</text>
+
+      <line class="pin" x1="575" y1="177" x2="575" y2="80"/><circle class="knob" cx="575" cy="177" r="6"/>
+      <text class="mech" x="540" y="52">Weekly critique and check in</text>
+      <text class="from" x="540" y="70">from Chingu</text>
+
+      <line class="pin" x1="845" y1="177" x2="845" y2="250"/><circle class="knob" cx="845" cy="177" r="6"/>
+      <text class="mech" x="700" y="278">A non competitive showcase</text>
+      <text class="from" x="700" y="296">from Build Club, SheAI</text>
+
+      <line class="pin" x1="930" y1="177" x2="930" y2="80"/><circle class="knob" cx="930" cy="177" r="6"/>
+      <text class="mech" x="980" y="52" text-anchor="end">Credential by artifact</text>
+      <text class="from" x="980" y="70" text-anchor="end">from Product Faculty, AI Makerspace</text>
+    </svg>
+  </div>
+
+  <div class="mechgrid">
+    <div class="mech"><h3>Observer first entry</h3><p class="from">Tech Fleet</p><p>Anyone can watch any session before anyone has to apply. Tech Fleet says most members start there to build confidence. In the Lab, Observers attend Council sessions, showcases, and guild meetings with no obligation.</p></div>
+    <div class="mech"><h3>A small artifact to enter</h3><p class="from">Chingu</p><p>A solo project before team placement filters for commitment and sorts by skill at almost no cost. A member enters the Builder level by completing one catalog activity with its acceptance check passed, or the Foundations course.</p></div>
+    <div class="mech"><h3>An eight week cycle with a public end date</h3><p class="from">Tech Fleet, Chingu, Build Club</p><p>Six to eight weeks recurs across every program that ships. A finish line creates momentum a rolling program never does. The Lab runs eight weeks with two weeks of rest between cycles.</p></div>
+    <div class="mech"><h3>Named roles and guilds</h3><p class="from">Tech Fleet</p><p>A seat with a name and a home across projects. Lab guilds map to the eight Council voices, so The Witness on one project learns from The Witness on another, and empty seats have somewhere to be filled from.</p></div>
+    <div class="mech"><h3>Weekly critique and check in</h3><p class="from">Chingu</p><p>A one hour Council session per team per week is the Lab's heartbeat, and a short async check in keeps a global team visible without another meeting. Members who go quiet get a conversation.</p></div>
+    <div class="mech"><h3>A non competitive showcase</h3><p class="from">Build Club, SheAI</p><p>Ranked demo days reward the loudest demo. Build Club framed its women's cohort around learning faster, and SheAI certifies everyone who submits. Each Lab cycle ends with real members trying the work. No judges.</p></div>
+  </div>
+
+  </section>
+
+<section id="caution">
+  <h2>Cautionary tales</h2>
+  <p class="lead">Two patterns account for most failures, and both are about people.</p>
+  <div class="arc">
+    <h3>The civic tech arc, as the post mortems describe it</h3>
+    <ol>
+      <li><b>Volunteers start a project</b>Energy is high, scope is loose, nobody is paid.</li>
+      <li><b>It grows and gets noticed</b>Real users arrive. Expectations rise with them.</li>
+      <li><b>Workload rises, resources do not</b>The same few people carry more, for longer.</li>
+      <li><b>The originals burn out or move on</b>Knowledge leaves with them. Nobody was named to take over.</li>
+      <li><b>The product stalls</b>Users are stranded. Remaining volunteers are discouraged. Fewer sign up next time.</li>
+    </ol>
+    <p class="fix"><b>What the Lab does about it.</b> Because Lab products are for WAAI, every release requires a named maintainer, a succession plan, a written scope and sunset criterion, and ownership by the organization rather than an individual. Recruiting two or three members per Council seat, plus recruits who shadow before they hold a seat, means no product depends on one person. <span class="tag verified">Verified</span> ACM Interactions; the Civic Tech Guide; Code for America's writing on brigade burnout.</p>
+  </div>
+  <div class="twoup">
+    <div class="card">
+      <h3>Buildspace: a community that depended on one person</h3>
+      <p>Buildspace was large, funded, and loved: roughly 150,000 participants over five seasons, thousands of products shipped, venture backing. It closed in August 2024 with more than two years of cash because its founder could not find the path forward, and observers noted it was a brand and a community rather than an operation someone else could run. Its tooling was improvised across many platforms with no single system of record.</p>
+      <p class="fix"><b>What the Lab does about it.</b> The Lab is documented from day one (this brief, the framework, the catalog, the program), guild leads share the load, and leadership succession for the Lab itself is a decision for this group to make now. <span class="tag reported">Reported</span> from third party accounts of the founder's letter.</p>
+    </div>
+    <div class="card">
+      <h3>Gauntlet AI: what optimizing for intensity looks like</h3>
+      <p>Eighty to one hundred hours a week, aptitude tested, residential, funded by employers who hire the graduates. Its founder has said publicly that the schedule is impossible for people with families. It works for the two percent it admits.</p>
+      <p class="fix"><b>What the Lab does about it.</b> Nothing to borrow. Programs that ask for eighty hours select for a different population. Five to eight hours a week is the Lab's design.</p>
+    </div>
+  </div>
+</section>
+
+<section id="women">
+  <h2>Evidence-based design for women</h2>
+  <p class="lead">Each claim, its status, its source, and what it changes in the Lab.</p>
+  <div class="ledger">
+    <table>
+      <thead><tr><th>Claim</th><th>Status</th><th>What the evidence actually says</th><th>What it changes in the Lab</th></tr></thead>
+      <tbody>
+                <tr><td class="claim">Women's AI assisted work is judged more harshly</td><td><span class="tag reported">Reported</span></td><td>Fortune reported in May 2026 on a study by Zehra Chatoo (Code For Good Now): identical AI assisted resumes under a woman's name drew markedly more doubt about trustworthiness and competence, and a much larger share of younger male reviewers called the woman's version weak. No published methodology with sample sizes or controls was found. Present it as a practitioner study reported by a major outlet.</td><td class="change">Every Lab credential names what the member built and how it was verified. The acceptance check discipline makes a woman's authorship and judgment legible to a skeptical reader.</td></tr>
+        <tr><td class="claim">Psychological safety drives learning</td><td><span class="tag verified">Verified</span></td><td>Edmondson's 1999 field study of 51 teams found psychological safety predicts learning behavior, which predicts performance. The mechanism is willingness to ask, admit mistakes, and seek feedback. Google's study of 180 teams found it the most important of five team dynamics.</td><td class="change">Every reviewer speaks through one named lens, tensions are recorded instead of voted on, and the showcase has no ranking. Nobody has to be the person who is "just being negative."</td></tr>
+        <tr><td class="claim">Part time programs can ship real products</td><td><span class="tag verified">Verified</span></td><td>Build Club's women's cohort shipped fifty products in six weeks from people with day jobs. Chingu runs eight to twelve hours a week, teams organized by time zone, weekly check ins async. Gauntlet's founder concedes eighty hours excludes people with families.</td><td class="change">Five to eight hours a week, every synchronous ritual recorded, Council sessions in each team's own overlap window, cycle goals sized to the hours available.</td></tr>
+        <tr><td class="claim">Credentials help careers</td><td><span class="tag verified">Verified</span></td><td>Returns depend heavily on field, with technical credentials paying off most. Employers value badges only when recognized beyond the issuer and tied to demonstrated skill. Digital Promise (2026) reports better employability where micro credentials are built into hiring criteria.</td><td class="change">Lab credentials target AI product and engineering skill, are issued on a verifiable platform rather than a PDF, and link to the member's actual artifact.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+</div>
+
+<div class="band" id="differs">
+  <div class="wrap">
+    <h2>Where the Lab differs</h2>
+    <p class="lead">The part of the brief that belongs to WAAI. Some of it is settled, and the rest is where leadership's input matters most.</p>
+    <div class="diff wide"><h3>Two purposes, one framework</h3><p>Every program examined does one or the other. Civic tech and Tech Fleet build for an organization, at volunteer scale, with no curriculum. Accelerators and courses teach or launch individuals and build nothing for a community. The Lab runs both on the same framework, the same Council, and the same acceptance checks, so a member who learns on a WAAI product takes the same discipline to her own.</p></div>
+    <div class="diffgrid">
+      <div class="diff hero-diff"><h3>Skill Swap is the curriculum</h3><p>Each member names one skill she offers and one she seeks, and is matched. WAAI members are professional women branching into their own businesses; nearly all carry deep expertise in some domain. The guilds become the standing marketplace: the clinical director teaches the engineer what compliance means, the engineer teaches her how to read a build spec. Every other program has to buy its curriculum. This one grows as membership grows. The Lab is also where WAAI's exchange model is piloted, with the matching and the record of who gave and received built by the Lab itself.</p></div>
+      <div class="diff"><h3>Recruit by Council seat, with depth</h3><p>Two or three members per Council voice rather than one, so teams have backups and bandwidth and no product stalls when someone's life gets busy. Alongside them, recruits who observe and shadow a seat before taking one. This is the direct answer to the maintainer succession problem.</p></div>
+      <div class="diff"><h3>Built for real lives</h3><p>Members have families, jobs, and businesses. Fixed cycles sized to available hours, async rituals, recorded sessions, a showcase instead of a competition. Programs that ask for eighty hours select for a different population. The Lab selects for WAAI's.</p></div>
+    </div>
+    <div class="diff wide"><h3>A path toward founder funding</h3><p>Several members will build products they want to fund. The Lab's artifacts (a North Star, validated evidence, a shipped product with verified quality, a maintainer plan) are close to what early investors ask for. Whether WAAI facilitates introductions or funding, or whether the Lab simply makes members fundable and stops there, is undecided. The appetite is real: FoundHer House drew roughly a hundred applicants for six to eight places.</p><p class="q">Can WAAI help fund founder businesses that come through the Lab?</p></div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<section id="legal">
+  <h2>Legal and ownership notes</h2>
+  <p class="lead">Three questions for counsel to settle before the pilot ships anything. This is a summary for that conversation and is not legal advice.</p>
+  <div class="threeup">
+    <div class="card">
+      <h3>Participation as training</h3>
+      <p>Tech Fleet states in writing that participants are trainees: unpaid, learning, with no promise of a future position. In the US, the Department of Labor's Fact Sheet 71 applies a primary beneficiary test to unpaid work and notes that unpaid roles at nonprofit charities, entered without expecting pay, are generally permissible. WAAI is a 501(c)(3), which helps. The subtlety: Lab products are built for WAAI itself, which can shift who the primary beneficiary is. The educational purpose should be explicit in a written participation agreement. <span class="tag verified">Verified</span></p>
+    </div>
+    <div class="card">
+      <h3>Who owns what members build</h3>
+      <ul>
+        <li>Products built on the Lab roster for WAAI are owned by WAAI, with every contributor credited by name and seat and a standing right to show the work in a portfolio. Organizational ownership is also what prevents orphaned products.</li>
+        <li>Products members build for themselves are owned by the member. WAAI claims nothing. This matches Build Club, Chingu, and Buildspace.</li>
+        <li>The framework, catalog, and course are licensed to WAAI for the Lab. Terms and the public name are open decisions.</li>
+      </ul>
+    </div>
+    <div class="card">
+      <h3>A credential people can put on LinkedIn</h3>
+      <p>Verifiable credential platforms (Credly, Accredible, Sertifier) issue open badges with embedded metadata, one click LinkedIn integration, and third party verification. Credly has the widest recognition, the highest cost, and some lock in; Sertifier is inexpensive with nonprofit pricing; Accredible sits between. A self issued PDF is free, unverifiable, and easily copied. Given how women's work is judged, a verifiable badge that links to the member's artifact is worth the cost. Confirm platform terms before choosing.</p>
+    </div>
+  </div>
+</section>
+
+<section id="partners">
+  <h2>Partners and credits</h2>
+  <p class="lead">What is available to a nonprofit hosted community lab in 2026, ranked by fit. Terms change quickly; confirm on official pages before committing.</p>
+  <div class="ladder">
+    <div class="rung"><b>Claude for Nonprofits</b><span class="tag fit-strong">Strong fit</span><p>Anthropic's announcement offers up to 75 percent off Team and Enterprise plans for verified nonprofits, plus a free AI fluency course. WAAI qualifies as a 501(c)(3). Third party sites report different figures; use the official page.</p></div>
+    <div class="rung"><b>Claude Community Ambassadors</b><span class="tag fit-strong">Strong fit</span><p>Monthly API credits and event support for people who run local builder communities. No developer title required; global by design. Jade's position in the Claude partner network makes this an early conversation.</p></div>
+    <div class="rung"><b>Build Club, Women Who Build AI Pack</b><span class="tag fit-strong">Strong fit</span><p>Free credits, workshops, and mentorship from more than twenty five partners, women specific, no equity. A direct partnership conversation is worth having; at minimum a model for assembling a WAAI pack.</p></div>
+    <div class="rung"><b>Vercel Open Source Program</b><span class="tag fit-strong">Strong fit</span><p>For nonprofits and open source projects, judged on impact and community engagement. The likelier route for Lab products than Vercel's startup program, and it aligns with the toolkit defaults in the framework.</p></div>
+    <div class="rung"><b>Supabase, GitHub</b><span class="tag fit-maybe">Maybe</span><p>Supabase startup credits are often accessed through partner accelerators and pair naturally with Vercel. GitHub for Startups bundles Copilot credits; the student pack applies to student members.</p></div>
+    <div class="rung"><b>AWS Activate, Google for Startups</b><span class="tag fit-maybe">Maybe</span><p>Large credit tiers, generally gated on accelerator or investor affiliation. Dollar amounts on aggregator sites are widely copied and often unconfirmed.</p></div>
+    <div class="rung"><b>Claude for Startups</b><span class="tag fit-no">Unlikely</span><p>Open to join, but the credit award requires an incorporated startup with institutional funding. A community lab probably does not qualify for credits. Relevant to members who spin out companies.</p></div>
+    <div class="rung"><b>Claude Campus</b><span class="tag fit-no">Unlikely</span><p>Student chapters with credits and a paid lead stipend. Relevant only if WAAI develops a university linked chapter.</p></div>
+  </div>
+</section>
+
+<section id="decisions">
+  <h2>Decisions for leadership</h2>
+  <p class="lead">What this brief asks of you.</p>
+  <div class="decisions">
+    <ol>
+      <li>Approve the framework and the program shape for a pilot cycle, using the member app as the first product.</li>
+      <li>Commission legal review of the participation agreement: training framing, and the two ownership defaults.</li>
+      <li>Confirm who at WAAI holds privacy responsibility and will sign releases.</li>
+      <li>Decide the Lab's own leadership succession, so it is never one person.</li>
+      <li>Decide the public name on the framework and the license terms.</li>
+      <li>Choose which partner conversations to open first. Suggested: Claude for Nonprofits, Anthropic Community Ambassadors, Build Club, Vercel open source.</li>
+      <li>Weigh in on the open question of a founder funding path.</li>
+    </ol>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer>
+  <div class="wrap grid2">
+    <p>Sources are the programs' own published materials, peer reviewed research where cited, and press coverage where marked as reported. Figures marked "reported" are self reported or secondhand and were not independently verified.</p>
+    <p>Companion documents: <a href="index.html" style="color:#fff">WAAI Engine Lab: How It Works</a>; The AI Engine Lab Framework (v3), the Activity Catalog (v1), and the Program draft (v1). Full research report available on request.</p>
+  </div>
+</footer>
+
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true" role="dialog" aria-labelledby="drawer-title">
+  <div class="inner">
+    <button class="close" id="drawer-close" type="button">Close</button>
+    <p class="sub" id="drawer-kicker"></p>
+    <h3 id="drawer-title"></h3>
+    <p class="sub" id="drawer-sub"></p>
+    <dl id="drawer-facts"></dl>
+    <div id="drawer-body"></div>
+    <div class="take"><h4>What it means for the Lab</h4><p id="drawer-take"></p></div>
+    <p class="src" id="drawer-src"></p>
+  </div>
+</aside>
+
+<script>
+const PROGRAMS = {
+  lab: {
+    kicker: "Proposed", title: "The AI Engine Lab",
+    sub: "Women Applying AI's product studio and school, on one framework.",
+    facts: [["Entry","Observer with no application; Builder after one completed artifact; Solo founder through the course"],["Cycle","8 weeks, 2 weeks rest"],["Hours","5 to 8 a week"],["Review","Weekly Council session through eight lenses; acceptance check on every activity"],["Gate","Release checklist signed by the Lab Lead"],["Credential","Foundations and Practitioner, earned by artifacts"],["Ownership","WAAI owns Lab products; members own their own"]],
+    body: "<p>Two outputs: products WAAI itself needs, built by member teams for roughly 1,600 members worldwide, and practitioners who leave able to take an idea to a shipped, defensible product. Both run on the same framework, the same Council, and the same discipline of verifying work before accepting it.</p>",
+    take: "This is the row to compare everything else against. The combination of community products, part time hours, and a built in curriculum does not appear anywhere else in the table.",
+    src: ""
+  },
+  tf: {
+    kicker: "Volunteer product apprenticeships", title: "Tech Fleet",
+    sub: "The closest structural match. Three tiers, guilds, and a legal framing worth copying.",
+    facts: [["Entry","Observer, no application; Apprentice and Lead apply, no portfolio or resume needed"],["Cycle","8 week projects for nonprofit clients"],["Hours","About 15 a week expected"],["Structure","Cross functional teams modeled on industry; guilds by discipline; a board"],["Credential","None formal; deliverables usable in a portfolio"],["Ownership","Nonprofit client or open source; member keeps case study rights"],["Cost","Free; 501(c)(3)"]],
+    body: "<p>Anyone can sit in on any team meeting without applying, and Tech Fleet says most members start there to build confidence and learn the framework before committing. Teams are described as the deep end of the pool: accountable for the work, allowed to fail safely, learning to do it for the first time.</p><p>Tech Fleet documents in writing that participants are trainees rather than volunteers or employees, that clients do not expect expert output, and that there is no guarantee of a future position. It reports more than fifty completed programs and over twenty thousand pro bono hours since 2020.</p>",
+    take: "Observer tier, guilds, and the training framing transfer directly. The Lab asks for five to eight hours instead of Tech Fleet's fifteen.",
+    src: "Verified: Tech Fleet user guide and FAQ, techfleet.org."
+  },
+  chingu: {
+    kicker: "Remote team projects for learners", title: "Chingu",
+    sub: "Free six week Voyages gated by a solo project. The cheapest completion lever found.",
+    facts: [["Entry","A solo pre work project, evaluated and used to place the member in a skill tier"],["Cycle","6 weeks"],["Hours","8 to 12 a week"],["Structure","Small remote teams by time zone; leads drawn from prior finishers"],["Review","Weekly check in survey; team meetings once or twice a week"],["Gate","Inactive members are removed from the Voyage"],["Ownership","Team owns its MVP"],["Cost","Free; volunteer run"]],
+    body: "<p>The solo project both prepares the member and lets Chingu form balanced teams. Weekly surveys track team health at almost no cost, and members who disappear are de activated so the rest of the team is not carried. Chingu describes itself as the antidote to tutorial purgatory.</p>",
+    take: "The pre work gate and the weekly async check in are both in the Lab draft. Chingu's hard removal of inactive members becomes a conversation in the Lab, given who WAAI members are.",
+    src: "Verified: Chingu handbook on GitHub."
+  },
+  bcw: {
+    kicker: "Women in AI Accelerator, 2026", title: "Build Club",
+    sub: "Six weeks, six hundred plus members, fifty products, built alongside day jobs. The Lab's most direct comparable.",
+    facts: [["Entry","Application; open to women balancing work and study"],["Cycle","6 weeks"],["Hours","Self paced"],["Structure","Individual builders; some paired with pilot organizations"],["Review","Three workshop sessions plus partner run hands on sessions"],["Gate","Ship a working product; showcase"],["Ownership","Builder owns"],["Cost","Free; 25 plus partners providing perks"]],
+    body: "<p>Build Club's own write up describes a cohort of people balancing the program with jobs and study, and frames the point as learning faster rather than shipping fastest. The winning project was built alongside a real pilot organization from the first week; the team credits that for the depth of the work. Build Club also runs a Women Who Build AI Pack of free credits and tools.</p><p>Its flagship accelerator is the opposite model: highly selective, near full time, daily code reviews, demo day to investors, zero equity taken.</p>",
+    take: "Proof that a part time women's cohort ships real products in six weeks. The Lab has Build Club's best ingredient built in: the pilot organization is WAAI.",
+    src: "Verified: Build Club's write up, July 2026."
+  },
+  bca: {
+    kicker: "Flagship AI accelerator", title: "Build Club accelerator",
+    sub: "Selective, intensive, founder focused, zero equity.",
+    facts: [["Entry","Highly selective; one cohort took 18 startups from 156 applicants"],["Cycle","6 weeks"],["Hours","Near full time; co working around the clock"],["Review","Daily accountability code reviews; shared objectives"],["Gate","Technical demo day to customers and investors"],["Ownership","Founders keep all equity"],["Cost","Free; cloud credits from major providers"]],
+    body: "<p>Founders are each other's team. The program runs as a hacker space with workshops and mentors and ends with a demo day. It is a strong model for founder momentum and a poor model for anyone with a family or a job.</p>",
+    take: "Relevant to the open question of a founder funding path rather than to the Lab's core design.",
+    src: "Verified: Build Club program materials."
+  },
+  cbc: {
+    kicker: "Anthropic's campus program", title: "Claude Builder Clubs",
+    sub: "Student led chapters with project pods, credits, and a paid lead stipend.",
+    facts: [["Entry","Student led; club leads apply per cohort"],["Cycle","Term based"],["Structure","Officers and members; project pods that ship together"],["Review","Demo nights, workshops, hackathons"],["Credential","None formal"],["Ownership","Member owns"],["Resources","Claude Pro access and monthly API credits shared through the club; lead stipend reported at 3,600 dollars for 2026 to 2027"]],
+    body: "<p>More than seventy five university chapters. The mechanism worth noting is the pod plus credits model: small groups shipping together in a high accountability setting, with the model access funded. The campus structure itself does not apply to WAAI unless a university linked chapter emerges.</p>",
+    take: "A template for how a partner funds credits through a community organizer, which is the shape of the Community Ambassador conversation.",
+    src: "Verified: claude.com campus program page and individual club sites; stipend figure from club materials."
+  },
+  bs: {
+    kicker: "Closed August 2024", title: "Buildspace",
+    sub: "Free six week nights and weekends program. Roughly 150,000 participants over five seasons. Shut down by its founder.",
+    facts: [["Entry","Open; a short video application"],["Cycle","6 weeks"],["Hours","Nights and weekends"],["Review","Challenge based: create, get feedback, market"],["Gate","Emphasis on shipping real products over pitch decks"],["Credential","None"],["Ownership","Builder owns"],["Cost","Free; venture backed"]],
+    body: "<p>Buildspace had just completed its largest season and had more than two years of cash when it closed. The founder's letter said he could not find the next path to grow it. Commentators observed that it was a community and a brand more than an operation someone else could take over, and that its tooling was improvised across email, chat, live video, and social platforms with no single system of record.</p>",
+    take: "The clearest warning about founder dependency. The Lab's answer is documentation from day one, guild leads who share the load, and a leadership succession decision made now.",
+    src: "Reported: third party accounts of the founder's letter. Participant figures are self reported."
+  },
+  gauntlet: {
+    kicker: "Employer funded intensive", title: "Gauntlet AI",
+    sub: "An anti model for us: 80 to 100 hours a week, aptitude tested, residential.",
+    facts: [["Entry","Cognitive aptitude test; about 2 percent accepted"],["Cycle","10 to 12 weeks, mostly in Austin"],["Hours","80 to 100 a week"],["Review","Ship production systems weekly under pressure"],["Credential","Job placement with hiring partners"],["Cost","Free; housing and food covered by hiring partners"]],
+    body: "<p>The founder has said publicly that the schedule is impossible for people with families and that the program does not manage for gender or racial balance. It works for the two percent it admits.</p>",
+    take: "Nothing to borrow. It shows what a program looks like when it optimizes for intensity, which is exactly what the Lab will not do.",
+    src: "Verified: founder's public statements."
+  },
+  pf: {
+    kicker: "Paid cohort fellowship", title: "Product Faculty AI Builder Fellowship",
+    sub: "Certification earned by shipping a capstone.",
+    facts: [["Entry","Paid membership; no coding prerequisite"],["Cycle","Live cohorts across several courses"],["Hours","4 to 6 a week"],["Review","Live sessions; capstone review"],["Gate","Hands on capstone; the program's own line is that it certifies for shipping, not watching"],["Credential","AI PM certification"],["Ownership","Fellow owns the capstone"],["Cost","Paid"]],
+    body: "<p>Taught by practitioners from major AI labs. The ninth cohort showcased sixty nine products, each with a working demo and a product document. The hours are close to the Lab's and the credential logic is the same.</p>",
+    take: "The artifact based certification mechanic, minus the price.",
+    src: "Verified: Product Faculty site and capstone showcase."
+  },
+  aim: {
+    kicker: "Paid engineering bootcamp", title: "AI Makerspace",
+    sub: "Weekly build requirement, a certification challenge, and a demo day.",
+    facts: [["Entry","Selective application; paid"],["Cycle","7 to 10 weeks"],["Hours","10 plus a week; heavier in certification week"],["Review","Live evening sessions with breakout feedback"],["Gate","Week six certification challenge; demo day"],["Credential","AI Engineer certification, two year validity"],["Ownership","Builder owns; some projects became startups"],["Cost","Roughly 4 to 5 thousand dollars"]],
+    body: "<p>Open source curriculum, live instruction twice a week, and a requirement to build every week. The certification expires after two years, which keeps it honest as the field moves.</p>",
+    take: "The weekly build requirement and the time limited credential are both worth considering for the Practitioner track.",
+    src: "Verified: AI Makerspace site."
+  },
+  fh: {
+    kicker: "Women only founder residency", title: "FoundHer House",
+    sub: "Three months, full time, six to eight residents, demo day to investors.",
+    facts: [["Entry","Application and interview; roughly a hundred applicants for six to eight places"],["Cycle","3 month residency"],["Hours","Full time"],["Structure","All female residents; independent by day, collaborative"],["Review","Peer support, workshops, mentors"],["Gate","Demo day, reported at around 200 investors"],["Credential","None"],["Ownership","Founder owns"],["Cost","Subsidized rent; venture backed"]],
+    body: "<p>Houses in New York and San Francisco. Residents have reportedly raised several million dollars. It demonstrates demand for women only building environments and the value of high trust, collaboration over competition culture. It requires full time residence, which rules out caregivers and anyone with a job.</p>",
+    take: "Evidence of appetite for the founder funding path, and a culture reference. Not a structural model.",
+    src: "Reported: press coverage of the houses and their demo days."
+  },
+  sheai: {
+    kicker: "Global women's AI learning community", title: "SheAI and the AI Sisterhood",
+    sub: "Free community, paid courses, a four week bootcamp, a three day buildathon.",
+    facts: [["Entry","Free community tier; paid courses; scholarships"],["Cycle","4 week bootcamp; 3 day buildathon"],["Hours","Light, evenings"],["Structure","Community with brand ambassadors in more than twenty countries"],["Review","Community feedback"],["Gate","Submit a project by the last buildathon day"],["Credential","Certificates of completion, described as UN recognized"],["Ownership","Member owns"],["Cost","Free tier; paid courses"]],
+    body: "<p>Positioned for women who want to apply AI in their own field rather than build products from scratch. Reports more than a thousand members. Certifies everyone who submits, which is the non competitive showcase model.</p>",
+    take: "The adjacent community. SheAI teaches members to apply AI in their own fields, which leaves building products to the Lab.",
+    src: "Verified: SheAI program pages."
+  },
+  civic: {
+    kicker: "Volunteer tech for the public good", title: "Civic tech brigades and DemocracyLab",
+    sub: "Open, rolling volunteer product work. The richest source of post mortems.",
+    facts: [["Entry","Open; volunteers self select projects"],["Cycle","Ongoing, no fixed end"],["Hours","Volunteer defined"],["Structure","Volunteer teams under a project lead"],["Review","Project lead defined"],["Gate","Deployed, in progress, or MVP status"],["Credential","None"],["Ownership","Project owner, usually a nonprofit"],["Scale","DemocracyLab reports 300 plus projects and 7,000 plus volunteers over five years"]],
+    body: "<p>Real tools, real users, no fixed cycle and no fixed hours. The model produces a lot of starts and, as the post mortems document, a lot of stalls when the original volunteers move on and nobody was named to take over.</p>",
+    take: "The strongest argument for the Lab's release checklist: named maintainer, succession plan, scope and sunset, organizational ownership.",
+    src: "Verified: DemocracyLab and Code for America materials; ACM Interactions on discontinued civic tech."
+  }
+};
+
+const drawer = document.getElementById('drawer');
+const scrim = document.getElementById('scrim');
+let lastFocus = null;
+
+function openProgram(id){
+  const p = PROGRAMS[id]; if(!p) return;
+  lastFocus = document.activeElement;
+  document.getElementById('drawer-kicker').textContent = p.kicker;
+  document.getElementById('drawer-title').textContent = p.title;
+  document.getElementById('drawer-sub').textContent = p.sub;
+  document.getElementById('drawer-facts').innerHTML = p.facts.map(f => `<dt>${f[0]}</dt><dd>${f[1]}</dd>`).join('');
+  document.getElementById('drawer-body').innerHTML = p.body;
+  document.getElementById('drawer-take').textContent = p.take;
+  document.getElementById('drawer-src').textContent = p.src;
+  drawer.classList.add('on'); scrim.classList.add('on');
+  drawer.setAttribute('aria-hidden','false');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('drawer-close').focus();
+}
+function closeDrawer(){
+  drawer.classList.remove('on'); scrim.classList.remove('on');
+  drawer.setAttribute('aria-hidden','true');
+  document.body.style.overflow = '';
+  if(lastFocus) lastFocus.focus();
+}
+document.querySelectorAll('[data-program]').forEach(el => {
+  el.addEventListener('click', () => openProgram(el.dataset.program));
+  el.addEventListener('keydown', e => { if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); openProgram(el.dataset.program); } });
+});
+document.getElementById('drawer-close').addEventListener('click', closeDrawer);
+scrim.addEventListener('click', closeDrawer);
+document.addEventListener('keydown', e => { if(e.key === 'Escape' && drawer.classList.contains('on')) closeDrawer(); });
+</script>
+</body>
+</html>
