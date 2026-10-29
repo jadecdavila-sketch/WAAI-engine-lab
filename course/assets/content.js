@@ -263,7 +263,7 @@ const CONTENT = {
         why: "Each principle carries a test a reviewer can run in one breath. Without the test, nobody can tell whether a decision honors it." },
       { m: 2, q: "Where do new anti patterns come from after the first draft?",
         a: ["From Council runs. When a tension is called, the losing side can be added with the run it came from.", "From the competitor list.", "From the Lab Lead's style guide.", "They are fixed at Discovery and never change."],
-        why: "Anti patterns are earned. Counterpoint's list starts with what Discovery heard, and the ones still marked proposed wait for a Council run to settle them." },
+        why: "Anti patterns are earned. Counterpoint's list started in Discovery, and it grows as Council runs record what was refused and why." },
       { m: 1, q: "In a review, the Council's job is to:",
         a: ["Surface the tensions between voices and record them as decisions the team faces.", "Vote on the best option.", "Approve or reject the work.", "Decide who was at fault."],
         why: "The Council does not vote. It surfaces tensions. Where voices disagree, the disagreement is the artifact." },
