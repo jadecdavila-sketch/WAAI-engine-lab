@@ -101,7 +101,20 @@ header.hero{background:var(--cream);color:var(--ink);padding:40px 0 34px;border-
 .lobe .ask{font-weight:700;color:var(--teal-deep);font-size:15px}
 .problink{font:inherit;font-size:14px;font-weight:700;color:var(--orange);background:none;border:0;padding:0;margin-top:10px;cursor:pointer;border-bottom:2px solid var(--orange)}
 .problink:hover{color:var(--ink);border-color:var(--ink)}
-@media(max-width:760px){ .lobes{grid-template-columns:1fr} .lobe{border-right:0;border-bottom:2px solid var(--ink)} .lobe:last-child{border-bottom:0} }
+@media(max-width:760px){ .lobes{grid-template-columns:1fr} .lobe{border-right:0;border-bottom:2px solid var(--ink)} .lobe:last-child{border-bottom:0} .lobes.two{grid-template-columns:1fr} .journey-row{grid-template-columns:1fr} .foundation-row .fhead{grid-template-columns:1fr} .foundation-row .facts{text-align:left;white-space:normal} }
+.journey-row{display:grid;grid-template-columns:96px 1fr;gap:24px;align-items:center;border:2px solid var(--ink);background:var(--paper);padding:24px 28px;margin:0 0 22px;color:inherit;text-decoration:none;transition:transform .2s,box-shadow .2s}
+.journey-row:hover{transform:translateY(-2px);box-shadow:0 10px 24px rgba(0,0,0,.1)}
+.journey-row .ico{width:96px;height:96px;display:block}
+.journey-row h3{font-size:24px;font-weight:900;font-stretch:90%;margin:0 0 8px}
+.journey-row p{font-size:15px;margin:0 0 8px}
+.journey-row .ask{font-weight:700;color:var(--teal-deep);margin:0}
+.lobes.two{grid-template-columns:1fr 1fr}
+.foundation-row{border:2px solid var(--ink);background:var(--paper);margin-top:22px;padding:24px 28px 28px}
+.foundation-row .fhead{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.foundation-row .fhead p{max-width:72ch}
+.foundation-row .facts{text-align:right;white-space:nowrap}
+.foundation-row .facts .problink{margin-top:6px}
+.foundation-row .atlas{margin-top:20px}
 .around{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:22px}
 .around .card p{font-size:15px}
 @media(max-width:760px){ .around{grid-template-columns:1fr} }

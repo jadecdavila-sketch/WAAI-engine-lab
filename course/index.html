@@ -9,6 +9,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/course.css">
+<link rel="stylesheet" href="assets/atlas.css">
 </head>
 <body data-page="home">
 <div class="top"><div class="wrap">
@@ -63,8 +64,16 @@
 
 <section id="lobes">
   <h2>The Counterpoint framework</h2>
-  <p class="lead">Three parts govern every project. Around them runs a ten stage journey that takes products from 'good' to 'great.'</p>
-  <div class="lobes">
+  <p class="lead">A ten stage journey takes products from 'good' to 'great.' Three parts govern every stage: the North Star, the Council, and the Foundation.</p>
+  <a class="journey-row" href="journey.html">
+    <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"><circle cx="36" cy="36" r="26" stroke="#000"/><g fill="#FFFDF8"><circle cx="36" cy="10" r="3.6"/><circle cx="51.3" cy="15" r="3.6"/><circle cx="60.7" cy="28" r="3.6"/><circle cx="60.7" cy="44" r="3.6"/><circle cx="51.3" cy="57" r="3.6"/><circle cx="36" cy="62" r="3.6"/><circle cx="20.7" cy="57" r="3.6"/><circle cx="11.3" cy="44" r="3.6"/><circle cx="11.3" cy="28" r="3.6"/><circle cx="20.7" cy="15" r="3.6"/></g><circle cx="36" cy="10" r="3.6" fill="#C7481B" stroke="#C7481B"/><path d="M30 36h12M38 32l4 4-4 4" stroke="#0E6B66"/></svg>
+    <div>
+      <h3>The Journey</h3>
+      <p>Ten stages from Discovery to Scale. Each has a question, a definition of done, and the Council voices that lead it. A gate at the end of each stage is a Council review held to the North Star. Inside the stages sit eighty nine activities, each naming who drives, what AI can carry, what a human must own, and how the human knows it was done right.</p>
+      <p class="ask">Module 3 walks all ten.</p>
+    </div>
+  </a>
+  <div class="lobes two">
     <div class="lobe">
       <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="36" cy="36" r="30" stroke="#D9D0C0"/><circle cx="36" cy="36" r="20" stroke="#D9D0C0"/><path d="M36 8v56M8 36h56" stroke="#D9D0C0"/><path d="M36 14 L40.5 31.5 L58 36 L40.5 40.5 L36 58 L31.5 40.5 L14 36 L31.5 31.5 Z" fill="#FBE9E0"/><path d="M36 14 L40.5 31.5 L58 36 L40.5 40.5 L36 58 L31.5 40.5 L14 36 L31.5 31.5 Z"/><circle cx="36" cy="36" r="3.5" fill="#C7481B" stroke="#C7481B"/></svg>
       <h3>The Product North Star</h3>
@@ -79,18 +88,21 @@
       <p class="ask">Critique is structured, expected, and safe.</p>
       <button type="button" class="problink" data-problem="council">View the problem this solves</button>
     </div>
-    <div class="lobe">
-      <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 18h48v40H12z" fill="#FFFDF8"/><path d="M12 28h48M12 38h48M12 48h48" stroke="#D9D0C0"/><path d="M18 23h14M18 33h22M18 43h18M18 53h26" stroke="#0E6B66"/><path d="M30 8 L36 14 L42 8" /><path d="M36 14v4"/><circle cx="52" cy="53" r="6" fill="#C7481B" stroke="#C7481B"/><path d="M49.5 53l2 2 3.5-4" stroke="#fff" stroke-width="1.6"/></svg>
-      <h3>The Foundation</h3>
-      <p>Living documentation every person and every agent reads before touching the codebase and updates before leaving it. A pre push hook makes the workflow binding.</p>
-      <p class="ask">The handoff document is always current.</p>
-      <a class="problink" href="foundation.html" style="display:inline-block;text-decoration:none;margin-bottom:8px">See the living documentation atlas</a><br>
-      <button type="button" class="problink" data-problem="foundation">View the problem this solves</button>
-    </div>
   </div>
-  <div class="around">
-    <div class="card"><h3>The Journey</h3><p>Ten stages from Discovery to Scale. Each has a question, a definition of done, and the Council voices that lead it. A gate at the end of each stage is a Council review held to the North Star.</p></div>
-    <div class="card"><h3>The Activity Catalog</h3><p>Eighty nine activities across the ten stages. Each names who drives (human or AI), what AI can carry, what a human must own, and how the human knows it was done right.</p></div>
+  <div class="lobe foundation-row">
+    <div class="fhead">
+      <div>
+        <h3>The Foundation</h3>
+        <p>Living documentation every person and every agent reads before touching the codebase and updates before leaving it. A pre push hook makes the workflow binding. Drawn here as a road atlas of one real codebase, Larkin's. Hover or tap any marker.</p>
+        <p class="ask">The handoff document is always current.</p>
+      </div>
+      <div class="facts">
+        <a class="problink" href="foundation.html" style="display:inline-block;text-decoration:none">The full page, with the key</a><br>
+        <button type="button" class="problink" data-problem="foundation">View the problem this solves</button>
+      </div>
+    </div>
+    <div class="atlas" id="atlas"></div>
+    <div class="atlas-detail" id="atlas-detail" aria-live="polite"></div>
   </div>
 </section>
 
@@ -119,6 +131,8 @@
 <script src="assets/data.js"></script>
 <script src="assets/content.js"></script>
 <script src="assets/course.js"></script>
+<script src="assets/atlas.js"></script>
+<script>Atlas.mount(document.getElementById('atlas'), document.getElementById('atlas-detail'));</script>
 
 </body>
 </html>
