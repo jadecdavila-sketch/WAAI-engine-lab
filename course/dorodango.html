@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Dorodango, Counterpoint Foundations</title>
+<meta name="description" content="Counterpoint is not a magic button. Building a product is still the craft of polishing the dorodango.">
+<link rel="icon" href="assets/img/mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+<style>
+  /* the talk slide: full screen, the course's own look */
+  body.slide{min-height:100vh;display:flex;flex-direction:column}
+  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 56px}
+  .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
+  .talk h1{font-size:clamp(36px,5.2vw,76px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 36px}
+  .arc{display:flex;gap:36px;align-items:flex-end}
+  .arc figcaption{min-height:2.7em}
+  .arc figure{margin:0;flex:0 0 auto;position:relative}
+  .arc figure:nth-child(1),.arc figure:nth-child(2){width:17.5%}
+  .arc figure:nth-child(3),.arc figure:nth-child(4){width:23.4%}
+  .arc .ph{display:block;width:100%;aspect-ratio:1/1.1;background:var(--sand) center/cover no-repeat;border-radius:4px;box-shadow:0 12px 32px rgba(17,17,17,.14);transition:transform .45s var(--ease),box-shadow .45s var(--ease);transform-origin:50% 100%;cursor:zoom-in}
+  .arc figure:nth-child(n+3) .ph{aspect-ratio:1/1}
+  .arc figure:hover .ph,.arc figure:focus-within .ph{transform:scale(1.55);box-shadow:0 30px 70px rgba(17,17,17,.3);z-index:5;position:relative}
+  .arc figure:hover,.arc figure:focus-within{z-index:5}
+  .arc figure:nth-child(1):hover .ph{transform-origin:0 100%}
+  .arc figure:nth-child(4):hover .ph{transform-origin:100% 100%}
+  .arc figcaption{margin:14px 0 0;font-size:15.5px;line-height:1.35;color:var(--mute)}
+  .arc figcaption b{color:var(--ink);font-weight:800}
+  .arc .ph:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
+  .rule{width:72px;height:4px;background:var(--orange);margin:44px 0 22px}
+  .close{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(20px,2.2vw,32px);line-height:1.25;margin:0;max-width:40ch}
+  .talk .hint{margin:18px 0 0;font-size:13px}
+  @media(max-width:900px){
+    .arc{flex-wrap:wrap;gap:20px}
+    .arc figure:nth-child(n){width:calc(50% - 10px)}
+    .arc figure:hover .ph,.arc figure:focus-within .ph{transform:scale(1.15)}
+    .talk h1{margin-bottom:24px}
+  }
+</style>
+</head>
+<body class="slide">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark.png" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <p class="where">Session one, the talk</p>
+</div></div>
+
+<main class="talk"><div class="wrap">
+  <p class="kicker">The ancient Japanese craft of hikaru dorodango</p>
+  <h1>Counterpoint is not a magic button.</h1>
+  <div class="arc">
+    <figure>
+      <a class="ph" href="assets/img/dorodango-1.png" style="background-image:url(assets/img/dorodango-1.png);background-position:50% 75%" aria-label="Two children shaping balls of wet mud with their hands" tabindex="0"></a>
+      <figcaption><b>Mud.</b> An idea, and wet hands.</figcaption>
+    </figure>
+    <figure>
+      <a class="ph" href="assets/img/dorodango-2.png" style="background-image:url(assets/img/dorodango-2.png);background-position:50% 95%" aria-label="A child holding a smooth, shaped ball of damp earth" tabindex="0"></a>
+      <figcaption><b>Shaped.</b> It holds. It is not done.</figcaption>
+    </figure>
+    <figure>
+      <a class="ph" href="assets/img/dorodango-3.jpg" style="background-image:url(assets/img/dorodango-3.jpg);background-position:78% 50%" aria-label="A drying mud ball resting in a glass on a kitchen counter" tabindex="0"></a>
+      <figcaption><b>Polished.</b> Pass after pass, cleaner each time.</figcaption>
+    </figure>
+    <figure>
+      <a class="ph" href="assets/img/dorodango-4.jpg" style="background-image:url(assets/img/dorodango-4.jpg);background-position:50% 50%" aria-label="Five finished dorodango, glossy as stone, on small stands" tabindex="0"></a>
+      <figcaption><b>Stone.</b> Still just mud. Nobody can tell.</figcaption>
+    </figure>
+  </div>
+  <div class="rule"></div>
+  <p class="close">Building a product is still this. Counterpoint holds the other end.</p>
+  <p class="hint">Hover a photo to look closer. Click it to open it full size.</p>
+</div></main>
+
+<footer><div class="wrap">
+  <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
+</div></footer>
+<script>
+  /* click opens the photo in a new tab; the hover grow is pure CSS */
+  document.querySelectorAll('.arc .ph').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });
+</script>
+</body>
+</html>
