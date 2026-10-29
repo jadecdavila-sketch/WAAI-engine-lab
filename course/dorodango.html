@@ -12,7 +12,7 @@
 <style>
   /* the talk slide: full screen, the course's own look */
   body.slide{min-height:100vh;display:flex;flex-direction:column}
-  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 56px}
+  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 88px}
   .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
   .talk h1{font-size:clamp(36px,5.2vw,76px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 36px}
   .arc{display:flex;gap:36px;align-items:flex-end}
@@ -31,6 +31,13 @@
   .arc .ph:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
   .rule{width:72px;height:4px;background:var(--orange);margin:44px 0 22px}
   .close{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(20px,2.2vw,32px);line-height:1.25;margin:0;max-width:calc(81.8% + 108px)}
+  /* talk navigation: arrow keys and a corner link */
+  .tnav{position:fixed;right:22px;bottom:18px;display:flex;gap:10px;z-index:9}
+  .tnav a{background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:9px 14px;border:2px solid var(--ink)}
+  .tnav a:hover{background:#fff;color:var(--ink)}
+  .tnav a.prev{background:transparent;color:var(--ink)}
+  .tnav a.prev:hover{background:var(--ink);color:#fff}
+  @media(max-width:560px){ .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
   @media(max-width:900px){
     .arc{flex-wrap:wrap;gap:20px}
     .arc figure:nth-child(n){width:calc(50% - 10px)}
@@ -70,10 +77,20 @@
   <div class="rule"></div>
   <p class="close">Building a product is still the slow and steady craft of iteration and polish, turn by turn, until it shines.</p>
 </div></main>
+<nav class="tnav" aria-label="Talk"><a class="next" href="next-steps.html">Next: next steps &rarr;</a></nav>
 
 <footer><div class="wrap">
   <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
 </div></footer>
+<script>
+  /* right arrow or space goes forward, left arrow goes back */
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea')) return;
+    const nxt = document.querySelector('.tnav a.next'), prv = document.querySelector('.tnav a.prev');
+    if ((e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') && nxt) { e.preventDefault(); location.href = nxt.href; }
+    if ((e.key === 'ArrowLeft' || e.key === 'PageUp') && prv) { e.preventDefault(); location.href = prv.href; }
+  });
+</script>
 <script>
   /* click opens the photo in a new tab; the hover grow is pure CSS */
   document.querySelectorAll('.arc .ph').forEach(a => { a.target = '_blank'; a.rel = 'noopener'; });

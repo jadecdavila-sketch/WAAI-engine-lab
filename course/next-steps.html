@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="assets/course.css">
 <style>
   body.slide{min-height:100vh;display:flex;flex-direction:column}
-  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 56px}
+  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 88px}
   .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
   .talk h1{font-size:clamp(36px,5.2vw,76px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 12px}
   .talk .lede{font-size:clamp(17px,1.5vw,21px);color:var(--mute);margin:0 0 40px;max-width:60ch}
@@ -28,6 +28,13 @@
   .then{margin:40px 0 0;display:flex;gap:28px;align-items:center;border-top:3px solid var(--ink);padding-top:26px}
   .then .lbl{flex:none;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
   .then p{margin:0;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(19px,1.9vw,27px);line-height:1.25}
+  /* talk navigation: arrow keys and a corner link */
+  .tnav{position:fixed;right:22px;bottom:18px;display:flex;gap:10px;z-index:9}
+  .tnav a{background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:9px 14px;border:2px solid var(--ink)}
+  .tnav a:hover{background:#fff;color:var(--ink)}
+  .tnav a.prev{background:transparent;color:var(--ink)}
+  .tnav a.prev:hover{background:var(--ink);color:#fff}
+  @media(max-width:560px){ .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
   @media(max-width:960px){ .steps{grid-template-columns:1fr 1fr} }
   @media(max-width:560px){ .steps{grid-template-columns:1fr} .then{flex-direction:column;align-items:flex-start;gap:10px} }
 </style>
@@ -41,7 +48,7 @@
 <main class="talk"><div class="wrap">
   <p class="kicker">Before session two</p>
   <h1>Next steps.</h1>
-  <p class="lede">Four things, on your own time. The code is your seat in session two.</p>
+  <p class="lede">Four things, on your own time, all in one place: the course and the Lab channel. The code is your seat in session two.</p>
   <div class="steps">
     <div class="step">
       <div class="n">1</div>
@@ -58,24 +65,34 @@
     <div class="step">
       <div class="n">3</div>
       <h3>Post your completion code</h3>
-      <p>When you pass, type your name and the page gives you a code like <b>CP-XXXX-XXXX</b>. Post it in <b>#ws-ai-engine-lab</b>.</p>
+      <p>When you pass, type your name and the page gives you a code like <b>CP-XXXX-XXXX</b>. Post it in <b>#ws-ai-engine-lab</b> on Slack.</p>
       <a class="go" href="quiz.html">Get the code</a>
     </div>
     <div class="step">
       <div class="n">4</div>
       <h3>Sign up for session two</h3>
-      <p>We install the Counterpoint plugin and you <b>write your own North Star</b>, where the Council can read it. Bring a product idea.</p>
-      <a class="go" href="[SESSION TWO SIGNUP LINK]">Sign up</a>
+      <p>Sign up happens in <b>#ws-ai-engine-lab</b> too, when the date is posted. We install the Counterpoint plugin and you <b>write your own North Star</b>. Bring a product idea.</p>
+      <a class="go" href="quiz.html#verify" style="visibility:hidden" aria-hidden="true">.</a>
     </div>
   </div>
   <div class="then">
-    <span class="lbl">Not yet in the Lab?</span>
-    <p>Fill in the <a href="../intake.html">Lab intake</a> so we know where you stand on the nine Councils. It takes about ten minutes.</p>
+    <span class="lbl">After session two</span>
+    <p>The Lab intake, where you tell us where you stand on each of the nine Councils, and we form the first teams.</p>
   </div>
 </div></main>
+<nav class="tnav" aria-label="Talk"><a class="prev" href="dorodango.html">&larr; Dorodango</a><a class="next" href="index.html">The course home &rarr;</a></nav>
 
 <footer><div class="wrap">
   <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
 </div></footer>
+<script>
+  /* right arrow or space goes forward, left arrow goes back */
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea')) return;
+    const nxt = document.querySelector('.tnav a.next'), prv = document.querySelector('.tnav a.prev');
+    if ((e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') && nxt) { e.preventDefault(); location.href = nxt.href; }
+    if ((e.key === 'ArrowLeft' || e.key === 'PageUp') && prv) { e.preventDefault(); location.href = prv.href; }
+  });
+</script>
 </body>
 </html>
