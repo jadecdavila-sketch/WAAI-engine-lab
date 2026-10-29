@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The Council, Counterpoint Foundations</title>
+<meta name="description" content="One voice of the Counterpoint Council in full: its members, their war stories and toolkits, and a five question check.">
+<link rel="icon" href="assets/img/mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="council">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark.png" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <div class="score" id="score" aria-label="Course progress"></div>
+  <p class="where" id="where"><b>Module 1</b> of 3</p>
+</div></div>
+
+<header class="vhero" id="vhero"></header>
+
+<main>
+<div class="wrap" id="vbody"></div>
+</main>
+
+<section class="coda"><div class="wrap">
+  <div><h2 id="coda-h">Next voice</h2><p id="coda-p"></p></div>
+  <a class="next" id="coda-next" data-own="1" href="council.html">Back to the Council</a>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 6px">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI. Larkin's North Star appears with permission as the worked example.</p>
+  <p style="margin:0"><a href="../index.html">How the Lab works</a> &nbsp;&nbsp; <a href="quiz.html#verify">Verify a completion code</a> &nbsp;&nbsp; <button type="button" id="reset">Reset my progress on this device</button> &nbsp;&nbsp; <button type="button" id="openall"></button></p>
+</div></footer>
+<script src="assets/data.js"></script>
+<script src="assets/councils.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/course.js"></script>
+<script>
+(function(){
+  const {$, $$, h, esc, ORDER, IMG, THUMB, state, mark, frame, footer} = CF;
+  const id = new URLSearchParams(location.search).get('v');
+  const v = VOICES[id];
+  if (!v) { location.replace('council.html'); return; }
+  const d = DEPTH[id] || {members:{}};
+  const idx = ORDER.indexOf(id), n = idx + 1;
+  const prev = ORDER[idx - 1], next = ORDER[idx + 1];
+  document.title = v.name + ', Counterpoint Foundations';
+  $('#where').innerHTML = '<b>Module 1</b>, voice ' + n + ' of 9';
+
+  /* hero */
+  $('#vhero').append(h('div', {class:'wrap grid'},
+    h('div', null,
+      h('a', {class:'back', href:'council.html'}, 'The Council, all nine voices'),
+      h('p', {class:'kicker'}, 'Voice ' + n + ' of 9 · ' + v.council),
+      h('h1', null, v.name),
+      h('p', {class:'ask'}, v.ask),
+      h('p', {class:'lede'}, v.personality)),
+    h('div', {class:'art', style:`background-image:url(${IMG(id)})`, role:'img', 'aria-label': v.name})));
+
+  const body = $('#vbody');
+  const section = (title, lead, ...kids) => h('section', {class:'vsec'}, h('h2', null, title), lead ? h('p', {class:'lead'}, lead) : null, ...kids);
+
+  /* at a glance */
+  body.append(section('At a glance', null,
+    h('div', {class:'read'},
+      h('div', {class:'card'}, h('dl', {class:'kv'},
+        h('dt', null, 'Pillars'), h('dd', null, v.pillars),
+        h('dt', null, 'Cares about'), h('dd', null, v.cares),
+        h('dt', null, 'Loudest at'), h('dd', null, v.loudest),
+        h('dt', null, 'Lab roles'), h('dd', null, v.roles))),
+      h('div', {class:'card'}, h('h3', null, 'In their words'), h('div', {class:'pull'}, h('p', null, v.quote)))),
+    h('div', {class:'speaks'}, h('p', {class:'kicker'}, 'The council speaks'), h('p', null, v.speaks))));
+
+  /* where this voice shows up on the Journey */
+  const stages = STAGES.map(s => ({s, x: s.voices.find(x => NAMES[x.voice] === id)})).filter(o => o.x);
+  if (stages.length) {
+    body.append(section('Across the Journey', 'Where this voice leads, and where it is in the room. Open the Journey module for each stage in full.',
+      h('ul', {class:'vstages'}, stages.map(({s, x}) => h('li', {class: x.primary ? 'primary' : ''},
+        h('div', {class:'sn'}, s.n), h('div', null, h('b', null, s.title, h('span', null, x.primary ? 'Leads' : 'Present')), h('p', null, x.text)))))));
+  }
+
+  /* the members, in full */
+  const members = h('div', {class:'vmembers'});
+  v.members.forEach((m, i) => {
+    const x = d.members[m.name];
+    const card = h('article', {class:'vmember'});
+    card.append(h('p', {class:'kicker'}, m.pillar), h('h3', null, m.name), h('p', {class:'who'}, x ? x.who : m.who));
+    const fold = (title, kids, open) => { const det = h('details', open ? {open:''} : null, h('summary', null, title)); det.append(...[].concat(kids)); return det; };
+    if (x && x.wisdom.length) card.append(fold('Core wisdom', h('ul', {class:'wisdom'}, x.wisdom.map(w => h('li', null, w))), true));
+    if (x && x.stories.length) card.append(fold('War stories', h('div', {class:'stories'}, x.stories.map(s => h('div', {class:'story'}, h('b', null, s.title), h('p', null, s.description))))));
+    if (x && Object.keys(x.toolkit).length) card.append(fold('Toolkit', [
+      h('dl', {class:'kv tk'}, Object.entries(x.toolkit).flatMap(([k, t]) => [h('dt', null, k), h('dd', null, t)])),
+      h('p', {class:'hint'}, 'Starting points, not requirements. Each team picks its tools per project.')]));
+    if (x && (x.allies.length || x.tensions.length)) card.append(fold('Allies and tensions', h('div', {class:'at'},
+      x.allies.length ? h('div', null, h('h4', null, 'Allies'), h('ul', null, x.allies.map(a => h('li', null, a)))) : null,
+      x.tensions.length ? h('div', {class:'ten'}, h('h4', null, 'Tensions'), h('ul', null, x.tensions.map(a => h('li', null, a)))) : null)));
+    const qs = x && x.questions.length ? x.questions : [m.asks];
+    card.append(fold('Questions they ask', h('ul', {class:'qlist'}, qs.map(q => h('li', null, q))), !x));
+    members.append(card);
+  });
+  body.append(section('The members of this council', 'One per pillar. Teach the voice; use the members as the reference layer and as the prompts behind the AI critics.', members));
+
+  /* how this voice pushes on the others (where the source has it) */
+  if (d.pushes && d.pushes.length) {
+    body.append(section('Where it pushes on the other voices', 'Tensions this voice expects to meet on nearly every product.',
+      h('ul', {class:'pushes'}, d.pushes.map(p => h('li', null, h('a', {href:'voice.html?v=' + p.voice}, h('span', {class:'th', style:`background-image:url(${THUMB(p.voice)})`}), VOICES[p.voice].name), h('p', null, p.text))))));
+  }
+
+  /* the five question check */
+  const ex = h('div', {class:'ex', id:'ex-voice'});
+  body.append(h('section', {class:'vsec'}, ex));
+  const shuffle = a => { for (let j = a.length - 1; j > 0; j--) { const k = Math.floor(Math.random() * (j + 1)); [a[j], a[k]] = [a[k], a[j]]; } return a; };
+  function quiz(){
+    const Q = CONTENT.voiceQuiz[id] || [];
+    const {body: qb, foot, tick} = frame('#ex-voice', 'Check: ' + v.name, 'Five questions on ' + v.name, 'Scenarios drawn from this page. Every answer explains itself, and you can take it again as often as you like.', Q.length);
+    let answered = 0, right = 0;
+    Q.forEach((q, qi) => {
+      const item = h('div', {class:'item'});
+      item.append(h('p', {class:'name'}, (qi + 1) + '. ' + q.q));
+      const opts = shuffle(q.a.map((t, ai) => ({t, ok: ai === 0})));
+      const os = h('div', {class:'opts stack'}), why = h('div', {class:'why'});
+      opts.forEach((o, oi) => {
+        const b = h('button', {class:'opt', type:'button'}, o.t);
+        b.addEventListener('click', () => {
+          $$('.opt', os).forEach((el, xi) => { el.disabled = true; if (opts[xi].ok) el.classList.add('right'); else if (xi === oi) el.classList.add('wrong'); else el.classList.add('dim'); });
+          why.className = 'why on' + (o.ok ? '' : ' miss');
+          why.innerHTML = '<b>' + (o.ok ? 'Right. ' : 'Not that one. ') + '</b>' + esc(q.why);
+          answered++; if (o.ok) right++; tick(qi, o.ok);
+          if (answered === Q.length) {
+            footer(foot, right, Q.length);
+            const voices = Object.assign({}, state.voices || {}); voices[id] = {right, total: Q.length, best: Math.max(right, (voices[id] || {}).best || 0)};
+            mark('voices', voices); paintCoda();
+            const again = h('button', {class:'btn alt', type:'button'}, 'Take it again'); again.addEventListener('click', quiz); foot.append(again);
+          }
+        });
+        os.append(b);
+      });
+      item.append(os, why); qb.append(item);
+    });
+    footer(foot, null, Q.length);
+    const was = (state.voices || {})[id];
+    if (was) foot.append(h('p', null, 'Last time: ' + was.right + ' of ' + was.total + '.'));
+  }
+  quiz();
+
+  /* the coda: on to the next voice */
+  function paintCoda(){
+    const done = ORDER.filter(k => state.voices && state.voices[k]).length;
+    const a = $('#coda-next');
+    $('#coda-p').textContent = 'You have checked ' + done + ' of the nine voices.' + (done === 9 ? ' The Council module is finished.' : '');
+    if (next) { $('#coda-h').textContent = 'Next voice'; a.href = 'voice.html?v=' + next; a.innerHTML = esc(VOICES[next].name) + '<small>' + esc(VOICES[next].council) + '</small>'; }
+    else { $('#coda-h').textContent = 'That is all nine'; a.href = done === 9 ? 'north-star.html' : 'council.html'; a.innerHTML = done === 9 ? 'Module 2: The North Star<small>a finished example, and writing your own</small>' : 'Back to the Council<small>see which voices are left</small>'; }
+  }
+  paintCoda();
+})();
+</script>
+
+</body>
+</html>

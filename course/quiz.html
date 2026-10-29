@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The quiz, Counterpoint Foundations</title>
+<meta name="description" content="The Counterpoint Foundations quiz and completion code.">
+<link rel="icon" href="assets/img/mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="quiz">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark.png" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <div class="score" id="score" aria-label="Course progress"></div>
+  <p class="where"><b>Finish</b></p>
+</div></div>
+<header class="hero">
+  <div class="wrap grid">
+    <div>
+      <p class="kicker">Finish</p>
+      <h1>The quiz</h1>
+      <p class="lede">Fifteen questions, five per module, all scenarios. Twelve right gives you a completion code to post in the Lab channel. You can take it as many times as you like, and every question explains its answer either way.</p>
+      <div class="meta"><span><b>About 12 minutes</b></span><span><b>Pass mark</b> 12 of 15</span></div>
+    </div>
+    <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"><path class="draw" d="M24 10 C 24 30, 48 42, 48 62 M48 10 C 48 30, 24 42, 24 62 M27 10 C 27 30, 45 42, 45 62 M45 10 C 45 30, 27 42, 27 62"/><circle cx="14" cy="36" r="5" fill="#000"/><circle cx="58" cy="36" r="5" fill="#000"/></svg>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<section>
+  <div class="quizbox" id="quizbox"></div>
+  <div class="verify" id="verify">
+    <h3 style="font-size:20px;font-weight:900;font-stretch:90%">Verify a completion code</h3>
+    <p class="hint" style="margin:0 0 12px">For facilitators. Enter the name as the member typed it. Capitals and extra spaces do not matter.</p>
+    <div class="row">
+      <div><label for="v-name">Name</label><input id="v-name" type="text" autocomplete="off"></div>
+      <div><label for="v-code">Code</label><input id="v-code" type="text" autocomplete="off" placeholder="CP-XXXX-XXXX"></div>
+      <button class="btn" id="v-go" type="button">Check</button>
+    </div>
+    <div class="out" id="v-out" aria-live="polite"></div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 6px">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI. Larkin's North Star appears with permission as the worked example.</p>
+  <p style="margin:0"><a href="../index.html">How the Lab works</a> &nbsp;&nbsp; <a href="quiz.html#verify">Verify a completion code</a> &nbsp;&nbsp; <button type="button" id="reset">Reset my progress on this device</button> &nbsp;&nbsp; <button type="button" id="openall"></button></p>
+</div></footer>
+<script src="assets/data.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/course.js"></script>
+<script>
+(function(){
+  const {$, $$, h, esc, state, save, mark, makeCode, isDone, MODULES} = CF;
+  const Q = CONTENT.quiz, box = $('#quizbox');
+  const MOD = {1:'The Council', 2:'The North Star', 3:'The Journey'};
+  let order = [], i = 0, score = 0, byMod = {}, marks = [];
+  const shuffle = a => { for (let j = a.length - 1; j > 0; j--) { const k = Math.floor(Math.random() * (j + 1)); [a[j], a[k]] = [a[k], a[j]]; } return a; };
+  const head = sub => h('div', {class:'qh'}, h('b', null, 'Counterpoint Foundations quiz'), h('span', null, sub));
+
+  /* the stave: twenty notes across five lines */
+  function stave(){
+    const n = Q.questions.length, W = 600, H = 54, pad = 14, step = (W - pad*2) / (n - 1);
+    let s = `<svg class="stave" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`;
+    for (let l = 0; l < 5; l++) s += `<line class="l" x1="0" x2="${W}" y1="${9 + l*9}" y2="${9 + l*9}"/>`;
+    for (let k = 0; k < n; k++) { const y = 9 + ((k * 7) % 5) * 9; const cls = marks[k] === true ? 'ok' : marks[k] === false ? 'miss' : ''; s += `<circle class="note ${cls}${k === i ? ' now' : ''}" cx="${pad + k*step}" cy="${y}" r="5.2"/>`; }
+    return s + '</svg>';
+  }
+
+  function start(){
+    order = shuffle(Q.questions.map((q, qi) => qi)).map(qi => { const q = Q.questions[qi]; return {q, opts: shuffle(q.a.map((t, ai) => ({t, ok: ai === 0})))}; });
+    i = 0; score = 0; byMod = {1:0,2:0,3:0}; marks = [];
+    question();
+  }
+  function intro(){
+    box.innerHTML = '';
+    box.append(head(Q.questions.length + ' questions'));
+    const b = h('div', {class:'qb'});
+    b.append(h('p', {style:'font-size:16px;max-width:70ch'}, 'Questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. When you finish you will see your score by module and, if you passed, a box to type your name for your completion code.'));
+    if (state.passed) b.append(h('p', {class:'hint'}, 'You have already passed on this device. The same name gives the same code if you need it again.'));
+    b.append(h('button', {class:'btn', type:'button', onclick: start}, state.passed ? 'Take it again' : 'Start the quiz'));
+    box.append(b);
+  }
+  function question(){
+    const {q, opts} = order[i];
+    box.innerHTML = '';
+    box.append(head('Question ' + (i+1) + ' of ' + order.length));
+    const b = h('div', {class:'qb'});
+    b.innerHTML = stave();
+    b.append(h('p', {class:'qm'}, 'Module ' + q.m + ', ' + MOD[q.m]), h('p', {class:'qq'}, q.q));
+    const os = h('div', {class:'opts stack'}), why = h('div', {class:'why'}), nav = h('div', {class:'qnav'});
+    const next = h('button', {class:'btn', type:'button', disabled:'disabled'}, i === order.length - 1 ? 'See my score' : 'Next question');
+    opts.forEach((o, oi) => {
+      const btn = h('button', {class:'opt', type:'button'}, o.t);
+      btn.addEventListener('click', () => {
+        $$('.opt', os).forEach((x, xi) => { x.disabled = true; if (opts[xi].ok) x.classList.add('right'); else if (xi === oi) x.classList.add('wrong'); else x.classList.add('dim'); });
+        if (o.ok) { score++; byMod[q.m]++; }
+        marks[i] = !!o.ok;
+        const note = $$('.note', b)[i]; if (note) note.classList.add(o.ok ? 'ok' : 'miss');
+        why.className = 'why on' + (o.ok ? '' : ' miss');
+        why.innerHTML = '<b>' + (o.ok ? 'Right. ' : 'Not that one. ') + '</b>' + esc(q.why);
+        next.disabled = false; next.focus();
+      });
+      os.append(btn);
+    });
+    next.addEventListener('click', () => { i++; if (i < order.length) question(); else results(); });
+    nav.append(h('span', {class:'hint'}, 'Right so far: ' + score), next);
+    b.append(os, why, nav);
+    box.append(b);
+    box.scrollIntoView({block:'start'});
+  }
+  function results(){
+    const passed = score >= Q.pass;
+    box.innerHTML = '';
+    box.append(head('Results'));
+    const b = h('div', {class:'qb'});
+    b.innerHTML = stave();
+    b.append(h('p', {class:'verdict'}, passed ? `${score} of ${order.length}. You passed.` : `${score} of ${order.length}. Not yet.`));
+    const r = h('div', {class:'results'});
+    [1,2,3].forEach(m => r.append(h('div', null, h('b', null, byMod[m] + ' / 5'), h('i', null, MOD[m]))));
+    b.append(r);
+    if (passed) {
+      state.passed = true; state.bestScore = Math.max(state.bestScore || 0, score); save(); CF.paintScore();
+      b.append(h('p', {style:'font-size:15px'}, 'Type your name as you want it on the Lab roster. Your code comes from your name, so the same name always gives the same code.'));
+      const nameIn = h('input', {type:'text', id:'code-name', autocomplete:'name', placeholder:'Your name'});
+      if (state.codeName) nameIn.value = state.codeName;
+      const go = h('button', {class:'btn', type:'button'}, 'Get my completion code');
+      const out = h('div');
+      go.addEventListener('click', () => {
+        const n = nameIn.value.trim(); if (!n) { nameIn.focus(); return; }
+        state.codeName = n; save();
+        const code = makeCode(n); out.innerHTML = '';
+        const msg = `Counterpoint Foundations complete. ${n}, code ${code}.`;
+        const cb = h('button', {class:'btn', type:'button'}, 'Copy the message');
+        cb.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(msg).then(() => { cb.textContent = 'Copied'; }, () => { cb.textContent = 'Select the text above and copy it'; }); });
+        const c = h('div', {class:'c', 'aria-label': code});
+        [...code].forEach((ch, k) => c.append(h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
+        out.append(h('div', {class:'code'}, h('img', {class:'mk', src:'assets/img/mark-light.png', alt:''}), h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
+          h('p', null, 'Post this in #ws-ai-engine-lab, or paste it into your registration for session two:'), h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
+      });
+      b.append(h('div', {class:'name'}, h('div', null, h('label', {for:'code-name'}, 'Your name'), nameIn), go), out);
+    } else {
+      const weak = [1,2,3].filter(m => byMod[m] < 4).map(m => MOD[m]);
+      const list = weak.length > 1 ? weak.slice(0, -1).join(', ') + ' and ' + weak[weak.length - 1] : weak[0];
+      b.append(h('p', {style:'font-size:15px'}, 'Twelve is the pass mark. ' + (weak.length ? 'Reread ' + list + ', redo the exercises there, and take it again.' : 'You were close. Take it again.')));
+    }
+    b.append(h('p', {style:'margin-top:18px'}, h('button', {class:'btn alt', type:'button', onclick: intro}, 'Back to the start')));
+    box.append(b);
+    box.scrollIntoView({block:'start'});
+  }
+  intro();
+
+  /* verify */
+  const vbox = $('#verify');
+  function showVerify(){ vbox.classList.add('on'); vbox.scrollIntoView({block:'center'}); $('#v-name').focus(); }
+  if (location.hash === '#verify') showVerify();
+  window.addEventListener('hashchange', () => { if (location.hash === '#verify') showVerify(); });
+  $('#v-go').addEventListener('click', () => {
+    const n = $('#v-name').value, c = $('#v-code').value.trim().toUpperCase().replace(/\s+/g, '').replace(/^CP-?/, '').replace(/-/g, '');
+    const out = $('#v-out');
+    if (!n.trim() || !c) { out.textContent = 'Enter both a name and a code.'; out.style.color = 'var(--mute)'; return; }
+    const ok = makeCode(n).replace(/^CP-/, '').replace(/-/g, '') === c;
+    out.textContent = ok ? 'Valid. This code matches that name.' : 'No match. Check the spelling of the name, or ask the member to regenerate the code from the quiz.';
+    out.style.color = ok ? 'var(--teal-deep)' : 'var(--orange)';
+  });
+})();
+</script>
+
+</body>
+</html>

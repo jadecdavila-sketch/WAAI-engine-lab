@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>The North Star, Counterpoint Foundations</title>
+<meta name="description" content="Module 2 of Counterpoint Foundations: the Product North Star, with Counterpoint's own as the worked example.">
+<link rel="icon" href="assets/img/mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+</head>
+<body data-page="ns">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark.png" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <div class="score" id="score" aria-label="Course progress"></div>
+  <p class="where"><b>Module 2</b> of 3</p>
+</div></div>
+<header class="hero">
+  <div class="wrap grid">
+    <div>
+      <p class="kicker">Module 2 of 3</p>
+      <h1>The Product North Star</h1>
+      <p class="lede">The document every agent reads before it works, and the lens every Council review looks through. You will read Counterpoint's own and test it the way the Council does. You write yours in session two, inside the plugin.</p>
+      <div class="meta"><span><b>30 minutes</b></span><span><b>One exercise</b>, on your own</span></div>
+    </div>
+    <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="36" cy="36" r="30" stroke="#D9D0C0"/><circle cx="36" cy="36" r="20" stroke="#D9D0C0"/><path d="M36 8v56M8 36h56" stroke="#D9D0C0"/><path class="draw" d="M36 14 L40.5 31.5 L58 36 L40.5 40.5 L36 58 L31.5 40.5 L14 36 L31.5 31.5 Z" fill="#FBE9E0"/><circle cx="36" cy="36" r="3.5" fill="#C7481B" stroke="#C7481B"/></svg>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<section>
+  <div class="read">
+    <div class="card" id="ns-problem"></div>
+    <div class="card">
+      <h3>What a North Star contains</h3>
+      <dl class="kv">
+        <dt>Who it is for</dt><dd>One person, in one season of her life, and what she is carrying. Written the way you would describe her to a friend.</dd>
+        <dt>The thesis</dt><dd>What this makes possible for her that was not possible before. Two to four sentences. The line every Council report ends with.</dd>
+        <dt>Principles</dt><dd>Three to five. Each is a consequence of the thesis, with a test a reviewer can run in one breath. A principle with no test is a slogan.</dd>
+        <dt>What good looks like</dt><dd>Contrast pairs. What any product would say on the left, what seeing her sounds like on the right.</dd>
+        <dt>Anti patterns</dt><dd>What the product will not do, however sound the engineering. Starts short and grows from Council runs.</dd>
+        <dt>A test for anything</dt><dd>Three or four questions every voice runs before it speaks.</dd>
+        <dt>The tenth voice</dt><dd>The nine Council voices are the same on every project. The tenth is her, seated from the who section, speaking first person.</dd>
+      </dl>
+      <div class="pull" style="margin-top:14px"><p>Precedence. When technical correctness and this document disagree, this document wins. When a generic heuristic disagrees with a principle here, the principle wins.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="example">
+  <h2>Counterpoint's own</h2>
+  <p class="lead">The framework you are learning has a North Star too, and this is it: written in Discovery, with the Lab's Movement woven in. Read the who and the thesis slowly. Everything below them was proposed from those two sections, and the orange parts are still being argued.</p>
+  <div class="doc" id="doc"></div>
+  <h3 style="font-size:22px;font-weight:900;font-stretch:90%;margin:0 0 4px">How three voices read it</h3>
+  <p class="hint" style="margin:0 0 14px">Three voices read the who and the thesis. Each one gives a read, names its concerns against a section, and makes one ask. This is what a Council does to a document, and these asks are still open.</p>
+  <div class="reads" id="reads"></div>
+</section>
+
+<section>
+  <div class="ex" id="ex-drift"></div>
+</section>
+
+
+</div>
+</main>
+
+<section class="coda"><div class="wrap">
+  <div><h2>You can now</h2><ul><li>Say what a North Star contains and what it is for</li><li>Tell a principle from a slogan, and spot where a North Star has a gap</li><li>Say why the who and the thesis come first, and what gets proposed from them</li></ul></div>
+  <a class="next" href="journey.html" data-label="Module 3: The Journey" data-small="ten stages and how a gate is held">Module 3: The Journey<small>ten stages and how a gate is held</small></a>
+</div></section>
+
+<footer><div class="wrap">
+  <p style="margin:0 0 6px">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI. Larkin's North Star appears with permission as the worked example.</p>
+  <p style="margin:0"><a href="../index.html">How the Lab works</a> &nbsp;&nbsp; <a href="quiz.html#verify">Verify a completion code</a> &nbsp;&nbsp; <button type="button" id="reset">Reset my progress on this device</button> &nbsp;&nbsp; <button type="button" id="openall"></button></p>
+</div></footer>
+<script src="assets/data.js"></script>
+<script src="assets/north-star.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/course.js"></script>
+<script>
+(function(){
+  const {$, $$, h, esc, THUMB, state, mark, choiceExercise} = CF;
+  const NS = NS_COUNTERPOINT;
+
+  /* the problem this solves, from the site */
+  const pb = $('#ns-problem'); pb.append(h('h3', null, 'The problem this solves')); PROB.northstar.paras.forEach(p => pb.append(h('p', {html: p})));
+
+  /* the finished document */
+  const doc = $('#doc');
+  doc.append(h('div', {class:'dh'}, h('b', null, 'Product North Star: ' + NS.project), h('span', null, NS.note)));
+  const part = (title, why, ...kids) => h('div', {class:'part'}, h('h3', null, title), h('p', {class:'why'}, why), ...kids);
+  doc.append(part('Who it is for', 'One person, in one season of her life, and what she is carrying.', h('div', {class:'big'}, NS.who.split('\n\n').map(t => h('p', null, t)))));
+  doc.append(part('The thesis', 'What this makes possible for her that was not possible before.', h('div', {class:'big'}, NS.thesis.split('\n\n').map(t => h('p', null, t)))));
+  const pr = h('div', {class:'pr'});
+  NS.principles.forEach(p => {
+    const by = VOICES[p.by] ? VOICES[p.by].name : p.by;
+    pr.append(h('div', null, h('b', null, p.title), h('p', null, p.body), h('span', {class:'test'}, 'Test: ' + p.test), h('span', {class:'by' + (p.status === 'proposed' ? ' proposed' : '')}, (p.status === 'proposed' ? 'Proposed by ' : 'Proposed by ') + by + (p.status === 'proposed' ? ', not yet accepted' : ', accepted'))));
+  });
+  doc.append(part('Principles', 'Each one is a consequence of the thesis, with a test a reviewer can run in one breath.', pr));
+  const pairs = h('div', {class:'pairs'}, h('div', {class:'ph'}, 'What any tool would say'), h('div', {class:'ph'}, 'What seeing her sounds like'));
+  NS.pairs.filter(p => p.generic || p.specific).forEach(p => { pairs.append(h('div', {class:'g'}, p.generic), h('div', {class:'s'}, h('i', null, p.note), p.specific)); });
+  doc.append(part('What good looks like', 'Contrast pairs. The left side is what any tool would say. The right side is what seeing her sounds like.', pairs));
+  const antis = h('ul', {class:'antis'});
+  NS.antipatterns.forEach(a => { const earned = /Council run/.test(a.from), prop = /proposed/.test(a.from); antis.append(h('li', {class: earned ? 'earned' : prop ? 'proposed' : ''}, a.text, h('i', null, earned ? 'Earned from ' + a.from : prop ? 'Proposed by ' + a.from.replace(', proposed', '') + ', not yet accepted' : 'From ' + a.from))); });
+  doc.append(part('Anti patterns, refused by default', 'What the product will not do, however sound the engineering. This list starts short and grows from Council runs, with the run recorded.', antis));
+  if (NS.felt) doc.append(part('Felt quality', 'What it is like to be inside it.', h('p', {class:'big'}, NS.felt)));
+  doc.append(part('A test you can run on anything', 'Every voice runs these before it speaks.', h('ol', {class:'qs'}, NS.test.map(q => h('li', null, q)))));
+  const s = NS.sme;
+  doc.append(part('The tenth voice', 'The nine Council voices are the same on every project. The tenth is her.',
+    h('div', {class:'sme'}, h('div', {class:'portrait', 'aria-hidden':'true'}, s.name.replace(/^The /, '').slice(0,1)),
+      h('div', null, h('h3', null, s.name), h('p', {class:'seat'}, 'Seat ten. ' + s.seat),
+        h('dl', {class:'kv'}, h('dt', null, 'Speaks'), h('dd', null, s.speaks), h('dt', null, 'Carries'), h('dd', null, s.carries), h('dt', null, 'Always asks'), h('dd', null, s.asks), h('dt', null, 'Limits'), h('dd', null, s.limits)),
+        h('div', {class:'quotes'}, s.quotes.map(q => h('p', null, '“' + q + '”')))))));
+  doc.append(h('div', {class:'part'}, h('div', {class:'rule'}, h('b', null, 'Precedence. '), 'When technical correctness and this document disagree, this document wins. When a generic heuristic disagrees with a principle here, the principle wins. Every agent reads this file before substantive work.')));
+
+  /* the three reads */
+  const reads = $('#reads');
+  ['artisan','witness','merchant'].forEach(k => {
+    const c = NS.critique[k], v = VOICES[k];
+    reads.append(h('div', {class:'readv'},
+      h('div', {class:'rh'}, h('div', {class:'th', style:`background-image:url(${THUMB(k)})`}), h('div', null, h('b', null, v.name), h('i', null, v.council))),
+      h('div', {class:'rb'}, h('p', {class:'r'}, c.read), h('ul', null, c.concerns.map(x => h('li', null, h('span', null, x.section === 'who' ? 'Who' : 'Thesis'), x.text))), h('p', {class:'a'}, 'Ask: ' + c.ask))));
+  });
+
+  /* exercise: read it like the Council does */
+  choiceExercise('#ex-drift', 'Exercise 2', CONTENT.drift, (item, it) => { item.append(h('p', {class:'name'}, it.name), h('p', {class:'desc'}, it.desc)); }, 'drift');
+
+})();
+</script>
+
+</body>
+</html>
