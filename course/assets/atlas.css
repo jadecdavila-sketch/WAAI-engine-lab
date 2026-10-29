@@ -1,0 +1,82 @@
+/* The Foundation as a road atlas. Ported from the Counterpoint portfolio (Foundation.tsx + Foundation.css)
+   into the course's own palette: ink, cream, orange for what is lit, teal for the agents on the move. */
+.atlas{width:100%;margin-top:18px;border:2px solid var(--ink);background:var(--paper);box-shadow:0 2px 6px rgba(0,0,0,.08),0 18px 40px -22px rgba(0,0,0,.25)}
+.atlas-svg{width:100%;height:auto;display:block;font-family:ui-monospace,Menlo,"SF Mono",Consolas,monospace}
+
+/* paper and frame */
+.atlas-frame-outer{fill:none;stroke:var(--mute);stroke-width:1.5;opacity:.5}
+.atlas-frame-inner{fill:none;stroke:var(--orange);stroke-width:1;opacity:.45}
+.atlas-cartouche{fill:var(--paper);stroke:var(--mute);stroke-width:1;opacity:.9}
+.atlas-cartouche-text{font-size:12px;letter-spacing:.1em;fill:var(--mute)}
+.atlas-compass-ring{fill:none;stroke:var(--mute);stroke-width:1;opacity:.5}
+.atlas-compass-tick{stroke:var(--mute);stroke-width:1.2;opacity:.6}
+.atlas-compass-n{fill:var(--orange)}
+.atlas-compass-s{fill:var(--rule)}
+.atlas-compass-letter{font-size:11px;letter-spacing:.05em;fill:var(--mute)}
+.atlas-hatch-bar{fill:var(--orange);opacity:.55}
+.atlas-district{fill:rgba(199,72,27,.05);stroke:var(--mute);stroke-width:1;stroke-dasharray:3 4;opacity:.55;pointer-events:none}
+.atlas-district-label{font-size:10px;letter-spacing:.3em;text-transform:uppercase;fill:var(--mute);opacity:.7}
+
+/* roads */
+.atlas-road-casing{fill:none;stroke:var(--sand);stroke-width:8;stroke-linecap:round}
+.atlas-road{fill:none;stroke:#8F8779;stroke-width:2.4;stroke-linecap:round;opacity:.85;transition:stroke .25s ease,opacity .25s ease}
+.atlas-road--major{stroke-width:3.4}
+.atlas-road--stale{stroke-dasharray:5 7;opacity:.4}
+.atlas-road--ripple{stroke-width:1.6;stroke-dasharray:1.5 5;opacity:.6}
+.atlas-road-g.is-lit .atlas-road{stroke:var(--orange);opacity:1}
+.atlas-road-g.is-lit .atlas-road-casing{stroke:var(--orange-soft)}
+
+/* agents on the move */
+.atlas-agent{fill:var(--teal);opacity:.8}
+
+/* entry and exit */
+.atlas-endpoint circle{fill:var(--paper);stroke:var(--mute);stroke-width:1.6}
+.atlas-endpoint-arrow{fill:none;stroke:var(--mute);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+.atlas-endpoint-label{font-size:10px;letter-spacing:.16em;text-transform:uppercase;fill:var(--mute)}
+
+/* markers */
+.atlas-node{cursor:pointer;transition:opacity .25s ease;outline:none}
+.atlas-hit{fill:transparent}
+.atlas-node.is-dimmed{opacity:.42}
+.atlas-label{font-size:12.5px;letter-spacing:.03em;fill:var(--ink);paint-order:stroke;stroke:var(--paper);stroke-width:3.4px;stroke-linejoin:round}
+.atlas-label--flag{font-size:10.5px;letter-spacing:.08em;fill:var(--orange)}
+.atlas-town-ring{fill:var(--paper);stroke:var(--mute);stroke-width:1.7;transition:stroke .2s ease}
+.atlas-town-disc{fill:var(--orange-soft)}
+.atlas-town-core{fill:var(--ink);transition:fill .2s ease}
+.atlas-junction-inner{fill:none;stroke:var(--mute);stroke-width:1.4;opacity:.7}
+.atlas-index-tick{stroke:var(--orange);stroke-width:1.7;stroke-linecap:round}
+.atlas-node:hover .atlas-town-ring,.atlas-node.is-active .atlas-town-ring,.atlas-node:focus-visible .atlas-town-ring{stroke:var(--orange);stroke-width:2.4}
+.atlas-node:hover .atlas-town-core,.atlas-node.is-active .atlas-town-core{fill:var(--orange)}
+.atlas-node.is-stale .atlas-town-ring{stroke:var(--rule);stroke-dasharray:3 3}
+.atlas-node.is-stale .atlas-label{fill:var(--mute)}
+.atlas-post{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+.atlas-fingerboard{fill:var(--paper);stroke:var(--mute);stroke-width:1.3;transition:fill .2s ease}
+.atlas-node:hover .atlas-fingerboard,.atlas-node.is-active .atlas-fingerboard{fill:var(--orange-pale)}
+.atlas-pothole-blob{fill:var(--ink);opacity:.82;transition:fill .2s ease}
+.atlas-pothole-ring{fill:none;stroke:var(--orange);stroke-width:1.3;stroke-dasharray:3 3;opacity:0;transition:opacity .2s ease}
+.atlas-node:hover .atlas-pothole-ring,.atlas-node.is-active .atlas-pothole-ring{opacity:.9}
+.atlas-node:hover .atlas-pothole-blob,.atlas-node.is-active .atlas-pothole-blob{fill:var(--orange)}
+.atlas-barrier-plank{stroke:var(--mute);stroke-width:1}
+.atlas-barrier-leg{stroke:var(--ink);stroke-width:2.4;stroke-linecap:round}
+
+/* the detail panel under the map */
+.atlas-detail{width:100%;margin-top:18px}
+.atlas-detail-card{display:flex;flex-direction:column;justify-content:center;background:var(--paper);border:2px solid var(--ink);padding:22px 26px;min-height:236px;box-sizing:border-box;animation:atlas-in .3s ease}
+@keyframes atlas-in{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.atlas-detail-kicker{font-size:12px;font-weight:800;letter-spacing:.08em;text-transform:uppercase;color:var(--orange)}
+.atlas-detail-title{margin:6px 0 0;font-size:24px;font-weight:900;font-stretch:90%;letter-spacing:-.01em}
+.atlas-detail-body{margin:8px 0 0;max-width:70ch;font-size:15.5px;line-height:1.55}
+.atlas-detail-meta{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;margin-top:14px}
+.atlas-file{font-family:ui-monospace,Menlo,"SF Mono",Consolas,monospace;font-size:12px;color:var(--teal-deep)}
+.atlas-keywords{display:flex;flex-wrap:wrap;gap:6px}
+.atlas-keywords .kw{font-family:ui-monospace,Menlo,"SF Mono",Consolas,monospace;font-size:11px;color:var(--mute);padding:2px 9px;border:1px solid var(--rule);border-radius:999px}
+.atlas-stamp{font-size:11px;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--teal-deep)}
+.atlas-stamp.is-stale{color:var(--orange)}
+.atlas-steps{display:flex;gap:30px}
+.atlas-step{flex:1;display:flex;gap:12px}
+.atlas-step-n{font-size:12px;font-weight:800;color:var(--orange);padding-top:3px}
+.atlas-step-label{font-size:18px;font-weight:900;font-stretch:90%}
+.atlas-step-text{margin:4px 0 0;font-size:14.5px;line-height:1.5;color:var(--mute)}
+.atlas-key dt{font-family:ui-monospace,Menlo,"SF Mono",Consolas,monospace;font-size:13px;color:var(--ink)}
+@media(max-width:820px){ .atlas-steps{flex-direction:column;gap:16px} .atlas-detail-card{padding:18px;min-height:400px} }
+@media(prefers-reduced-motion:reduce){ .atlas-detail-card{animation:none} }
