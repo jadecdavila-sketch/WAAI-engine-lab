@@ -90,7 +90,7 @@
     if (x && x.stories.length) card.append(fold('War stories', h('div', {class:'stories'}, x.stories.map(s => h('div', {class:'story'}, h('b', null, s.title), h('p', null, s.description))))));
     if (x && Object.keys(x.toolkit).length) card.append(fold('Toolkit', [
       h('dl', {class:'kv tk'}, Object.entries(x.toolkit).flatMap(([k, t]) => [h('dt', null, k), h('dd', null, t)])),
-      h('p', {class:'hint'}, 'Starting points, not requirements. Each team picks its tools per project.')]));
+      h('p', {class:'hint'}, 'Starting points, not requirements. Each team picks its own tools.')]));
     if (x && (x.allies.length || x.tensions.length)) card.append(fold('Allies and tensions', h('div', {class:'at'},
       x.allies.length ? h('div', null, h('h4', null, 'Allies'), h('ul', null, x.allies.map(a => h('li', null, a)))) : null,
       x.tensions.length ? h('div', {class:'ten'}, h('h4', null, 'Tensions'), h('ul', null, x.tensions.map(a => h('li', null, a)))) : null)));
@@ -98,7 +98,7 @@
     card.append(fold('Questions they ask', h('ul', {class:'qlist'}, qs.map(q => h('li', null, q))), !x));
     members.append(card);
   });
-  body.append(section('The members of this council', 'One per pillar. Teach the voice; use the members as the reference layer and as the prompts behind the AI critics.', members));
+  body.append(section('The members of this council', 'One per pillar. The voice is what you learn. The members are the reference behind it, and the prompts behind the AI critics.', members));
 
   /* how this voice pushes on the others (where the source has it) */
   if (d.pushes && d.pushes.length) {
@@ -112,7 +112,7 @@
   const shuffle = a => { for (let j = a.length - 1; j > 0; j--) { const k = Math.floor(Math.random() * (j + 1)); [a[j], a[k]] = [a[k], a[j]]; } return a; };
   function quiz(){
     const Q = CONTENT.voiceQuiz[id] || [];
-    const {body: qb, foot, tick} = frame('#ex-voice', 'Check: ' + v.name, 'Five questions on ' + v.name, 'Scenarios drawn from this page. Every answer explains itself, and you can take it again as often as you like.', Q.length);
+    const {body: qb, foot, tick} = frame('#ex-voice', 'Check: ' + v.name, 'Five questions on ' + v.name, 'Five scenarios from this page. Every answer explains itself. Take it as often as you like.', Q.length);
     let answered = 0, right = 0;
     Q.forEach((q, qi) => {
       const item = h('div', {class:'item'});
@@ -147,9 +147,9 @@
   function paintCoda(){
     const done = ORDER.filter(k => state.voices && state.voices[k]).length;
     const a = $('#coda-next');
-    $('#coda-p').textContent = 'You have checked ' + done + ' of the nine voices.' + (done === 9 ? ' The Council module is finished.' : '');
+    $('#coda-p').textContent = 'You have checked ' + done + ' of the nine voices.' + (done === 9 ? ' That is the Council module done.' : '');
     if (next) { $('#coda-h').textContent = 'Next voice'; a.href = 'voice.html?v=' + next; a.innerHTML = esc(VOICES[next].name) + '<small>' + esc(VOICES[next].council) + '</small>'; }
-    else { $('#coda-h').textContent = 'That is all nine'; a.href = done === 9 ? 'north-star.html' : 'council.html'; a.innerHTML = done === 9 ? 'Module 2: The North Star<small>a finished example, and writing your own</small>' : 'Back to the Council<small>see which voices are left</small>'; }
+    else { $('#coda-h').textContent = 'That is all nine'; a.href = done === 9 ? 'north-star.html' : 'council.html'; a.innerHTML = done === 9 ? 'Module 2: The North Star<small>Counterpoint\'s own, read the way the Council reads</small>' : 'Back to the Council<small>see which voices are left</small>'; }
   }
   paintCoda();
 })();

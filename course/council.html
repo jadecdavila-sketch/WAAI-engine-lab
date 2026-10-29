@@ -21,7 +21,7 @@
     <div>
       <p class="kicker">Module 1 of 3</p>
       <h1>The Council</h1>
-      <p class="lede">Nine voices, each reading the work through one lens. Members are the voices in reviews, and AI critics run the same lenses continuously. The Council surfaces tensions rather than voting on them.</p>
+      <p class="lede">Nine voices, each reading the work through one lens. In a review, members are the voices. AI critics run the same lenses the rest of the time. The Council does not vote. It names the tensions and hands them to the team.</p>
       <div class="meta"><span><b>About an hour</b></span><span><b>Nine voices</b>, each with a five question check</span></div>
     </div>
     <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"><circle class="draw" cx="36" cy="36" r="24" stroke="#000" stroke-dasharray="2 3"/><circle cx="36" cy="12" r="4.5" fill="#FFFDF8"/><circle cx="53" cy="19" r="4.5" fill="#FFFDF8"/><circle cx="60" cy="36" r="4.5" fill="#FFFDF8"/><circle cx="53" cy="53" r="4.5" fill="#FFFDF8"/><circle cx="36" cy="60" r="4.5" fill="#FFFDF8"/><circle cx="19" cy="53" r="4.5" fill="#FFFDF8"/><circle cx="12" cy="36" r="4.5" fill="#FFFDF8"/><circle cx="19" cy="19" r="4.5" fill="#FFFDF8"/><circle cx="36" cy="36" r="7" fill="#C7481B" stroke="#C7481B"/><path d="M36 19v10M43.5 28.5l6-6M28.5 28.5l-6-6" stroke="#0E6B66"/></svg>
@@ -36,16 +36,16 @@
     <div class="card" id="council-problem"></div>
     <div class="card">
       <h3>How a review works</h3>
-      <p>A piece of work goes in front of the Council at every gate and at the weekly critique. Each voice reads it through its own lens and says what it sees. Where two voices disagree, nobody flattens the disagreement into a compromise. It gets written down as a tension, which is a decision the team now faces on purpose.</p>
-      <p>Every voice is also a seat on a project team and a guild across the Lab. In the Lab intake you say where you stand on each of the nine. The ones you call yours are the lens you bring to every review you sit in.</p>
-      <div class="pull"><p>Open each voice below. Its page has the voice in its own words, where it shows up on the Journey, and every member of its council in full: core wisdom, war stories, toolkit, allies and tensions. Each page ends with a five question check.</p></div>
+      <p>The work goes in front of the Council at every gate and at the weekly critique. Each voice reads it through its own lens and says what it sees. Where two voices disagree, nobody smooths it over. The disagreement is written down as a tension: a decision the team now makes on purpose, with the cost each way.</p>
+      <p>Every voice is also a seat on a project team and a guild across the Lab. The Lab intake asks where you stand on each of the nine. The ones you call yours are the lens you bring to every review you sit in.</p>
+      <div class="pull"><p>Open any voice below. Its page carries the voice in its own words, where it leads on the Journey, and every member of its council in full: core wisdom, war stories, toolkit, allies and tensions. Each page ends with a five question check.</p></div>
     </div>
   </div>
 </section>
 
 <section id="council">
   <h2>The Council</h2>
-  <p class="lead">Nine voices. Each one is also a seat on a project team and a Council guild across the Lab. Take them in order, or start with the one closest to your own work.</p>
+  <p class="lead">Take them in order, or start with the one that sounds most like you. Most people have one, and a second they would rather not hear from.</p>
   <p class="hint" id="checked"></p>
   <div class="council">
     <a class="voice" href="voice.html?v=architect"><div class="img" style="background-image:url(assets/img/voice-architect.jpg)"></div><div class="txt"><div class="n">1</div><h3>The Architect</h3><p class="cn">Foundation Council</p><p class="ask">Is this both structurally sound and emotionally resonant?</p></div><span class="chk" data-chk="architect"></span></a>
@@ -65,7 +65,7 @@
 
 <section class="coda"><div class="wrap">
   <div><h2>You can now</h2><ul><li>Name the nine voices and the question each one asks</li><li>Say what each member of a council guards, and the war story behind it</li><li>Say what a review produces: tensions, written down</li></ul></div>
-  <a class="next" href="north-star.html" data-label="Module 2: The North Star" data-small="a finished example, and writing your own">Module 2: The North Star<small>a finished example, and writing your own</small></a>
+  <a class="next" href="north-star.html" data-label="Module 2: The North Star" data-small="Counterpoint's own, read the way the Council reads">Module 2: The North Star<small>Counterpoint's own, read the way the Council reads</small></a>
 </div></section>
 
 <footer><div class="wrap">
@@ -82,7 +82,7 @@
   /* which voices have been checked */
   const done = ORDER.filter(k => state.voices && state.voices[k]);
   $$('[data-chk]').forEach(el => { const r = state.voices && state.voices[el.dataset.chk]; el.textContent = r ? 'Checked ' + r.right + '/' + r.total : ''; });
-  $('#checked').textContent = done.length ? 'You have checked ' + done.length + ' of the nine voices.' : 'Each voice ends with a five question check. Check all nine to finish this module.';
+  $('#checked').textContent = done.length ? 'You have checked ' + done.length + ' of the nine voices.' : 'Each voice ends with a five question check. All nine checked finishes the module.';
 })();
 </script>
 

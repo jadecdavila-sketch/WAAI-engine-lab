@@ -21,7 +21,7 @@
     <div>
       <p class="kicker">Finish</p>
       <h1>The quiz</h1>
-      <p class="lede">Fifteen questions, five per module, all scenarios. Twelve right gives you a completion code to post in the Lab channel. You can take it as many times as you like, and every question explains its answer either way.</p>
+      <p class="lede">Fifteen scenarios, five per module. Twelve right gives you a completion code to post in the Lab channel. Take it as many times as you like. Every question explains its answer either way.</p>
       <div class="meta"><span><b>About 12 minutes</b></span><span><b>Pass mark</b> 12 of 15</span></div>
     </div>
     <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round"><path class="draw" d="M24 10 C 24 30, 48 42, 48 62 M48 10 C 48 30, 24 42, 24 62 M27 10 C 27 30, 45 42, 45 62 M45 10 C 45 30, 27 42, 27 62"/><circle cx="14" cy="36" r="5" fill="#000"/><circle cx="58" cy="36" r="5" fill="#000"/></svg>
@@ -81,7 +81,7 @@
     box.innerHTML = '';
     box.append(head(Q.questions.length + ' questions'));
     const b = h('div', {class:'qb'});
-    b.append(h('p', {style:'font-size:16px;max-width:70ch'}, 'Questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. When you finish you will see your score by module and, if you passed, a box to type your name for your completion code.'));
+    b.append(h('p', {style:'font-size:16px;max-width:70ch'}, 'The questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. At the end you see your score by module and, if you passed, a box for your name. That gives you your code.'));
     if (state.passed) b.append(h('p', {class:'hint'}, 'You have already passed on this device. The same name gives the same code if you need it again.'));
     b.append(h('button', {class:'btn', type:'button', onclick: start}, state.passed ? 'Take it again' : 'Start the quiz'));
     box.append(b);
@@ -141,13 +141,13 @@
         const c = h('div', {class:'c', 'aria-label': code});
         [...code].forEach((ch, k) => c.append(h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
         out.append(h('div', {class:'code'}, h('img', {class:'mk', src:'assets/img/mark-light.png', alt:''}), h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
-          h('p', null, 'Post this in #ws-ai-engine-lab, or paste it into your registration for session two:'), h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
+          h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
       });
       b.append(h('div', {class:'name'}, h('div', null, h('label', {for:'code-name'}, 'Your name'), nameIn), go), out);
     } else {
       const weak = [1,2,3].filter(m => byMod[m] < 4).map(m => MOD[m]);
       const list = weak.length > 1 ? weak.slice(0, -1).join(', ') + ' and ' + weak[weak.length - 1] : weak[0];
-      b.append(h('p', {style:'font-size:15px'}, 'Twelve is the pass mark. ' + (weak.length ? 'Reread ' + list + ', redo the exercises there, and take it again.' : 'You were close. Take it again.')));
+      b.append(h('p', {style:'font-size:15px'}, 'Twelve passes. ' + (weak.length ? 'Reread ' + list + ' and take it again. The exercises there are the fastest way back.' : 'Close. Take it again.')));
     }
     b.append(h('p', {style:'margin-top:18px'}, h('button', {class:'btn alt', type:'button', onclick: intro}, 'Back to the start')));
     box.append(b);
@@ -165,7 +165,7 @@
     const out = $('#v-out');
     if (!n.trim() || !c) { out.textContent = 'Enter both a name and a code.'; out.style.color = 'var(--mute)'; return; }
     const ok = makeCode(n).replace(/^CP-/, '').replace(/-/g, '') === c;
-    out.textContent = ok ? 'Valid. This code matches that name.' : 'No match. Check the spelling of the name, or ask the member to regenerate the code from the quiz.';
+    out.textContent = ok ? 'Valid. This code matches that name.' : 'No match. Check the spelling of the name, or ask the member to get the code again from the quiz page.';
     out.style.color = ok ? 'var(--teal-deep)' : 'var(--orange)';
   });
 })();

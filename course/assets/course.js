@@ -149,7 +149,7 @@
       <div class="done"><h4 style="margin-top:0">What done looks like</h4><p>${esc(st.done)}</p></div>
       <h4>The Council at this stage</h4><ul class="roster">${roster}</ul>
       <h4>The work of this stage: ${(ACTS[n] || []).length} activities</h4>
-      <p class="modekey">The tag on each activity says who drives: <span class="tag ho">human-only</span> <span class="tag hl">human-leads</span> <span class="tag hc">human-ai-collaborate</span> <span class="tag al">ai-leads</span>. In every mode a human confirms the work passed its check.</p>
+      <p class="modekey">The tag on each activity says who drives: <span class="tag ho">human-only</span> <span class="tag hl">human-leads</span> <span class="tag hc">human-ai-collaborate</span> <span class="tag al">ai-leads</span>. In every mode a person confirms the work passed its check.</p>
       ${list}`;
     show("Stage " + st.n + " of 10", st.title, st.q, [], body, null, true);
   }

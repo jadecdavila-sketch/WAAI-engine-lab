@@ -210,9 +210,9 @@ const CONTENT = {
   /* Journey: pick the mode. Activity records come from the catalog in data.js. */
   modes: {
     title: "Pick the mode",
-    intro: "Eight activities straight from the catalog. Choose the mode you think the catalog gives each one, then compare. Watch what the human still owns when AI drives.",
+    intro: "Eight activities from the catalog. Pick the mode you think each one carries, then compare. Watch what you still own when AI drives.",
     picks: ["User interviews","Writing tests","Prototype creation","Draft the Product North Star","Competitive landscape analysis","Pivot or persevere","AI red teaming","User beta"],
-    close: "Even when AI leads, the human owns what gets covered, what the output has to prove, and the decision to accept it. The check is where that ownership lives."
+    close: "Even when AI leads, you own what gets covered, what the output has to prove, and the decision to accept it. The check is where that ownership lives."
   },
 
   /* Journey: hold the gate */

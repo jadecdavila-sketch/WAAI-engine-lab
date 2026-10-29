@@ -22,7 +22,7 @@
     <div>
       <p class="kicker">The third part of the framework</p>
       <h1>The Foundation</h1>
-      <p class="lede">Living documentation: the architecture roadmap every agent reads before it touches a file, and updates before it leaves. Drawn here as a road atlas of one real codebase, Larkin's. Hover or tap any marker to read what it stands for.</p>
+      <p class="lede">A living map of the codebase. Every agent reads it before it touches a file and updates it before it leaves. Drawn here as a road atlas of one real codebase, Larkin's. Hover or tap any marker to read what it stands for.</p>
       <div class="meta"><span><b>A preview</b> of session two</span><span><b>Seventeen markers</b>, one map</span></div>
     </div>
     <svg class="ico" viewBox="0 0 72 72" aria-hidden="true" fill="none" stroke="#000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path class="draw" d="M12 18h48v40H12z" fill="#FFFDF8"/><path d="M12 28h48M12 38h48M12 48h48" stroke="#D9D0C0"/><path d="M18 23h14M18 33h22M18 43h18M18 53h26" stroke="#0E6B66"/><path d="M30 8 L36 14 L42 8"/><path d="M36 14v4"/><circle cx="52" cy="53" r="6" fill="#C7481B" stroke="#C7481B"/><path d="M49.5 53l2 2 3.5-4" stroke="#fff" stroke-width="1.6"/></svg>
@@ -46,13 +46,13 @@
     <div class="card">
       <h3>What the map stands for</h3>
       <dl class="kv atlas-key">
-        <dt>Towns</dt><dd>Systems. Each has a sub document with its interfaces, its gotchas, and a last reviewed date.</dd>
+        <dt>Towns</dt><dd>Systems. Each has its own short page: what it connects to, what trips people up, and when it was last reviewed.</dd>
         <dt>INDEX.md</dt><dd>The router. A short index of every system and its keywords. Every agent reads it first.</dd>
-        <dt>Signpost</dt><dd>Keyword routers. Match the task to the keywords and they say which documents to load in full.</dd>
+        <dt>Signpost</dt><dd>Keyword routers. Match your task to the keywords and they say which pages to read in full.</dd>
         <dt>The district</dt><dd>A tier of the architecture, here the AI layer, grouped so an agent sees it as one thing.</dd>
         <dt>Side roads</dt><dd>Direct dependencies between systems. Change one end and the ripple reaches the other.</dd>
         <dt>Potholes</dt><dd>Gotchas. Traps that have broken things before, written down so nobody falls in twice.</dd>
-        <dt>Construction</dt><dd>A [REVIEW NEEDED] flag. Known imperfect state, waiting on a fix.</dd>
+        <dt>Construction</dt><dd>A review needed flag. Something known to be imperfect, waiting on a fix.</dd>
         <dt>The junction</dt><dd>Cross system dependencies. Foundational work routes through here before any code is written.</dd>
         <dt>The tollgate</dt><dd>The pre push hook. Unskippable by design.</dd>
       </dl>
