@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Next steps, Counterpoint Foundations</title>
+<meta name="description" content="What to do after session one: finish the voices, take the quiz, post your code, sign up for session two.">
+<link rel="icon" href="assets/img/mark.png" type="image/png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+<style>
+  body.slide{min-height:100vh;display:flex;flex-direction:column}
+  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:48px 0 56px}
+  .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
+  .talk h1{font-size:clamp(36px,5.2vw,76px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 12px}
+  .talk .lede{font-size:clamp(17px,1.5vw,21px);color:var(--mute);margin:0 0 40px;max-width:60ch}
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;counter-reset:step}
+  .step{background:var(--paper);border:2px solid var(--ink);padding:22px 22px 24px;display:flex;flex-direction:column;gap:10px;position:relative;transition:transform .35s var(--ease),box-shadow .35s var(--ease)}
+  .step:hover{transform:translateY(-4px);box-shadow:0 14px 30px rgba(17,17,17,.14)}
+  .step .n{width:40px;height:40px;border-radius:50%;background:var(--orange);color:#fff;font-weight:900;font-size:18px;display:flex;align-items:center;justify-content:center}
+  .step h3{font-size:clamp(20px,1.8vw,26px);font-weight:900;font-stretch:90%;line-height:1.1;margin:4px 0 0}
+  .step p{margin:0;font-size:16px;line-height:1.45;color:var(--mute)}
+  .step p b{color:var(--ink)}
+  .step .go{margin-top:auto;padding-top:10px;font-size:15px;font-weight:800;color:var(--teal-deep);text-decoration:none}
+  .step .go:hover{color:var(--orange)}
+  .step .go::after{content:"  \2192"}
+  .then{margin:40px 0 0;display:flex;gap:28px;align-items:center;border-top:3px solid var(--ink);padding-top:26px}
+  .then .lbl{flex:none;font-size:13px;font-weight:800;letter-spacing:.12em;text-transform:uppercase;color:var(--orange)}
+  .then p{margin:0;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(19px,1.9vw,27px);line-height:1.25}
+  @media(max-width:960px){ .steps{grid-template-columns:1fr 1fr} }
+  @media(max-width:560px){ .steps{grid-template-columns:1fr} .then{flex-direction:column;align-items:flex-start;gap:10px} }
+</style>
+</head>
+<body class="slide">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark.png" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <p class="where">Session one, the close</p>
+</div></div>
+
+<main class="talk"><div class="wrap">
+  <p class="kicker">Before session two</p>
+  <h1>Next steps.</h1>
+  <p class="lede">Four things, on your own time. The code is your seat in session two.</p>
+  <div class="steps">
+    <div class="step">
+      <div class="n">1</div>
+      <h3>Meet the other seven voices</h3>
+      <p>We sat with two today. Each of the rest has its own page and a <b>five question check</b> at the end. About ten minutes a voice.</p>
+      <a class="go" href="council.html">The Council</a>
+    </div>
+    <div class="step">
+      <div class="n">2</div>
+      <h3>Take the quiz</h3>
+      <p>Fifteen questions, all scenarios. <b>Twelve right</b> passes. Take it as often as you like; every answer explains itself.</p>
+      <a class="go" href="quiz.html">The quiz</a>
+    </div>
+    <div class="step">
+      <div class="n">3</div>
+      <h3>Post your completion code</h3>
+      <p>When you pass, type your name and the page gives you a code like <b>CP-XXXX-XXXX</b>. Post it in <b>#ws-ai-engine-lab</b>.</p>
+      <a class="go" href="quiz.html">Get the code</a>
+    </div>
+    <div class="step">
+      <div class="n">4</div>
+      <h3>Sign up for session two</h3>
+      <p>We install the Counterpoint plugin and you <b>write your own North Star</b>, where the Council can read it. Bring a product idea.</p>
+      <a class="go" href="[SESSION TWO SIGNUP LINK]">Sign up</a>
+    </div>
+  </div>
+  <div class="then">
+    <span class="lbl">Not yet in the Lab?</span>
+    <p>Fill in the <a href="../intake.html">Lab intake</a> so we know where you stand on the nine Councils. It takes about ten minutes.</p>
+  </div>
+</div></main>
+
+<footer><div class="wrap">
+  <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
+</div></footer>
+</body>
+</html>
