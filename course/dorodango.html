@@ -30,12 +30,13 @@
   .arc figcaption b{color:var(--ink);font-weight:800}
   .arc .ph:focus-visible{outline:3px solid var(--orange);outline-offset:4px}
   .rule{width:72px;height:4px;background:var(--orange);margin:44px 0 22px}
-  .close{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(20px,2.2vw,32px);line-height:1.25;margin:0;max-width:75%}
+  .close{font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(20px,2.2vw,32px);line-height:1.25;margin:0;max-width:calc(81.8% + 108px)}
   @media(max-width:900px){
     .arc{flex-wrap:wrap;gap:20px}
     .arc figure:nth-child(n){width:calc(50% - 10px)}
     .arc figure:hover .ph,.arc figure:focus-within .ph{transform:scale(1.15)}
     .talk h1{margin-bottom:24px}
+    .close{max-width:100%}
   }
 </style>
 </head>
