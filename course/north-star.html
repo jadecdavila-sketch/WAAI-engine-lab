@@ -98,7 +98,7 @@
   const pr = h('div', {class:'pr'});
   NS.principles.forEach(p => {
     const by = VOICES[p.by] ? VOICES[p.by].name : p.by;
-    pr.append(h('div', null, h('b', null, p.title), h('p', null, p.body), h('span', {class:'test'}, 'Test: ' + p.test), h('span', {class:'by' + (p.status === 'proposed' ? ' proposed' : '')}, (p.status === 'proposed' ? 'Proposed by ' : 'Proposed by ') + by + (p.status === 'proposed' ? ', not yet accepted' : ', accepted'))));
+    pr.append(h('div', null, h('b', null, p.title), h('p', null, p.body), h('span', {class:'test'}, 'Test: ' + p.test)));
   });
   doc.append(part('Principles', 'Each one is a consequence of the thesis, with a test a reviewer can run in one breath.', pr));
   const pairs = h('div', {class:'pairs'}, h('div', {class:'ph'}, 'What any tool would say'), h('div', {class:'ph'}, 'What seeing her sounds like'));
