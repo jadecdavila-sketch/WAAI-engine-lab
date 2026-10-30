@@ -76,7 +76,7 @@
   /* where this voice shows up on the Journey */
   const stages = STAGES.map(s => ({s, x: s.voices.find(x => NAMES[x.voice] === id)})).filter(o => o.x);
   if (stages.length) {
-    body.append(section('Across the Journey', 'Where this voice leads, and where it is in the room. Open the Journey module for each stage in full.',
+    body.append(section('Across the Journey', 'Where this voice leads, and where it is present.',
       h('ul', {class:'vstages'}, stages.map(({s, x}) => h('li', {class: x.primary ? 'primary' : ''},
         h('div', {class:'sn'}, s.n), h('div', null, h('b', null, s.title, h('span', null, x.primary ? 'Leads' : 'Present')), h('p', null, x.text)))))));
   }
@@ -100,7 +100,7 @@
     card.append(fold('Questions they ask', h('ul', {class:'qlist'}, qs.map(q => h('li', null, q))), !x));
     members.append(card);
   });
-  body.append(section('The members of this council', 'One per pillar. The voice is what you learn. The members are the reference behind it, and the prompts behind the AI critics.', members));
+  body.append(section('The members of this council', '', members));
 
   /* how this voice pushes on the others (where the source has it) */
   if (d.pushes && d.pushes.length) {

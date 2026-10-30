@@ -210,15 +210,15 @@ const CONTENT = {
   /* Journey: pick the mode. Activity records come from the catalog in data.js. */
   modes: {
     title: "Pick the mode",
-    intro: "Eight activities from the catalog. Pick the mode you think each one carries, then compare. Watch what you still own when AI drives.",
+    intro: "Eight activities from the catalog. Pick the mode you think each one carries, then compare.",
     picks: ["User interviews","Writing tests","Prototype creation","Draft the Product North Star","Competitive landscape analysis","Pivot or persevere","AI red teaming","User beta"],
-    close: "Even when AI leads, you own what gets covered, what the output has to prove, and the decision to accept it. The check is where that ownership lives."
+    close: "Even when AI leads, you own what gets covered, what the output has to prove, and the decision to accept it."
   },
 
   /* Journey: hold the gate */
   gates: {
     title: "Hold the gate",
-    intro: "Four gate reviews for Larkin. Read the stage's definition of done, read what the team brought, and decide. Some of these are close calls, which is what real gates feel like.",
+    intro: "Four gate reviews. Read the stage's definition of done, read what the team brought, and decide. Some of these are close calls, which is what real gates feel like.",
     options: ["Holds", "Holds, with a tension recorded", "Does not hold"],
     items: [
       { stage: 2, evidence: [
