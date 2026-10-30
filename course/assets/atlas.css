@@ -1,6 +1,6 @@
 /* The Foundation as a road atlas. Ported from the Counterpoint portfolio (Foundation.tsx + Foundation.css)
    into the course's own palette: ink, cream, orange for what is lit, teal for the agents on the move. */
-.atlas{width:100%;margin-top:18px;border:2px solid var(--ink);background:var(--paper);box-shadow:0 2px 6px rgba(0,0,0,.08),0 18px 40px -22px rgba(0,0,0,.25)}
+.atlas{width:100%;margin-top:18px;border:2px solid var(--ink);background:var(--paper);box-shadow:0 2px 6px rgba(28,53,54,.08),0 18px 40px -22px rgba(28,53,54,.25)}
 .atlas-svg{width:100%;height:auto;display:block;font-family:ui-monospace,Menlo,"SF Mono",Consolas,monospace}
 
 /* paper and frame */
