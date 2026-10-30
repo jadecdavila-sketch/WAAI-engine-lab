@@ -115,7 +115,7 @@ header.hero{background:var(--cream);color:var(--ink);padding:40px 0 34px;border-
 .lobes.two{grid-template-columns:1fr 1fr}
 .foundation-row{border:2px solid var(--ink);background:var(--paper);margin-top:22px;padding:24px 28px 28px}
 .foundation-row .fhead{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
-.foundation-row .fhead p{max-width:72ch}
+.foundation-row .fhead p{max-width:75%}
 .foundation-row .facts{text-align:right;white-space:nowrap}
 .foundation-row .facts .problink{margin-top:6px}
 .foundation-row .atlas{margin-top:20px}
@@ -246,7 +246,7 @@ section#lobes>*{position:relative}
 .read .card p{font-size:15.5px}
 @media(max-width:860px){ .read{grid-template-columns:1fr} }
 .read > .card:only-child{grid-column:1/-1}
-.read > .card:only-child p{max-width:78ch}
+.read > .card:only-child p{max-width:75%}
 /* page titles: the North Star on one line, the Journey on two */
 body[data-page="ns"] .hero h1,body[data-page="journey"] .hero h1{max-width:none}
 @media(min-width:900px){ body[data-page="ns"] .hero h1{white-space:nowrap} }
@@ -275,7 +275,7 @@ body[data-page="ns"] .hero h1,body[data-page="journey"] .hero h1{max-width:none}
 .ex .exh{background:var(--teal-soft);border-bottom:2px solid var(--ink);padding:16px 22px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:start}
 .ex .exh .kicker{color:var(--teal-deep);margin:0 0 4px}
 .ex .exh h3{font-size:24px;font-weight:900;font-stretch:90%;margin:0 0 6px}
-.ex .exh p{margin:0;font-size:15px;max-width:80ch}
+.ex .exh p{margin:0;font-size:15px;max-width:75%}
 .ex .exb{padding:18px 22px 10px}
 .ex .exf{padding:14px 22px 18px;border-top:2px solid var(--ink);background:var(--cream);font-size:15px}
 .ex .exf p{margin:0}
@@ -408,7 +408,7 @@ body[data-page="ns"] .hero h1,body[data-page="journey"] .hero h1{max-width:none}
 .doc .part h3{font-size:22px;font-weight:900;font-stretch:90%;margin:0 0 4px}
 .doc .part .why{display:block;position:static;padding:0;background:none;border:0;font-size:14px;color:var(--mute);margin:0 0 12px;animation:none}
 .doc .part .why::before,.doc .part .why::after{display:none}
-.doc .big{font-size:17px;line-height:1.5;max-width:70ch;margin:0}
+.doc .big{font-size:17px;line-height:1.5;max-width:75%;margin:0}
 .doc div.big p{margin:0 0 12px}
 .doc div.big p:last-child{margin:0}
 .doc .antis li.proposed{border-left:3px solid var(--orange-pale)}
@@ -416,7 +416,7 @@ body[data-page="ns"] .hero h1,body[data-page="journey"] .hero h1{max-width:none}
 .doc .pr{display:grid;grid-template-columns:1fr;gap:0;border-top:2px solid var(--ink)}
 .doc .pr div{padding:12px 0;border-bottom:1px solid var(--rule)}
 .doc .pr b{display:block;font-weight:900;font-stretch:90%;font-size:17px}
-.doc .pr p{font-size:14.5px;margin:4px 0 6px;max-width:75ch}
+.doc .pr p{font-size:14.5px;margin:4px 0 6px;max-width:75%}
 .doc .pr .test{display:inline-block;font-size:13.5px;font-weight:600;color:var(--teal-deep);background:var(--teal-soft);padding:4px 10px}
 .doc .pr .by{font-size:12.5px;color:var(--mute);margin-left:8px}
 .doc .pr .by.proposed{color:var(--orange);font-weight:700}
@@ -460,7 +460,7 @@ body[data-page="ns"] .hero h1,body[data-page="journey"] .hero h1{max-width:none}
 .sheet{background:var(--paper);border:2px solid var(--ink);margin:0 0 30px}
 .sheet .sh{padding:16px 22px;border-bottom:2px solid var(--ink);background:var(--orange-soft);display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
 .sheet .sh h3{font-size:24px;font-weight:900;font-stretch:90%;margin:0 0 4px}
-.sheet .sh p{margin:0;font-size:14.5px;max-width:70ch}
+.sheet .sh p{margin:0;font-size:14.5px;max-width:75%}
 .sheet .clock{font-variant-numeric:tabular-nums;font-weight:900;font-stretch:90%;font-size:34px;line-height:1;text-align:right}
 .sheet .clock small{display:block;font-size:12px;color:var(--mute);font-weight:700}
 .sheet .clock button{margin-top:6px;font-size:12px;font-weight:700;background:none;border:2px solid var(--ink);padding:3px 8px;cursor:pointer}
@@ -561,7 +561,7 @@ footer button{background:none;border:0;color:var(--cream);text-decoration:underl
 .vsec .read{margin-top:10px}
 .vsec .speaks{margin-top:18px;background:var(--teal-soft);border-left:4px solid var(--teal);padding:16px 20px;font-size:15.5px}
 .vsec .speaks .kicker{color:var(--teal-deep);margin:0 0 6px}
-.vsec .speaks p{margin:0;max-width:80ch}
+.vsec .speaks p{margin:0;max-width:75%}
 .vstages{list-style:none;padding:0;margin:12px 0 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .vstages li{display:grid;grid-template-columns:40px 1fr;gap:12px;background:var(--paper);border:2px solid var(--rule);padding:14px 16px}
 .vstages li.primary{border-color:var(--ink)}
@@ -576,7 +576,7 @@ footer button{background:none;border:0;color:var(--cream);text-decoration:underl
 .vmember{background:var(--paper);border:2px solid var(--ink);padding:22px 24px}
 .vmember>.kicker{margin:0 0 4px}
 .vmember>h3{font-size:24px;font-weight:900;font-stretch:90%;margin:0 0 8px}
-.vmember .who{font-size:15.5px;margin:0 0 12px;max-width:80ch}
+.vmember .who{font-size:15.5px;margin:0 0 12px;max-width:75%}
 .vmember details{border-top:1px solid var(--rule)}
 .vmember summary{cursor:pointer;list-style:none;padding:12px 0;font-weight:800;font-size:14px;letter-spacing:.03em;text-transform:uppercase;display:flex;justify-content:space-between;align-items:center}
 .vmember summary::-webkit-details-marker{display:none}
