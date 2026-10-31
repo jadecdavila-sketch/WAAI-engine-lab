@@ -506,11 +506,11 @@ body[data-page="ns"] .hero h1,body[data-page="journey"] .hero h1{max-width:none}
 .quizbox .qh b{font-size:22px;font-weight:900;font-stretch:90%;color:#fff}
 .quizbox .qh span{font-size:14px;color:#BFB8AA}
 .quizbox .qb{padding:24px 26px 26px;animation:pop .4s var(--ease)}
-.stave{display:block;width:100%;height:54px;margin:0 0 18px;overflow:visible}
+.stave{display:block;max-width:100%;height:auto;margin:0 0 18px;overflow:visible}
 .stave .l{stroke:var(--rule);stroke-width:1}
 .stave .note{fill:var(--paper);stroke:var(--ink);stroke-width:1.6;transition:fill .25s}
-.stave .note.ok{fill:var(--teal);stroke:var(--teal)} .stave .note.miss{fill:var(--orange);stroke:var(--orange)}
-.stave .note.now{stroke:var(--orange);stroke-width:2.6}
+
+.stave .note.now{fill:var(--paper);stroke:var(--ink);stroke-width:2.6}
 .qm{font-size:13px;font-weight:700;color:var(--orange);margin:0 0 6px}
 .qq{font-size:clamp(18px,2.2vw,22px);font-weight:800;line-height:1.3;margin:0 0 16px}
 .qnav{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:16px;flex-wrap:wrap}

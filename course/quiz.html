@@ -67,12 +67,20 @@
   const shuffle = a => { for (let j = a.length - 1; j > 0; j--) { const k = Math.floor(Math.random() * (j + 1)); [a[j], a[k]] = [a[k], a[j]]; } return a; };
   const head = sub => h('div', {class:'qh'}, h('b', null, 'Counterpoint Foundations quiz'), h('span', null, sub));
 
-  /* the stave: twenty notes across five lines */
+  /* the stave: one note per question across five lines, in the council mark's colours.
+     Drawn at the box's real width so the notes stay round. Right: a solid note. Missed: a ring. */
+  const NOTE = ['#C0652F','#1C3536','#ECB978','#6E8E90','#A9472A','#1C3536','#ECB978','#6E8E90','#C0652F','#7A7A3A'];
   function stave(){
-    const n = Q.questions.length, W = 600, H = 54, pad = 14, step = (W - pad*2) / (n - 1);
-    let s = `<svg class="stave" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" aria-hidden="true">`;
+    const n = Q.questions.length, H = 54, pad = 14;
+    const W = Math.max(280, Math.round((box.clientWidth || 640) - 96)), step = (W - pad*2) / (n - 1);
+    let s = `<svg class="stave" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true">`;
     for (let l = 0; l < 5; l++) s += `<line class="l" x1="0" x2="${W}" y1="${9 + l*9}" y2="${9 + l*9}"/>`;
-    for (let k = 0; k < n; k++) { const y = 9 + ((k * 7) % 5) * 9; const cls = marks[k] === true ? 'ok' : marks[k] === false ? 'miss' : ''; s += `<circle class="note ${cls}${k === i ? ' now' : ''}" cx="${pad + k*step}" cy="${y}" r="5.2"/>`; }
+    for (let k = 0; k < n; k++) {
+      const y = 9 + ((k * 7) % 5) * 9, c = NOTE[k % NOTE.length];
+      const style = marks[k] === true ? `fill:${c};stroke:${c}` : marks[k] === false ? `fill:var(--paper);stroke:${c};stroke-width:2.4` : '';
+      const cls = marks[k] === true ? 'ok' : marks[k] === false ? 'miss' : '';
+      s += `<circle class="note ${cls}${k === i ? ' now' : ''}" cx="${pad + k*step}" cy="${y}" r="5.6"${style ? ` style="${style}"` : ''}/>`;
+    }
     return s + '</svg>';
   }
 
