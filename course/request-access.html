@@ -47,9 +47,9 @@
   <div class="wrap grid">
     <div>
       <p class="kicker">After the quiz</p>
-      <h1>Request access to Counterpoint</h1>
-      <p class="lede">Counterpoint is private. Lab members who have finished Counterpoint Foundations can ask for a copy here. Jade reads every request and sends the invitation herself, usually within a few days.</p>
-      <div class="meta"><span><b>About 3 minutes</b></span><span><b>You need</b> your completion code and a GitHub account</span></div>
+      <h1>You finished Counterpoint Foundations</h1>
+      <p class="lede">Your completion code is below. Send this short form and you are on the list for the second onboarding workshop, where you get Counterpoint itself. Jade reads every request herself.</p>
+      <div class="meta"><span><b>About 2 minutes</b></span><span><b>You need</b> your completion code and a GitHub account</span></div>
     </div>
     <div class="ico cpmark" id="cpmark"></div>
   </div>
@@ -60,17 +60,12 @@
 
 <section class="steps">
   <h2>What happens next</h2>
-  <ol>
-    <li>You send this form. Nothing is shared outside the Lab.</li>
-    <li>Jade checks your completion code against the name you typed in the quiz.</li>
-    <li>You get an invitation from GitHub by email. Accept it, then follow the install steps in the README it opens.</li>
-    <li>The first time you open Counterpoint it shows you the terms once. Using it means you agree to them.</li>
-  </ol>
+  <p>You send this form and that is all for now. Nothing is shared outside the Lab. Jade adds you to the list for the second onboarding workshop and gets in touch about it. Counterpoint comes at that workshop, not before.</p>
 </section>
 
 <section>
   <div class="ask" id="ask">
-    <div class="qh"><b>Your request</b></div>
+    <div class="qh"><b>Put me on the list</b></div>
     <div class="qb">
       <form id="form" novalidate>
         <div class="f">
@@ -92,7 +87,7 @@
         <div class="f">
           <label for="github">Your GitHub username</label>
           <input id="github" name="github" type="text" autocomplete="username" required>
-          <p class="note">The invitation goes to this account. No account yet? Make a free one at github.com, then come back. The username is the bold name under "Signed in as" when you click your picture at the top right.</p>
+          <p class="note">Jade uses this later to give you Counterpoint. No account yet? Make a free one at github.com, then come back. The username is the bold name under "Signed in as" when you click your picture at the top right.</p>
         </div>
         <div class="f">
           <label for="notes">Anything Jade should know (optional)</label>
@@ -102,12 +97,12 @@
           <input id="terms" name="terms" type="checkbox" required>
           <label for="terms" style="font-size:15px;color:var(--ink);font-weight:500;margin:0">I have read <a href="terms.html">the terms for using Counterpoint</a>. It is for my own work in the Lab, and I will not copy, change or share it.</label>
         </div>
-        <button class="btn" id="send" type="submit">Send my request</button>
+        <button class="btn" id="send" type="submit" disabled>Send my request</button>
         <div class="out" id="out" aria-live="polite"></div>
       </form>
       <div class="done" aria-live="polite">
         <p style="font-size:17px;font-weight:800;margin:0 0 8px">Your request is in.</p>
-        <p>Jade will look at it and send the GitHub invitation. Watch the inbox for the email you gave, and the account you named on GitHub. If you hear nothing in a week, ask in the Lab channel.</p>
+        <p>You are on the list for the second onboarding workshop. There is nothing else to do right now. Jade will be in touch at the email you gave. If you hear nothing in a couple of weeks, ask in the Lab channel.</p>
       </div>
     </div>
   </div>
@@ -153,14 +148,10 @@
     if (!n) { $('#code').value = ''; return; }
     const code = makeCode(n); $('#code').value = code;
     try { CF.state.codeName = n; CF.save(); } catch (e) {}
-    const msg = `Counterpoint Foundations complete. ${n}, code ${code}.`;
-    const cb = CF.h('button', {class:'btn', type:'button'}, 'Copy the message');
-    cb.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(msg).then(() => { cb.textContent = 'Copied'; }, () => { cb.textContent = 'Select the text above and copy it'; }); });
     const c = CF.h('div', {class:'c', 'aria-label': code});
     [...code].forEach((ch, k) => c.append(CF.h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
     box.append(CF.h('div', {class:'code'}, CF.h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}),
-      CF.h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
-      CF.h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), CF.h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
+      CF.h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c));
   }
   if (passed) {
     ask.classList.add('passed');
@@ -171,6 +162,11 @@
     $('#name').addEventListener('input', checkCode);
     $('#code').addEventListener('input', checkCode);
   }
+
+  /* Send stays off until the terms box is ticked. */
+  const terms = $('#terms'), sendBtn = $('#send');
+  const gate = () => { sendBtn.disabled = !terms.checked; };
+  terms.addEventListener('change', gate); gate();
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
@@ -192,7 +188,7 @@
       ask.classList.add('sent');
     } catch (e) {
       out.className = 'out bad'; out.textContent = 'The request did not go through. Nothing was lost; your answers are still here. Try again in a minute, or post your name and code in the Lab channel and Jade will take it from there.';
-      send.disabled = false; send.textContent = 'Send my request';
+      send.textContent = 'Send my request'; gate();
     }
   });
 })();

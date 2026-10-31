@@ -138,7 +138,7 @@
     b.append(r);
     if (passed) {
       state.passed = true; state.bestScore = Math.max(state.bestScore || 0, score); save(); CF.paintScore();
-      b.append(h('p', {style:'font-size:15px'}, 'Your completion code is ready. The next page shows it, and lets you ask for Counterpoint.'));
+      b.append(h('p', {style:'font-size:15px'}, 'Your completion code is ready. The next page shows it and puts you on the list for the second onboarding workshop.'));
       b.append(h('p', {style:'margin:14px 0 0'}, h('a', {class:'btn', href:'request-access.html'}, 'Get my completion code')));
     } else {
       const weak = [1,2,3].filter(m => byMod[m] < 4).map(m => MOD[m]);
