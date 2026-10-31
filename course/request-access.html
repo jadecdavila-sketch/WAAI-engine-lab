@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Request access to Counterpoint</title>
+<meta name="description" content="Ask for access to Counterpoint once you have finished Counterpoint Foundations.">
+<link rel="icon" href="assets/img/mark-small.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+<style>
+  .ask{border:3px solid var(--ink);background:var(--paper);max-width:680px;margin:0 0 30px}
+  .ask .qh{background:var(--ink);color:var(--cream);padding:18px 26px}
+  .ask .qh b{font-size:22px;font-weight:900;font-stretch:90%;color:#fff}
+  .ask .qb{padding:24px 26px 26px}
+  .ask .f{margin:0 0 16px}
+  .ask label{display:block;font-size:12.5px;font-weight:700;color:var(--mute);margin:0 0 4px}
+  .ask input[type=text],.ask input[type=email],.ask textarea{font:inherit;width:100%;border:2px solid var(--ink);background:#fff;padding:8px 10px;font-size:15px}
+  .ask textarea{min-height:72px;resize:vertical}
+  .ask .note{font-size:13.5px;color:var(--mute);margin:4px 0 0}
+  .ask .note.warn{color:var(--orange);font-weight:700}
+  .ask .note.good{color:var(--teal-deep);font-weight:700}
+  .ask .check{display:flex;gap:10px;align-items:flex-start;font-size:15px}
+  .ask .check input{width:18px;height:18px;margin:3px 0 0;accent-color:var(--teal);flex:none}
+  .ask .out{margin:14px 0 0;font-weight:800}
+  .ask .out.bad{color:var(--orange)}
+  .ask .done{display:none}
+  .ask.sent .done{display:block}
+  .ask.sent form{display:none}
+  .steps{max-width:680px}
+  .steps ol{padding-left:22px}
+  .steps li{margin:0 0 8px}
+</style>
+</head>
+<body data-page="access">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark-small-clear.svg" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <div class="score" id="score" aria-label="Course progress"></div>
+  <p class="where"><b>Access</b></p>
+</div></div>
+<header class="hero">
+  <div class="wrap grid">
+    <div>
+      <p class="kicker">After the quiz</p>
+      <h1>Request access to Counterpoint</h1>
+      <p class="lede">Counterpoint is private. Lab members who have finished Counterpoint Foundations can ask for a copy here. Jade reads every request and sends the invitation herself, usually within a few days.</p>
+      <div class="meta"><span><b>About 3 minutes</b></span><span><b>You need</b> your completion code and a GitHub account</span></div>
+    </div>
+    <div class="ico cpmark" id="cpmark"></div>
+  </div>
+</header>
+
+<main>
+<div class="wrap">
+
+<section class="steps">
+  <h2>What happens next</h2>
+  <ol>
+    <li>You send this form. Nothing is shared outside the Lab.</li>
+    <li>Jade checks your completion code against the name you typed in the quiz.</li>
+    <li>You get an invitation from GitHub by email. Accept it, then follow the install steps in the README it opens.</li>
+    <li>The first time you open Counterpoint it shows you the terms once. Using it means you agree to them.</li>
+  </ol>
+</section>
+
+<section>
+  <div class="ask" id="ask">
+    <div class="qh"><b>Your request</b></div>
+    <div class="qb">
+      <form id="form" novalidate>
+        <div class="f">
+          <label for="name">Your name, exactly as you typed it in the quiz</label>
+          <input id="name" name="name" type="text" autocomplete="name" required>
+          <p class="note">Your completion code was made from this name, so the spelling has to match. If you came here from the quiz, both are filled in already.</p>
+        </div>
+        <div class="f">
+          <label for="code">Your completion code</label>
+          <input id="code" name="code" type="text" autocomplete="off" placeholder="CP-XXXX-XXXX" required>
+          <p class="note" id="code-note">You got it at the end of the quiz. Lost it? Take the quiz page to Results and press Get my completion code again with the same name.</p>
+        </div>
+        <div class="f">
+          <label for="email">Your email</label>
+          <input id="email" name="email" type="email" autocomplete="email" required>
+          <p class="note">Only so Jade can reach you about your request.</p>
+        </div>
+        <div class="f">
+          <label for="github">Your GitHub username</label>
+          <input id="github" name="github" type="text" autocomplete="username" required>
+          <p class="note">The invitation goes to this account. No account yet? Make a free one at github.com, then come back. The username is the bold name under "Signed in as" when you click your picture at the top right.</p>
+        </div>
+        <div class="f">
+          <label for="notes">Anything Jade should know (optional)</label>
+          <textarea id="notes" name="notes"></textarea>
+        </div>
+        <div class="f check">
+          <input id="terms" name="terms" type="checkbox" required>
+          <label for="terms" style="font-size:15px;color:var(--ink);font-weight:500;margin:0">I have read <a href="terms.html">the terms for using Counterpoint</a>. It is for my own work in the Lab, and I will not copy, change or share it.</label>
+        </div>
+        <button class="btn" id="send" type="submit">Send my request</button>
+        <div class="out" id="out" aria-live="polite"></div>
+      </form>
+      <div class="done" aria-live="polite">
+        <p style="font-size:17px;font-weight:800;margin:0 0 8px">Your request is in.</p>
+        <p>Jade will look at it and send the GitHub invitation. Watch the inbox for the email you gave, and the account you named on GitHub. If you hear nothing in a week, ask in the Lab channel.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</div>
+</main>
+
+<footer><div class="wrap">
+  <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
+</div></footer>
+<script src="assets/data.js"></script>
+<script src="assets/content.js"></script>
+<script src="assets/course.js"></script>
+<script src="assets/mark.js"></script>
+<script>CPMark.mount(document.getElementById('cpmark'));</script>
+<script>
+(function(){
+  /* Where requests go: the web app address of the roster script (set-up-the-form.md). Empty means the form is not live yet. */
+  const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwsQYztRyB4jmtu5XoPPC8HrxiHwyACenl8qwLiDffjzzKiv6VT09WeRLPWEPW9Vz83/exec';
+  const {$, makeCode} = CF;
+  const form = $('#form'), out = $('#out'), ask = $('#ask'), codeNote = $('#code-note');
+  const clean = c => c.trim().toUpperCase().replace(/\s+/g, '').replace(/^CP-?/, '').replace(/-/g, '');
+
+  function checkCode(){
+    const n = $('#name').value.trim(), c = clean($('#code').value);
+    if (!n || c.length < 8) { codeNote.className = 'note'; codeNote.textContent = 'You got it at the end of the quiz. Lost it? Take the quiz page to Results and press Get my completion code again with the same name.'; return null; }
+    const ok = makeCode(n).replace(/^CP-/, '').replace(/-/g, '') === c;
+    codeNote.className = ok ? 'note good' : 'note warn';
+    codeNote.textContent = ok ? 'This code matches that name.' : 'This code does not match that name. Check the spelling, or regenerate the code from the quiz. You can still send the request and Jade will look.';
+    return ok;
+  }
+  /* Coming from the quiz results: the name typed there is saved on this device, and the code comes from the name. */
+  try {
+    const st = CF.state || {};
+    if (st.passed && st.codeName && !$('#name').value) { $('#name').value = st.codeName; $('#code').value = makeCode(st.codeName); checkCode(); }
+  } catch (e) {}
+  $('#name').addEventListener('input', checkCode);
+  $('#code').addEventListener('input', checkCode);
+
+  form.addEventListener('submit', async (ev) => {
+    ev.preventDefault();
+    out.className = 'out'; out.textContent = '';
+    const name = $('#name').value.trim(), code = $('#code').value.trim(), email = $('#email').value.trim(), github = $('#github').value.trim().replace(/^@/, ''), notes = $('#notes').value.trim();
+    const missing = [];
+    if (!name) missing.push('your name');
+    if (!code) missing.push('your completion code');
+    if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) missing.push('an email that looks right');
+    if (!github || !/^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$/.test(github)) missing.push('a GitHub username (letters, numbers and single hyphens)');
+    if (!$('#terms').checked) missing.push('the terms box');
+    if (missing.length) { out.className = 'out bad'; out.textContent = 'Still needed: ' + missing.join(', ') + '.'; return; }
+    if (!ENDPOINT) { out.className = 'out bad'; out.textContent = 'This form is not taking requests yet. Ask in the Lab channel.'; return; }
+    const send = $('#send'); send.disabled = true; send.textContent = 'Sending';
+    try {
+      const r = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name, code, email, github, notes, terms: true, codeMatches: checkCode() === true, page: location.href }) });
+      const j = await r.json();
+      if (!j || !j.ok) throw new Error(j && j.error || 'no answer');
+      ask.classList.add('sent');
+    } catch (e) {
+      out.className = 'out bad'; out.textContent = 'The request did not go through. Nothing was lost; your answers are still here. Try again in a minute, or post your name and code in the Lab channel and Jade will take it from there.';
+      send.disabled = false; send.textContent = 'Send my request';
+    }
+  });
+})();
+</script>
+</body>
+</html>

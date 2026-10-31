@@ -153,7 +153,9 @@
         const c = h('div', {class:'c', 'aria-label': code});
         [...code].forEach((ch, k) => c.append(h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
         out.append(h('div', {class:'code'}, h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}), h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
-          h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
+          h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), h('p', {style:'color:#fff;font-weight:600'}, msg), cb,
+          h('p', {style:'margin:16px 0 0'}, 'Ready for Counterpoint itself? Your name and code go with you.'),
+          h('a', {class:'btn', href:'request-access.html', style:'background:#fff;color:#000;border-color:#fff'}, 'Request access to Counterpoint')));
       });
       b.append(h('div', {class:'name'}, h('div', null, h('label', {for:'code-name'}, 'Your name'), nameIn), go), out);
     } else {
