@@ -93,7 +93,7 @@
     box.innerHTML = '';
     box.append(head(Q.questions.length + ' questions'));
     const b = h('div', {class:'qb'});
-    b.append(h('p', {style:'font-size:16px;max-width:83.333%'}, 'The questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. At the end you see your score by module and, if you passed, a box for your name. That gives you your code.'));
+    b.append(h('p', {style:'font-size:16px;max-width:87.5%'}, 'The questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. At the end you see your score by module and, if you passed, a box for your name. That gives you your code.'));
     if (state.passed) b.append(h('p', {class:'hint'}, 'You have already passed on this device. The same name gives the same code if you need it again.'));
     b.append(h('button', {class:'btn', type:'button', onclick: start}, state.passed ? 'Take it again' : 'Start the quiz'));
     box.append(b);
