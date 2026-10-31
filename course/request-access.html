@@ -31,9 +31,7 @@
   .ask.sent .done{display:block}
   .ask.sent form{display:none}
   .ask .code{margin:0 0 18px}
-  .ask .known{margin:0 0 16px;font-size:15px}
-  .ask .known button{background:none;border:0;padding:0;font:inherit;color:var(--teal-deep);text-decoration:underline;cursor:pointer}
-  .ask.fromquiz .f.idf{display:none}
+  .ask.passed #codefield{display:none}
   .steps{max-width:680px}
   .steps ol{padding-left:22px}
   .steps li{margin:0 0 8px}
@@ -75,17 +73,16 @@
     <div class="qh"><b>Your request</b></div>
     <div class="qb">
       <form id="form" novalidate>
-        <div id="codebox"></div>
-        <p class="known" id="known" hidden></p>
-        <div class="f idf">
-          <label for="name">Your name, exactly as you typed it in the quiz</label>
+        <div class="f">
+          <label for="name">Your name, as you want it on the Lab roster</label>
           <input id="name" name="name" type="text" autocomplete="name" required>
-          <p class="note">Your completion code was made from this name, so the spelling has to match.</p>
+          <p class="note" id="name-note">Your completion code comes from your name, so the same name always gives the same code.</p>
         </div>
-        <div class="f idf">
+        <div id="codebox"></div>
+        <div class="f" id="codefield">
           <label for="code">Your completion code</label>
           <input id="code" name="code" type="text" autocomplete="off" placeholder="CP-XXXX-XXXX" required>
-          <p class="note" id="code-note">You got it at the end of the quiz. Lost it? Take the quiz page to Results and press Get my completion code again with the same name.</p>
+          <p class="note" id="code-note">You got it at the end of the quiz. Lost it? Take the quiz again on this device and the code appears here by itself.</p>
         </div>
         <div class="f">
           <label for="email">Your email</label>
@@ -134,41 +131,46 @@
   const {$, makeCode} = CF;
   const form = $('#form'), out = $('#out'), ask = $('#ask'), codeNote = $('#code-note');
   const clean = c => c.trim().toUpperCase().replace(/\s+/g, '').replace(/^CP-?/, '').replace(/-/g, '');
+  const LOST = 'You got it at the end of the quiz. Lost it? Take the quiz again on this device and the code appears here by itself.';
 
+  /* Typing a code by hand (the quiz was passed on another device): say whether it matches the name. */
   function checkCode(){
     const n = $('#name').value.trim(), c = clean($('#code').value);
-    if (!n || c.length < 8) { codeNote.className = 'note'; codeNote.textContent = 'You got it at the end of the quiz. Lost it? Take the quiz page to Results and press Get my completion code again with the same name.'; return null; }
+    if (!n || c.length < 8) { codeNote.className = 'note'; codeNote.textContent = LOST; return null; }
     const ok = makeCode(n).replace(/^CP-/, '').replace(/-/g, '') === c;
     codeNote.className = ok ? 'note good' : 'note warn';
-    codeNote.textContent = ok ? 'This code matches that name.' : 'This code does not match that name. Check the spelling, or regenerate the code from the quiz. You can still send the request and Jade will look.';
+    codeNote.textContent = ok ? 'This code matches that name.' : 'This code does not match that name. Check the spelling, or take the quiz again on this device. You can still send the request and Jade will look.';
     return ok;
   }
-  /* Coming from the quiz: the name typed there is saved on this device and the code comes from it.
-     The page shows the code, carries both into the request, and hides the two boxes. */
-  try {
-    const st = CF.state || {};
-    if (st.passed && st.codeName) {
-      const n = st.codeName, code = makeCode(n);
-      $('#name').value = n; $('#code').value = code; checkCode();
-      const msg = `Counterpoint Foundations complete. ${n}, code ${code}.`;
-      const cb = CF.h('button', {class:'btn', type:'button'}, 'Copy the message');
-      cb.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(msg).then(() => { cb.textContent = 'Copied'; }, () => { cb.textContent = 'Select the text above and copy it'; }); });
-      const c = CF.h('div', {class:'c', 'aria-label': code});
-      [...code].forEach((ch, k) => c.append(CF.h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
-      $('#codebox').append(CF.h('div', {class:'code'}, CF.h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}),
-        CF.h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
-        CF.h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), CF.h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
-      const known = $('#known');
-      known.hidden = false;
-      known.append('This request is for ', CF.h('b', null, n), '. ');
-      const change = CF.h('button', {type:'button'}, 'Not you? Change the name');
-      change.addEventListener('click', () => { ask.classList.remove('fromquiz'); known.hidden = true; $('#name').focus(); });
-      known.append(change);
-      ask.classList.add('fromquiz');
-    }
-  } catch (e) {}
-  $('#name').addEventListener('input', checkCode);
-  $('#code').addEventListener('input', checkCode);
+
+  /* The quiz was passed on this device: the code is made from the name as it is typed, shown in the box, and no code is typed. */
+  let passed = false;
+  try { passed = !!(CF.state && CF.state.passed); } catch (e) {}
+  const box = $('#codebox');
+  function paintCode(){
+    const n = $('#name').value.trim();
+    box.innerHTML = '';
+    if (!n) { $('#code').value = ''; return; }
+    const code = makeCode(n); $('#code').value = code;
+    try { CF.state.codeName = n; CF.save(); } catch (e) {}
+    const msg = `Counterpoint Foundations complete. ${n}, code ${code}.`;
+    const cb = CF.h('button', {class:'btn', type:'button'}, 'Copy the message');
+    cb.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(msg).then(() => { cb.textContent = 'Copied'; }, () => { cb.textContent = 'Select the text above and copy it'; }); });
+    const c = CF.h('div', {class:'c', 'aria-label': code});
+    [...code].forEach((ch, k) => c.append(CF.h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
+    box.append(CF.h('div', {class:'code'}, CF.h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}),
+      CF.h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
+      CF.h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), CF.h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
+  }
+  if (passed) {
+    ask.classList.add('passed');
+    try { if (CF.state.codeName && !$('#name').value) $('#name').value = CF.state.codeName; } catch (e) {}
+    paintCode();
+    $('#name').addEventListener('input', paintCode);
+  } else {
+    $('#name').addEventListener('input', checkCode);
+    $('#code').addEventListener('input', checkCode);
+  }
 
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
@@ -184,7 +186,7 @@
     if (!ENDPOINT) { out.className = 'out bad'; out.textContent = 'This form is not taking requests yet. Ask in the Lab channel.'; return; }
     const send = $('#send'); send.disabled = true; send.textContent = 'Sending';
     try {
-      const r = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name, code, email, github, notes, terms: true, codeMatches: checkCode() === true, page: location.href }) });
+      const r = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name, code, email, github, notes, terms: true, codeMatches: passed ? true : checkCode() === true, page: location.href }) });
       const j = await r.json();
       if (!j || !j.ok) throw new Error(j && j.error || 'no answer');
       ask.classList.add('sent');

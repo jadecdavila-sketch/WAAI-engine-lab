@@ -138,18 +138,8 @@
     b.append(r);
     if (passed) {
       state.passed = true; state.bestScore = Math.max(state.bestScore || 0, score); save(); CF.paintScore();
-      b.append(h('p', {style:'font-size:15px'}, 'Type your name as you want it on the Lab roster. Your code comes from your name, so the same name always gives the same code. The next page shows it and lets you ask for Counterpoint.'));
-      const nameIn = h('input', {type:'text', id:'code-name', autocomplete:'name', placeholder:'Your name'});
-      if (state.codeName) nameIn.value = state.codeName;
-      const go = h('button', {class:'btn', type:'button'}, 'Get my completion code');
-      /* The code is shown on the Request access page, with the name and code already filled in. */
-      go.addEventListener('click', () => {
-        const n = nameIn.value.trim(); if (!n) { nameIn.focus(); return; }
-        state.codeName = n; save();
-        location.href = 'request-access.html';
-      });
-      nameIn.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') go.click(); });
-      b.append(h('div', {class:'name'}, h('div', null, h('label', {for:'code-name'}, 'Your name'), nameIn), go));
+      b.append(h('p', {style:'font-size:15px'}, 'Your completion code is ready. The next page shows it, and lets you ask for Counterpoint.'));
+      b.append(h('p', {style:'margin:14px 0 0'}, h('a', {class:'btn', href:'request-access.html'}, 'Get my completion code')));
     } else {
       const weak = [1,2,3].filter(m => byMod[m] < 4).map(m => MOD[m]);
       const list = weak.length > 1 ? weak.slice(0, -1).join(', ') + ' and ' + weak[weak.length - 1] : weak[0];
