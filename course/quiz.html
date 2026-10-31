@@ -138,26 +138,18 @@
     b.append(r);
     if (passed) {
       state.passed = true; state.bestScore = Math.max(state.bestScore || 0, score); save(); CF.paintScore();
-      b.append(h('p', {style:'font-size:15px'}, 'Type your name as you want it on the Lab roster. Your code comes from your name, so the same name always gives the same code.'));
+      b.append(h('p', {style:'font-size:15px'}, 'Type your name as you want it on the Lab roster. Your code comes from your name, so the same name always gives the same code. The next page shows it and lets you ask for Counterpoint.'));
       const nameIn = h('input', {type:'text', id:'code-name', autocomplete:'name', placeholder:'Your name'});
       if (state.codeName) nameIn.value = state.codeName;
       const go = h('button', {class:'btn', type:'button'}, 'Get my completion code');
-      const out = h('div');
+      /* The code is shown on the Request access page, with the name and code already filled in. */
       go.addEventListener('click', () => {
         const n = nameIn.value.trim(); if (!n) { nameIn.focus(); return; }
         state.codeName = n; save();
-        const code = makeCode(n); out.innerHTML = '';
-        const msg = `Counterpoint Foundations complete. ${n}, code ${code}.`;
-        const cb = h('button', {class:'btn', type:'button'}, 'Copy the message');
-        cb.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(msg).then(() => { cb.textContent = 'Copied'; }, () => { cb.textContent = 'Select the text above and copy it'; }); });
-        const c = h('div', {class:'c', 'aria-label': code});
-        [...code].forEach((ch, k) => c.append(h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
-        out.append(h('div', {class:'code'}, h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}), h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
-          h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), h('p', {style:'color:#fff;font-weight:600'}, msg), cb,
-          h('p', {style:'margin:16px 0 0'}, 'Ready for Counterpoint itself? Your name and code go with you.'),
-          h('a', {class:'btn', href:'request-access.html', style:'background:#fff;color:#000;border-color:#fff'}, 'Request access to Counterpoint')));
+        location.href = 'request-access.html';
       });
-      b.append(h('div', {class:'name'}, h('div', null, h('label', {for:'code-name'}, 'Your name'), nameIn), go), out);
+      nameIn.addEventListener('keydown', (ev) => { if (ev.key === 'Enter') go.click(); });
+      b.append(h('div', {class:'name'}, h('div', null, h('label', {for:'code-name'}, 'Your name'), nameIn), go));
     } else {
       const weak = [1,2,3].filter(m => byMod[m] < 4).map(m => MOD[m]);
       const list = weak.length > 1 ? weak.slice(0, -1).join(', ') + ' and ' + weak[weak.length - 1] : weak[0];

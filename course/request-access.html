@@ -30,6 +30,10 @@
   .ask .done{display:none}
   .ask.sent .done{display:block}
   .ask.sent form{display:none}
+  .ask .code{margin:0 0 18px}
+  .ask .known{margin:0 0 16px;font-size:15px}
+  .ask .known button{background:none;border:0;padding:0;font:inherit;color:var(--teal-deep);text-decoration:underline;cursor:pointer}
+  .ask.fromquiz .f.idf{display:none}
   .steps{max-width:680px}
   .steps ol{padding-left:22px}
   .steps li{margin:0 0 8px}
@@ -71,12 +75,14 @@
     <div class="qh"><b>Your request</b></div>
     <div class="qb">
       <form id="form" novalidate>
-        <div class="f">
+        <div id="codebox"></div>
+        <p class="known" id="known" hidden></p>
+        <div class="f idf">
           <label for="name">Your name, exactly as you typed it in the quiz</label>
           <input id="name" name="name" type="text" autocomplete="name" required>
-          <p class="note">Your completion code was made from this name, so the spelling has to match. If you came here from the quiz, both are filled in already.</p>
+          <p class="note">Your completion code was made from this name, so the spelling has to match.</p>
         </div>
-        <div class="f">
+        <div class="f idf">
           <label for="code">Your completion code</label>
           <input id="code" name="code" type="text" autocomplete="off" placeholder="CP-XXXX-XXXX" required>
           <p class="note" id="code-note">You got it at the end of the quiz. Lost it? Take the quiz page to Results and press Get my completion code again with the same name.</p>
@@ -137,10 +143,29 @@
     codeNote.textContent = ok ? 'This code matches that name.' : 'This code does not match that name. Check the spelling, or regenerate the code from the quiz. You can still send the request and Jade will look.';
     return ok;
   }
-  /* Coming from the quiz results: the name typed there is saved on this device, and the code comes from the name. */
+  /* Coming from the quiz: the name typed there is saved on this device and the code comes from it.
+     The page shows the code, carries both into the request, and hides the two boxes. */
   try {
     const st = CF.state || {};
-    if (st.passed && st.codeName && !$('#name').value) { $('#name').value = st.codeName; $('#code').value = makeCode(st.codeName); checkCode(); }
+    if (st.passed && st.codeName) {
+      const n = st.codeName, code = makeCode(n);
+      $('#name').value = n; $('#code').value = code; checkCode();
+      const msg = `Counterpoint Foundations complete. ${n}, code ${code}.`;
+      const cb = CF.h('button', {class:'btn', type:'button'}, 'Copy the message');
+      cb.addEventListener('click', () => { navigator.clipboard && navigator.clipboard.writeText(msg).then(() => { cb.textContent = 'Copied'; }, () => { cb.textContent = 'Select the text above and copy it'; }); });
+      const c = CF.h('div', {class:'c', 'aria-label': code});
+      [...code].forEach((ch, k) => c.append(CF.h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
+      $('#codebox').append(CF.h('div', {class:'code'}, CF.h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}),
+        CF.h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c,
+        CF.h('p', null, 'Post this in #ws-ai-engine-lab on Slack:'), CF.h('p', {style:'color:#fff;font-weight:600'}, msg), cb));
+      const known = $('#known');
+      known.hidden = false;
+      known.append('This request is for ', CF.h('b', null, n), '. ');
+      const change = CF.h('button', {type:'button'}, 'Not you? Change the name');
+      change.addEventListener('click', () => { ask.classList.remove('fromquiz'); known.hidden = true; $('#name').focus(); });
+      known.append(change);
+      ask.classList.add('fromquiz');
+    }
   } catch (e) {}
   $('#name').addEventListener('input', checkCode);
   $('#code').addEventListener('input', checkCode);
