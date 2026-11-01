@@ -225,13 +225,13 @@ const CONTENT = {
           "Fourteen interviews with mothers of young children. Twelve said they would hand off the school email tomorrow.",
           "A waitlist page collected 212 sign ups from one Facebook group in nine days.",
           "The team assumed the model can tell a school email that matters from one that does not. It has not been run on a real inbox yet."
-        ], answer: 2, why: "The definition of done asks for the riskiest assumptions to be killed or validated, including any assumption about what the model can reliably do. Filing accuracy is the assumption the whole product rests on, and it is untested. The sign ups are real evidence about the problem. They say nothing about the approach." },
-      { stage: 5, evidence: [
+        ], answer: 2, why: "The definition of done asks whether the model can reliably do the thing the product depends on. Filing accuracy is that thing, and it is untested. The sign ups are real evidence about the problem, and they say nothing about the approach. And nobody has yet asked one mother what she would pay." },
+      { stage: 4, evidence: [
           "Every feature in the build spec works as designed.",
           "The test suite passes. The agent wrote all 140 tests. When asked, nobody on the team could say what three of them prove.",
           "Code was reviewed. Accessibility is built in. The Foundation is current and the hook has never been bypassed. Analytics are instrumented."
         ], answer: 2, why: "Tests pass is on the definition of done, and the catalog's check for Writing tests says what passing has to mean: you can say what each test proves, and nothing is hard coded to pass. Three tests nobody can explain fail that check. The gate waits until someone can." },
-      { stage: 6, evidence: [
+      { stage: 5, evidence: [
           "Load tested at five times the expected traffic. The team can say what degrades first and what it costs per month at that load.",
           "Security findings fixed. AI red teaming done, with a written list of attacks tried and the fix for each.",
           "Accessibility audit complete. A screen reader user completed the core task one handed on a phone.",
@@ -240,8 +240,9 @@ const CONTENT = {
         ], answer: 0, why: "Every clause in the definition of done has evidence behind it, and the evidence matches the catalog's checks rather than restating the clause. This is what a clean gate looks like." },
       { stage: 1, evidence: [
           "The team can say who Larkin is for, what she carries, why a shared calendar and her own head fall short, and what the riskiest assumptions are.",
+          "The repo is on GitHub with the Foundation started and the hook on. The personas, the context, the jobs, the objects, the flows for each job, and the sitemap and system map are all written up from the interviews.",
           "A first draft of the North Star exists. The designer wrote it last week, after she had already designed the first screens, and the principles describe those screens closely."
-        ], answer: 1, why: "The definition of done is met: the team can articulate the user, the problem, and the assumptions, and a North Star draft exists. But the catalog names writing it after the design, to justify the design, as a pitfall. The gate holds and the Council records the tension, so Validation reads the North Star with suspicion and checks it against real mothers rather than against the screens." }
+        ], answer: 1, why: "The definition of done is met: the project is set up, all seven circles are written, and a North Star draft exists. But the catalog names writing it after the screens, to justify the screens, as a pitfall. The gate holds and the Council records the tension, so Validation reads the North Star with suspicion and checks it against real mothers rather than against the screens." }
     ]
   },
 

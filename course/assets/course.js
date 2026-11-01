@@ -151,7 +151,7 @@
       <h4>The work of this stage: ${(ACTS[n] || []).length} activities</h4>
       <p class="modekey">The tag on each activity says who drives: <span class="tag ho">human-only</span> <span class="tag hl">human-leads</span> <span class="tag hc">human-ai-collaborate</span> <span class="tag al">ai-leads</span>. In every mode a person confirms the work passed its check.</p>
       ${list}`;
-    show("Stage " + st.n + " of 10", st.title, st.q, [], body, null, true);
+    show("Stage " + st.n + " of " + STAGES.length, st.title, st.q, [], body, null, true);
   }
   function openProblem(id){ const p = PROB[id]; if (!p) return; show('The problem this solves', p.title, '', [], p.paras.map(x => `<p>${x}</p>`).join(''), null); }
   function wire(){
