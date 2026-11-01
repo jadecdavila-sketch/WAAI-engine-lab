@@ -98,6 +98,10 @@
     b.append(h('button', {class:'btn', type:'button', onclick: start}, state.passed ? 'Take it again' : 'Start the quiz'));
     box.append(b);
   }
+  /* a short handpan phrase when the last answer is picked (seconds 2 to 8 of Jade's recording) */
+  const HANDPAN = new Audio('assets/handpan.mp3'); HANDPAN.preload = 'auto'; HANDPAN.volume = .7;
+  function chime(){ try { HANDPAN.currentTime = 0; const p = HANDPAN.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+
   function question(){
     const {q, opts} = order[i];
     box.innerHTML = '';
@@ -117,6 +121,7 @@
         why.className = 'why on' + (o.ok ? '' : ' miss');
         why.innerHTML = '<b>' + (o.ok ? 'Right. ' : 'Not that one. ') + '</b>' + esc(q.why);
         next.disabled = false; next.focus();
+        if (i === order.length - 1) chime();
       });
       os.append(btn);
     });
