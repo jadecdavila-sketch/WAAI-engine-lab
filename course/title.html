@@ -24,7 +24,7 @@
   .talk h1 span{display:block}
   /* the counterweight: three small words, slow and spaced, the last thing the eye lands on */
   .motto{display:flex;align-items:center;gap:16px;margin:clamp(20px,2.4vw,34px) 0 0;font-size:13px;font-weight:700;letter-spacing:.34em;color:var(--ink)}
-  .motto::before{content:"";width:40px;height:3px;background:var(--orange);flex:none}
+  .motto::before,.motto::after{content:"";width:40px;height:3px;background:var(--orange);flex:none}
   /* talk navigation: arrow keys and a corner link */
   .tnav{position:fixed;right:22px;bottom:18px;display:flex;gap:10px;z-index:9}
   .tnav a{background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:9px 14px;border:2px solid var(--ink)}
@@ -42,10 +42,6 @@
 </style>
 </head>
 <body class="slide">
-<div class="top"><div class="wrap">
-  <a class="brand" href="index.html"><img src="assets/img/mark-small-clear.svg" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
-  <p class="where">Session one</p>
-</div></div>
 
 <main class="talk"><div class="wrap">
   <div class="mark" id="mark"></div>
