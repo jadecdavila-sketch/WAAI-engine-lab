@@ -160,7 +160,7 @@
     $$('[data-problem]').forEach(el => el.addEventListener('click', () => openProblem(el.dataset.problem)));
   }
 
-  /* a short handpan phrase when the last answer of any exercise is picked (0:57 to 1:01 of Jade's recording) */
+  /* a short handpan phrase when the last gate of Hold the gate is decided (0:57 to 1:01 of Jade's recording) */
   let HP = null;
   function chime(){ try { HP = HP || new Audio('assets/handpan-exercise.mp3'); HP.volume = .7; HP.currentTime = 0; const p = HP.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
 
@@ -203,7 +203,7 @@
           why.innerHTML = '<b>' + esc(lead) + '</b>' + esc(text) + (ok || cfg.options ? '' : '<br><br><b>What the framework asks for:</b> ' + esc(it.options[correctIdx].why));
           answered++; if (ok) right++; tick(idx, ok);
           if (onDone) onDone(item, it, ok);
-          if (answered === cfg.items.length) { chime(); footer(foot, right, cfg.items.length, cfg.close || ''); mark(stateKey, {right, total: cfg.items.length}); }
+          if (answered === cfg.items.length) { if (stateKey === 'gates') chime(); footer(foot, right, cfg.items.length, cfg.close || ''); mark(stateKey, {right, total: cfg.items.length}); }
         });
         opts.append(b);
       });

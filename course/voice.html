@@ -128,7 +128,7 @@
           why.className = 'why on' + (o.ok ? '' : ' miss');
           why.innerHTML = '<b>' + (o.ok ? 'Right. ' : 'Not that one. ') + '</b>' + esc(q.why);
           answered++; if (o.ok) right++; tick(qi, o.ok);
-          if (answered === Q.length) { CF.chime();
+          if (answered === Q.length) {
             footer(foot, right, Q.length);
             const voices = Object.assign({}, state.voices || {}); voices[id] = {right, total: Q.length, best: Math.max(right, (voices[id] || {}).best || 0)};
             mark('voices', voices); paintCoda();
