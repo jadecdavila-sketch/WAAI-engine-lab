@@ -90,6 +90,9 @@
   const KEY = 'cf-agenda-v1';
   let state = load();
   function load(){ try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.blocks && s.blocks.length === PLAN.length) return s; } catch (e) {} return { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; }
+  /* when a block's time is up, a short piece of Jade's music plays once (Nova gravació 481, the first ten seconds of music) */
+  let BELL = null;
+  function ring(){ try { BELL = BELL || new Audio('assets/time-up.mp3'); BELL.volume = .8; BELL.currentTime = 0; const p = BELL.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
   function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
   const pad = n => (n < 10 ? '0' : '') + n;
   const fmt = ms => { const s = Math.max(0, Math.round(ms / 1000)); return Math.floor(s / 60) + ':' + pad(s % 60); };
@@ -101,19 +104,20 @@
     row.querySelector('h3').textContent = p.t; row.querySelector('p').textContent = p.d;
     row.querySelector('.go').addEventListener('click', e => { start(i); e.currentTarget.blur(); });
     row.querySelector('.stop').addEventListener('click', () => stop(i));
-    row.querySelector('.zero').addEventListener('click', e => { state.blocks[i] = { start: null, end: null }; if (state.running === i) state.running = null; save(); paint(); e.currentTarget.blur(); });
+    row.querySelector('.zero').addEventListener('click', e => { state.blocks[i] = { start: null, end: null, rang: false }; if (state.running === i) state.running = null; save(); paint(); e.currentTarget.blur(); });
     host.append(row); rows.push(row);
   });
   function start(i){
     const now = Date.now();
     if (state.running != null && state.running !== i) { state.blocks[state.running].end = now; }
-    state.blocks[i] = { start: now, end: null }; state.running = i; save(); paint();
+    state.blocks[i] = { start: now, end: null, rang: false }; state.running = i; save(); paint();
   }
   function stop(i){ state.blocks[i].end = Date.now(); if (state.running === i) state.running = null; save(); paint(); }
   function paint(){
     let total = 0;
     PLAN.forEach((p, i) => {
       const b = state.blocks[i], row = rows[i], ms = spent(i), over = ms > p.m * 60000; total += ms;
+      if (over && state.running === i && !b.rang) { b.rang = true; save(); ring(); }
       row.querySelector('.time b').textContent = fmt(ms);
       row.querySelector('.bar i').style.width = Math.min(100, ms / (p.m * 600)) + '%';
       row.classList.toggle('live', state.running === i);
