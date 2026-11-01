@@ -67,7 +67,7 @@
     <div class="total" id="total">0:00<small>of 90:00</small></div>
   </div>
   <div class="blocks" id="blocks"></div>
-  <p class="foot"><span><kbd>Space</kbd> starts the next block. <kbd>&rarr;</kbd> and <kbd>&larr;</kbd> change slides.</span><button type="button" id="reset">Reset all timers</button></p>
+  <p class="foot"><span><kbd>Space</kbd> starts the next block. <kbd>&rarr;</kbd> and <kbd>&larr;</kbd> change slides. Reset on a block sets it back to zero without starting it.</span><button type="button" id="reset">Reset all timers</button></p>
 </div></main>
 <nav class="tnav" aria-label="Talk"><a class="prev" href="dorodango.html">&larr; Dorodango</a><a class="next" href="next-steps.html">Next steps &rarr;</a></nav>
 
@@ -97,10 +97,11 @@
   const host = document.getElementById('blocks'), rows = [];
   PLAN.forEach((p, i) => {
     const row = document.createElement('div'); row.className = 'block';
-    row.innerHTML = `<div class="n">${i + 1}</div><div><h3></h3><p></p></div><div class="time"><b>0:00</b><span>of ${p.m}:00</span></div><div class="ctl"><button type="button" class="go">Start</button><button type="button" class="alt stop" hidden>Stop</button></div><div class="bar"><i></i></div>`;
+    row.innerHTML = `<div class="n">${i + 1}</div><div><h3></h3><p></p></div><div class="time"><b>0:00</b><span>of ${p.m}:00</span></div><div class="ctl"><button type="button" class="go">Start</button><button type="button" class="alt stop" hidden>Stop</button><button type="button" class="alt zero" hidden>Reset</button></div><div class="bar"><i></i></div>`;
     row.querySelector('h3').textContent = p.t; row.querySelector('p').textContent = p.d;
-    row.querySelector('.go').addEventListener('click', () => start(i));
+    row.querySelector('.go').addEventListener('click', e => { start(i); e.currentTarget.blur(); });
     row.querySelector('.stop').addEventListener('click', () => stop(i));
+    row.querySelector('.zero').addEventListener('click', e => { state.blocks[i] = { start: null, end: null }; if (state.running === i) state.running = null; save(); paint(); e.currentTarget.blur(); });
     host.append(row); rows.push(row);
   });
   function start(i){
@@ -118,13 +119,14 @@
       row.classList.toggle('live', state.running === i);
       row.classList.toggle('over', over);
       row.classList.toggle('done', b.end != null && state.running !== i);
-      row.querySelector('.go').textContent = b.start == null ? 'Start' : (state.running === i ? 'Running' : 'Restart');
+      row.querySelector('.go').textContent = b.start == null ? 'Start' : (state.running === i ? 'Running' : 'Start again');
+      row.querySelector('.zero').hidden = !(b.start != null && state.running !== i);
       row.querySelector('.go').disabled = state.running === i;
       row.querySelector('.stop').hidden = state.running !== i;
     });
     const t = document.getElementById('total'); t.innerHTML = fmt(total) + '<small>of 90:00</small>'; t.style.color = total > 90 * 60000 ? 'var(--orange)' : '';
   }
-  document.getElementById('reset').addEventListener('click', () => { state = { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; save(); paint(); });
+  document.getElementById('reset').addEventListener('click', e => { state = { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; save(); paint(); e.currentTarget.blur(); });
   document.addEventListener('keydown', e => {
     if (e.target.closest('input,textarea,button')) return;
     const nxt = document.querySelector('.tnav a.next'), prv = document.querySelector('.tnav a.prev');
