@@ -117,7 +117,7 @@
         $$('.opt', os).forEach((x, xi) => { x.disabled = true; if (opts[xi].ok) x.classList.add('right'); else if (xi === oi) x.classList.add('wrong'); else x.classList.add('dim'); });
         if (o.ok) { score++; byMod[q.m]++; }
         marks[i] = !!o.ok;
-        const note = $$('.note', b)[i]; if (note) note.classList.add(o.ok ? 'ok' : 'miss');
+        const note = $$('.note', b)[i]; if (note) { const c = NOTE[i % NOTE.length]; note.classList.remove('now'); note.classList.add(o.ok ? 'ok' : 'miss'); note.setAttribute('style', o.ok ? `fill:${c};stroke:${c}` : `fill:var(--paper);stroke:${c};stroke-width:2.4`); }
         why.className = 'why on' + (o.ok ? '' : ' miss');
         why.innerHTML = '<b>' + (o.ok ? 'Right. ' : 'Not that one. ') + '</b>' + esc(q.why);
         next.disabled = false; next.focus();
