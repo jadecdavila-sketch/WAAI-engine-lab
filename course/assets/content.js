@@ -1,21 +1,21 @@
 /* Counterpoint Foundations: exercise content. Counterpoint's North Star is in north-star.js; Larkin's (NS_EXAMPLE) is in data.js. */
 const CONTENT = {
 
-  /* North Star: read it like the Council does. Judged against Counterpoint's own North Star (north-star.js). */
+  /* North Star: what goes in one. Teaches the concept with a made-up product, not Counterpoint's own. */
   drift: {
-    title: "Read it like the Council does",
-    intro: "Seven proposed Counterpoint features. For each one, decide whether the North Star above allows it, refuses it, or does not actually say. The third answer matters as much as the other two.",
-    options: ["Allowed", "Refused", "The North Star does not say"],
+    title: "What goes in a North Star?",
+    intro: "Seven lines from a first draft of a North Star for a meal planning app for night shift nurses. For each line, pick the section it belongs in, or whether it belongs in a North Star at all.",
+    options: ["Who it is for", "The thesis", "A principle", "An anti pattern", "Does not belong"],
     items: [
-      { name: "Quiet yes", desc: "If she has not responded to a voice's draft in 24 hours, the page marks it decided so the build can keep moving.", answer: 1, why: "The first principle, nothing lands without a yes, and the first anti pattern name this exactly. Silence is not a yes. The test: is anything marked decided that she did not confirm herself?" },
-      { name: "Tidy up", desc: "The page rewrites her note for clarity before a voice reads it, so the voices get a cleaner brief.", answer: 1, why: "Her words are never lost. What she typed is quoted back exactly, marked as hers, and never polished without asking. A cleaner brief is not worth a sentence she can no longer find." },
-      { name: "One page to start", desc: "Every build session opens with a single short page that says what the product is and what to do next.", answer: 0, why: "This is the second contrast pair, word for word: an agent starting a build session reads one short page and knows what to do. It is what good looks like." },
-      { name: "Overnight build", desc: "While she sleeps, an agent keeps building from her flows and uses her usage budget to save her time in the morning.", answer: 1, why: "Money wins: nothing spends her money or her usage without her consent. The sixth anti pattern says it plainly. Saving her time with her money, unasked, is the thing refused." },
-      { name: "Pod approver", desc: "A pod can name the member who reads code as the one who approves builds on the founder's behalf.", answer: 2, why: "The who says a pod probably has one member who can read code, and the principle says a voice's approval never counts as hers. It says nothing about another human approving for her. Two reasonable people will answer differently, which is the signal to write the principle." },
-      { name: "One sharp line", desc: "Each voice is limited to one line of edge per reading, then back to the point.", answer: 0, why: "The third anti pattern refuses nine opinions on everything and says in the same breath that each voice gets one sharp line. This is the allowed shape of a voice's personality." },
-      { name: "Revenue page", desc: "A dashboard inside Counterpoint that shows her what her product earned this month.", answer: 2, why: "The thesis says the product should pay her, and the Builder asks will it pay me. But the North Star never says Counterpoint tracks her revenue, and the Merchant's open ask is about who pays for Counterpoint itself. A gap, not a refusal." }
+      { name: "Line 1", desc: "\u201cA second year night shift nurse, eating dinner at 3am out of a vending machine, too tired to think about tomorrow's groceries.\u201d", answer: 0, why: "One person, in one season of her life, and what she is carrying. You can picture her, and every later decision can be checked against her." },
+      { name: "Line 2", desc: "\u201cBe the number one meal app by 2028.\u201d", answer: 4, why: "A business goal, not a guide for decisions. It tells a reviewer nothing about whether a feature serves her. Goals live in the plan, not the North Star." },
+      { name: "Line 3", desc: "\u201cEvery step works with one hand. Test: can she do it holding a coffee?\u201d", answer: 2, why: "A principle: it follows from who she is, and it comes with a test anyone can run in one breath." },
+      { name: "Line 4", desc: "\u201cDelightful, intuitive, and simple.\u201d", answer: 4, why: "A slogan. Every product says it, and there is no test, so no decision can ever break it. If it fits any product, it is not doing North Star work." },
+      { name: "Line 5", desc: "\u201cNever send a notification between 8am and 4pm, while she sleeps.\u201d", answer: 3, why: "An anti pattern: something the product will not do, however good the engagement numbers look." },
+      { name: "Line 6", desc: "\u201cFor the first time, eating well on nights takes less thought than the vending machine.\u201d", answer: 1, why: "The thesis: what this makes possible for her that was not possible before." },
+      { name: "Line 7", desc: "\u201cBuilt with React Native and a Postgres database.\u201d", answer: 4, why: "True and useful, but it is about how the product is built, not who it is for or what it must do. That belongs in the Foundation." }
     ],
-    close: "When the North Star gives two readers two answers, it has a gap. The catalog's check for a North Star draft is this exact test: two people pick a real decision and the North Star gives both of them the same answer."
+    close: "A North Star is a guide for decisions, not a pitch. If a line could sit on any product's homepage, or gives a reviewer nothing to test, it does not belong."
   },
 
   /* North Star: the worksheet */
