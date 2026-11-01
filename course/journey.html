@@ -144,7 +144,7 @@
             h('div', {class:'ah'}, h('b', null, a.name), h('span', {class:'tag ' + MODE_CLS[a.mode]}, a.mode)),
             h('dl', null, h('dt', null, 'AI can do'), h('dd', null, a.ai), h('dt', null, 'Human must own'), h('dd', null, a.human), h('dt', null, 'Watch for'), h('dd', null, a.pitfalls), h('dt', null, 'Done right when'), h('dd', {class:'check'}, a.check))));
           answered++; if (ok) right++; tick(idx, ok);
-          if (answered === cfg.picks.length) { footer(foot, right, cfg.picks.length, cfg.close); mark('modes', {right, total: cfg.picks.length}); }
+          if (answered === cfg.picks.length) { CF.chime(); footer(foot, right, cfg.picks.length, cfg.close); mark('modes', {right, total: cfg.picks.length}); }
         });
         opts.append(b);
       });

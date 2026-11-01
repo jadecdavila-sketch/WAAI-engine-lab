@@ -160,6 +160,10 @@
     $$('[data-problem]').forEach(el => el.addEventListener('click', () => openProblem(el.dataset.problem)));
   }
 
+  /* a short handpan phrase when the last answer of any exercise is picked (0:57 to 1:01 of Jade's recording) */
+  let HP = null;
+  function chime(){ try { HP = HP || new Audio('assets/handpan-exercise.mp3'); HP.volume = .7; HP.currentTime = 0; const p = HP.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+
   /* ---- exercise frame and the tally ---- */
   function frame(id, kicker, title, intro, total){
     const ex = $(id); ex.innerHTML = '';
@@ -199,7 +203,7 @@
           why.innerHTML = '<b>' + esc(lead) + '</b>' + esc(text) + (ok || cfg.options ? '' : '<br><br><b>What the framework asks for:</b> ' + esc(it.options[correctIdx].why));
           answered++; if (ok) right++; tick(idx, ok);
           if (onDone) onDone(item, it, ok);
-          if (answered === cfg.items.length) { footer(foot, right, cfg.items.length, cfg.close || ''); mark(stateKey, {right, total: cfg.items.length}); }
+          if (answered === cfg.items.length) { chime(); footer(foot, right, cfg.items.length, cfg.close || ''); mark(stateKey, {right, total: cfg.items.length}); }
         });
         opts.append(b);
       });
@@ -229,7 +233,7 @@
     return 'CP-' + s.slice(0, 4) + '-' + s.slice(4);
   }
 
-  window.CF = { $, $$, esc, h, ORDER, MODE_CLS, MODES, IMG, THUMB, state, save, mark, MODULES, isDone, isOpen, nextToDo, show, openVoice, openStage, openProblem, frame, footer, choiceExercise, makeCode, paintScore };
+  window.CF = { chime, $, $$, esc, h, ORDER, MODE_CLS, MODES, IMG, THUMB, state, save, mark, MODULES, isDone, isOpen, nextToDo, show, openVoice, openStage, openProblem, frame, footer, choiceExercise, makeCode, paintScore };
   if (gate()) return;
   document.addEventListener('DOMContentLoaded', () => {
     ensureDrawer(); wire(); paintScore(); lockedNotice();
