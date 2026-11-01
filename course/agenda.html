@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Agenda, Counterpoint Foundations</title>
+<meta name="description" content="The run of show for session one, with a timer for each block.">
+<link rel="icon" href="assets/img/mark-small.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+<style>
+  body.slide{min-height:100vh;display:flex;flex-direction:column}
+  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0 88px}
+  .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
+  .talk h1{font-size:clamp(36px,5.2vw,68px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 10px}
+  .top-line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 24px;margin:0 0 22px}
+  .top-line .lede{font-size:clamp(16px,1.4vw,19px);color:var(--mute);margin:0}
+  .total{font-variant-numeric:tabular-nums;font-size:clamp(18px,1.8vw,24px);font-weight:900;font-stretch:90%;white-space:nowrap}
+  .total small{font-weight:600;color:var(--mute);font-size:.7em;margin-left:8px}
+  .blocks{display:grid;gap:10px;counter-reset:b}
+  .block{display:grid;grid-template-columns:52px 1fr auto auto;gap:14px 18px;align-items:center;background:var(--paper);border:2px solid var(--ink);padding:14px 18px;position:relative;transition:border-color .2s,background .2s}
+  .block .n{font-size:26px;font-weight:900;font-stretch:90%;color:var(--orange);line-height:1}
+  .block h3{font-size:clamp(17px,1.5vw,21px);font-weight:900;font-stretch:90%;line-height:1.15;margin:0}
+  .block p{margin:3px 0 0;font-size:14px;line-height:1.4;color:var(--mute)}
+  .block .time{font-variant-numeric:tabular-nums;text-align:right;min-width:118px}
+  .block .time b{display:block;font-size:clamp(22px,2.2vw,30px);font-weight:900;font-stretch:90%;line-height:1}
+  .block .time span{font-size:12.5px;color:var(--mute)}
+  .block .ctl{display:flex;gap:6px}
+  .block button{font:inherit;font-size:13px;font-weight:800;padding:8px 14px;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+  .block button.alt{background:transparent;color:var(--ink)}
+  .block button:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+  .block button:disabled{opacity:.35;cursor:default}
+  .block .bar{grid-column:1/-1;height:4px;background:var(--sand);overflow:hidden}
+  .block .bar i{display:block;height:100%;width:0;background:var(--teal);transition:width .5s linear}
+  .block.live{border-color:var(--orange);box-shadow:0 10px 26px rgba(28,53,54,.12)}
+  .block.live .bar i{background:var(--orange)}
+  .block.over .time b{color:var(--orange)}
+  .block.over .bar i{background:var(--orange);width:100%!important}
+  .block.done{opacity:.72}
+  .block.done .n{color:var(--teal)}
+  .foot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:16px 0 0;font-size:13.5px;color:var(--mute)}
+  .foot button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border:1.5px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer}
+  .foot button:hover{border-color:var(--orange);color:var(--orange)}
+  .foot kbd{font-family:inherit;border:1px solid var(--rule);padding:1px 6px;border-radius:3px;background:var(--paper)}
+  .tnav{position:fixed;right:22px;bottom:18px;display:flex;gap:10px;z-index:9}
+  .tnav a{background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:9px 14px;border:2px solid var(--ink)}
+  .tnav a:hover{background:#fff;color:var(--ink)}
+  .tnav a.prev{background:transparent;color:var(--ink)}
+  .tnav a.prev:hover{background:var(--ink);color:#fff}
+  @media(max-width:700px){ .block{grid-template-columns:40px 1fr;} .block .time{grid-column:2;text-align:left} .block .ctl{grid-column:2} .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
+</style>
+</head>
+<body class="slide">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark-small-clear.svg" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <p class="where">Session one, the run of show</p>
+</div></div>
+
+<main class="talk"><div class="wrap">
+  <p class="kicker">Session one</p>
+  <h1>Today, in ninety minutes.</h1>
+  <div class="top-line">
+    <p class="lede">Press start on a block when you begin it. The next one starts when you press it, so the clock is honest about where the time went.</p>
+    <div class="total" id="total">0:00<small>of 90:00</small></div>
+  </div>
+  <div class="blocks" id="blocks"></div>
+  <p class="foot"><span><kbd>Space</kbd> starts the next block. <kbd>&rarr;</kbd> and <kbd>&larr;</kbd> change slides.</span><button type="button" id="reset">Reset all timers</button></p>
+</div></main>
+<nav class="tnav" aria-label="Talk"><a class="prev" href="dorodango.html">&larr; Dorodango</a><a class="next" href="next-steps.html">Next steps &rarr;</a></nav>
+
+<footer><div class="wrap">
+  <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
+</div></footer>
+<script>
+(function(){
+  /* the run of show, in minutes. Edit here. */
+  const PLAN = [
+    { t: 'Intros', d: '30 seconds each: name, where you are dialing in from, one sentence on why you are here.', m: 7 },
+    { t: 'Welcome and the dorodango', d: 'Counterpoint is not a magic button. Building a product is still the slow craft of polishing.', m: 6 },
+    { t: 'Counterpoint and the Council', d: 'The framework in one pass: the North Star, the Council, the Foundation. Nine voices, each with a lens.', m: 8 },
+    { t: 'Two voices in the room', d: 'The Witness, then the Merchant. Introduce, they read and take the check, a minute of "was that your seat."', m: 18 },
+    { t: 'The North Star', d: 'Counterpoint\'s own who and thesis aloud, the three Council reads, then the exercise as a group call out.', m: 16 },
+    { t: 'The Journey', d: 'Nine stages in one pass, the four modes, one gate held out loud.', m: 15 },
+    { t: 'Next steps', d: 'The other seven voices, the quiz, the code, where to post it, how session two gets scheduled.', m: 6 },
+    { t: 'Q&A', d: 'The door stays open. Anyone who wants to stay late, can.', m: 14 }
+  ];
+  const KEY = 'cf-agenda-v1';
+  let state = load();
+  function load(){ try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.blocks && s.blocks.length === PLAN.length) return s; } catch (e) {} return { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  const pad = n => (n < 10 ? '0' : '') + n;
+  const fmt = ms => { const s = Math.max(0, Math.round(ms / 1000)); return Math.floor(s / 60) + ':' + pad(s % 60); };
+  const spent = i => { const b = state.blocks[i]; if (b.start == null) return 0; return (b.end == null ? Date.now() : b.end) - b.start; };
+  const host = document.getElementById('blocks'), rows = [];
+  PLAN.forEach((p, i) => {
+    const row = document.createElement('div'); row.className = 'block';
+    row.innerHTML = `<div class="n">${i + 1}</div><div><h3></h3><p></p></div><div class="time"><b>0:00</b><span>of ${p.m}:00</span></div><div class="ctl"><button type="button" class="go">Start</button><button type="button" class="alt stop" hidden>Stop</button></div><div class="bar"><i></i></div>`;
+    row.querySelector('h3').textContent = p.t; row.querySelector('p').textContent = p.d;
+    row.querySelector('.go').addEventListener('click', () => start(i));
+    row.querySelector('.stop').addEventListener('click', () => stop(i));
+    host.append(row); rows.push(row);
+  });
+  function start(i){
+    const now = Date.now();
+    if (state.running != null && state.running !== i) { state.blocks[state.running].end = now; }
+    state.blocks[i] = { start: now, end: null }; state.running = i; save(); paint();
+  }
+  function stop(i){ state.blocks[i].end = Date.now(); if (state.running === i) state.running = null; save(); paint(); }
+  function paint(){
+    let total = 0;
+    PLAN.forEach((p, i) => {
+      const b = state.blocks[i], row = rows[i], ms = spent(i), over = ms > p.m * 60000; total += ms;
+      row.querySelector('.time b').textContent = fmt(ms);
+      row.querySelector('.bar i').style.width = Math.min(100, ms / (p.m * 600)) + '%';
+      row.classList.toggle('live', state.running === i);
+      row.classList.toggle('over', over);
+      row.classList.toggle('done', b.end != null && state.running !== i);
+      row.querySelector('.go').textContent = b.start == null ? 'Start' : (state.running === i ? 'Running' : 'Restart');
+      row.querySelector('.go').disabled = state.running === i;
+      row.querySelector('.stop').hidden = state.running !== i;
+    });
+    const t = document.getElementById('total'); t.innerHTML = fmt(total) + '<small>of 90:00</small>'; t.style.color = total > 90 * 60000 ? 'var(--orange)' : '';
+  }
+  document.getElementById('reset').addEventListener('click', () => { state = { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; save(); paint(); });
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea,button')) return;
+    const nxt = document.querySelector('.tnav a.next'), prv = document.querySelector('.tnav a.prev');
+    if (e.key === ' ') { e.preventDefault(); const n = state.running == null ? state.blocks.findIndex(b => b.start == null) : state.running + 1; if (n >= 0 && n < PLAN.length) start(n); else if (state.running != null) stop(state.running); }
+    if ((e.key === 'ArrowRight' || e.key === 'PageDown') && nxt) { e.preventDefault(); location.href = nxt.href; }
+    if ((e.key === 'ArrowLeft' || e.key === 'PageUp') && prv) { e.preventDefault(); location.href = prv.href; }
+  });
+  paint(); setInterval(paint, 500);
+})();
+</script>
+</body>
+</html>
