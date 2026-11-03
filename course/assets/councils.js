@@ -1,6 +1,6 @@
 /* Counterpoint Foundations: the full depth of each Council voice, one entry per member.
    Seven voices come from the Counterpoint portfolio (councils.ts). The Medium comes from Larkin's council
-   agent (medium.md); its toolkits, allies, tensions, and the war stories that file marked as needed were drafted to match. The Merchant has only the compact entries in data.js so far. */
+   agent (medium.md); its toolkits, allies, tensions, and the war stories that file marked as needed were drafted to match. The Merchant comes from its council agent (merchant.md); its war stories, toolkits and allies were drafted to match, and the stories are illustrative composites, not real cases. */
 const DEPTH={
  "architect": {
   "members": {
@@ -1382,6 +1382,192 @@ const DEPTH={
    {
     "voice": "longgame",
     "text": "Which model dependencies become walls: vendor lock in, cost curves at scale, and the regulatory ground moving under AI features. \"Just call the model\" is exactly the kind of shortcut the Long Game warns about."
+   }
+  ]
+ },
+ "merchant": {
+  "members": {
+   "The Herald": {
+    "who": "The Herald knows the difference between what a product is and what it is for. Builders describe features; the Herald listens for the sentence a happy user says to a friend, because that is the only sentence that travels. They go to where the users already gather and listen before they speak. They test one sentence on a stranger rather than polishing a page of copy that nobody has read, and they notice the moment the words on the landing page promise one thing and the first screen feels like another.",
+    "wisdom": [
+     "Positioning is the sentence a happy user says to a friend, not the sentence the builder says to the user. If you cannot write the friend's version, you have a feature list, not positioning.",
+     "Go where they already gather. A founder's hours are too few to build an audience from nothing. Find the room where the first users already are and describe the product in that room's language.",
+     "One sentence tested on a stranger beats a page of copy tested on nobody. What they repeat back is the positioning. What they drop was never landing.",
+     "The one sentence and the product's voice must agree. When the sentence promises one thing and the first screen feels like another, the stranger believes the screen."
+    ],
+    "stories": [
+     {
+      "title": "The Feature List With a Logo",
+      "description": "A founder's landing page listed eleven features in tidy rows. Visitors read it and left. When she finally asked three early users how they described the product to friends, all three said nearly the same eight words, and none of those words were on the page. She rewrote the headline in their words, and people started forwarding the link."
+     },
+     {
+      "title": "The Room She Was Already In",
+      "description": "A builder spent weeks trying to grow an audience on a social platform where her users did not spend time. Her first real users were sitting in a parents' group chat she had belonged to for years. One honest message there, written as a member and not as a seller, did more than the whole campaign."
+     },
+     {
+      "title": "The Promise and the Screen",
+      "description": "A product described itself as calm and simple. The first screen after sign-up asked eleven questions in a cramped form. Users who arrived on the promise felt tricked by the screen, and the trust the sentence had earned was spent in under a minute."
+     }
+    ],
+    "toolkit": {
+     "Finding the sentence": "Asking early users how they would describe it to a friend, then writing down their exact words",
+     "Testing it": "Saying it out loud to people outside the project and listening for what they repeat back",
+     "Finding the room": "Mapping where the first users already gather (groups, newsletters, events) and listening there before posting"
+    },
+    "allies": [
+     "The Listener (hears what users mean, which is where the sentence comes from)",
+     "The Resonance (the sentence and the product's voice have to agree)"
+    ],
+    "tensions": [
+     "The Spark (a sentence a stranger can repeat vs. a product nobody could mistake for another)",
+     "Nuance (one sentence always leaves something true out)"
+    ],
+    "questions": [
+     "How would a user describe this to a friend, in their words, not yours?",
+     "Where do those users already gather, and have you been there as a listener before going as a seller?",
+     "What is the one sentence? Say it. Who outside this project has repeated it back?"
+    ]
+   },
+   "The Closer": {
+    "who": "The Closer has asked for the sale a thousand times and is not tired of it. They believe the first ten customers are found by hand, one conversation at a time, and that a market segment with no names in it is not distribution yet. They treat praise, sign-ups and waitlists as kind words, not proof. The moment someone is asked to pay, or to switch, is the moment the product learns what it is worth, and the Closer would rather that moment come early.",
+    "wisdom": [
+     "The first ten are a list of names, not a segment. Until the list has names, the product has no distribution, however good the funnel diagram looks.",
+     "Asking is the test. Interest, praise and sign-ups are free to give; money is not. The answer to the ask is useful whichever way it goes.",
+     "Walk the path from hearing about it to using it, step by step, as a stranger. Every step is a place people leave.",
+     "For a nonprofit tool, the sale is adoption. A member who could use the tool and still emails a volunteer instead has told you something. Go ask why, by hand."
+    ],
+    "stories": [
+     {
+      "title": "The Waitlist That Was Not a Market",
+      "description": "A product launched to a long waitlist and expected a rush of paying customers. Almost nobody converted. The waitlist had been built with a free download and a friendly newsletter, and no one on it had ever been asked for money. Interest had been mistaken for demand."
+     },
+     {
+      "title": "The Ten Names on a Napkin",
+      "description": "A founder stopped working on her ad campaign and instead wrote down ten people by name who had the problem. She called each of them that week. Four agreed to a paid trial, two told her exactly why they would not pay, and those two reasons reshaped the product more than a month of building had."
+     },
+     {
+      "title": "The Quiet Non-Adopter",
+      "description": "A volunteer team built an intake tool for their members and celebrated the launch. Months later most members were still emailing a volunteer instead. Nobody had asked them why. When someone finally did, the answer was one confusing step in the middle of the path."
+     }
+    ],
+    "toolkit": {
+     "The first ten": "A list of named people with the problem, and a note of when each was last spoken to",
+     "Making the ask": "Paid pilots, pre-orders, or a plain request to pay, with what happened written down",
+     "The path": "Walking from first hearing to first use as a stranger and counting every step where someone waits"
+    },
+    "allies": [
+     "The Host (both care about the path from first contact to first value)",
+     "The Pattern Finder (behavior shows where people really leave the path)"
+    ],
+    "tensions": [
+     "The Witness (asking for the sale vs. the people who cannot pay or are not in the room)",
+     "Comfort (asking for money feels awkward, and the Closer asks anyway)"
+    ],
+    "questions": [
+     "Who are the first ten, by name? Which of them have you spoken to this month?",
+     "What happened when you asked them to pay, or to switch to the tool? Not what they said: what they did.",
+     "What is the path from hearing about it to using it, and where on that path does someone have to wait for you?"
+    ]
+   },
+   "The Treasurer": {
+    "who": "The Treasurer treats a price as a decision made on purpose, not a number found at the end. They want to know what one user costs to serve before anyone picks a price, because otherwise the price is a wish. They watch cash the way the Sentinel watches uptime, and they can say the runway in one breath: how many months the money lasts at the current rate of spending. They read revenue, churn and cost to serve together, because that is the story the growth chart hides.",
+    "wisdom": [
+     "A price is a design decision. It tells the user what kind of thing this is, decides who can be served, and sets how many users it takes to feed the founder. Choose it on purpose and write down why.",
+     "Know the cost to serve (hosting, AI calls, payment fees and your own hours, per user, per month) before you set the price, or the price is a wish.",
+     "Runway is the number of months the money lasts at the current rate of spending. A builder who cannot say it in one breath is flying without a fuel gauge.",
+     "Tested beats asserted. \"They would pay\" is a hope. \"Two of them did\" is data.",
+     "Growth that costs more to serve than it brings in is a loss with a nice chart."
+    ],
+    "stories": [
+     {
+      "title": "The Price Picked Last",
+      "description": "A team built for months and chose the price the week before launch by looking at competitors. After launch they worked out what each user cost them in AI calls and support time. Their most active users cost more to serve than they paid. The price had never been a decision, so the business was losing money on its happiest customers."
+     },
+     {
+      "title": "The Free Tier That Ate the Budget",
+      "description": "A generous free plan brought in many users and a lovely growth chart. Very few ever upgraded, and every free user still cost money to run. By the time anyone read cost and revenue side by side, most of the runway was gone."
+     },
+     {
+      "title": "The Number Nobody Could Say",
+      "description": "Asked how many months of money were left, a founder answered \"a while.\" When she finally sat down with her bank statements and her monthly costs, the honest answer was much shorter than she thought. Knowing it changed which feature she built next."
+     }
+    ],
+    "toolkit": {
+     "Cost to serve": "A simple sheet of what one user costs per month: hosting, AI calls, payment fees, your own hours",
+     "Testing a price": "Putting a real price in front of real people, pre-orders, paid pilots",
+     "Watching the money": "Runway in months, revenue, churn (users who paid and stopped), all read together on one page"
+    },
+    "allies": [
+     "The Accountant (computes the cost; the Treasurer prices against it, so share one number)",
+     "The Pattern Finder (behavior and money read together tell the true story)"
+    ],
+    "tensions": [
+     "The Witness (a price that excludes someone the North Star says the product is for)",
+     "Reach (a higher price feeds the founder and serves fewer people)"
+    ],
+    "questions": [
+     "What does one user cost to serve, per month, and whose number is that?",
+     "What will they pay, and did you test that with a real person and a real price?",
+     "How many months of runway are left, and on what date does that question get uncomfortable?",
+     "If this change touches price, tier or what is free: who gets cheaper to serve, who gets more expensive, and does the price know?"
+    ]
+   },
+   "The Counsel": {
+    "who": "The Counsel reads the fine print so nobody has to learn it the hard way. Less a no machine than a here is how machine. They never give legal advice. Instead they tell you what to ask a lawyer and what to have in writing before a lawyer is affordable: who owns the product on paper, who owns the work the helpers did, and what the user agrees to when they sign up. They know paperwork is the part of the skeleton you cannot add after the body is standing.",
+    "wisdom": [
+     "The entity (a company, a nonprofit, or just you as a person) decides who is liable, who gets paid and who can sell the product later. Forming none is also a decision, and usually the one with the most exposure.",
+     "Own what you built. Everyone who helped (contractors, friends, co-founders, volunteers) should have signed something, however short, saying the work belongs to the product, before the first dollar arrives.",
+     "Terms of service and a privacy policy are a product surface, not a legal afterthought. They must describe the product that actually ships.",
+     "Write it down before it is a problem. A one page agreement signed while everyone is friends is cheap. The same conversation after a falling out is not.",
+     "Growth changes the paperwork. The first partner, the first paying customer who wants a contract, the first employee: each is a moment to bring in a real lawyer, with your questions already written."
+    ],
+    "stories": [
+     {
+      "title": "The Friend Who Wrote the Code",
+      "description": "A founder's college friend built the first version over a few weekends, as a favor. Nothing was written down. Two years later, when an investor asked who owned the code, the honest answer was \"probably him.\" A one page agreement at the start would have cost an afternoon. Untangling it later cost months and the friendship."
+     },
+     {
+      "title": "The Privacy Policy From Another Product",
+      "description": "A team copied a privacy policy template at launch and never looked at it again. Later they added a feature that sent user data to an AI service. The policy did not mention it. Nobody had lied on purpose, but the document no longer described the product, and a careful user noticed."
+     },
+     {
+      "title": "No Entity, All Exposure",
+      "description": "A builder sold her product for a year as herself, with no company behind it. When a customer had a dispute, it was her personal savings on the line, not a business's. Forming an entity had felt like paperwork for later. Later had already arrived."
+     }
+    ],
+    "toolkit": {
+     "Ownership": "A simple written agreement from everyone who contributes, saying the work belongs to the product (IP assignment)",
+     "The user's side": "Terms of service and a privacy policy that match what the product really does with data",
+     "Before a lawyer": "A written list of questions to bring: which entity fits, what to sign, what to watch for"
+    },
+    "allies": [
+     "The Regulator (both read the fine print and treat compliance as part of the product)",
+     "The Guardian (both protect what happens to the user's data)"
+    ],
+    "tensions": [
+     "Velocity (the Counsel will slow a launch by a week to save a year)",
+     "Friendship (asking a friend to sign something feels cold, and it protects the friendship)"
+    ],
+    "questions": [
+     "What entity owns this, on paper, today?",
+     "Who owns the IP? Name everyone who has contributed, and say what each of them signed.",
+     "What did you agree to, in writing, with the people who helped, and with the people who pay?",
+     "What does the user agree to when they sign up, and does that document describe what the product really does with their data?"
+    ]
+   }
+  },
+  "pushes": [
+   {
+    "voice": "artisan",
+    "text": "The one sentence vs. the distinctive canvas. The Herald wants a product a stranger can name; the Spark wants one nobody mistakes for another. Both are right, and the sentence loses when the screen contradicts it."
+   },
+   {
+    "voice": "witness",
+    "text": "Asking for the sale vs. the people who cannot pay or are not in the room. When the price excludes someone the North Star says the product is for, that is a tension to hold, not a point for the Merchant to win."
+   },
+   {
+    "voice": "longgame",
+    "text": "Closest allies. The Accountant computes the cost; the Treasurer prices against it. They should share one number, not argue over two."
    }
   ]
  }
