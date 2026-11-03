@@ -31,7 +31,7 @@ const CONTENT = {
   /* Council: whose voice is this */
   whose: {
     title: "Whose voice is this?",
-    intro: "Twelve lines from a Council review of Larkin, a product for mothers of young children built by a Lab member. You will read its North Star in the next module. Pick the voice that said each line. By the end you will hear the lenses before you can name them, and you will see which ones you hear easily.",
+    intro: "Twelve lines from a Council review of Larkin, a product for mothers of young children built by a Lab member. Pick the voice that said each line. By the end you will hear the lenses before you can name them, and you will see which ones you hear easily.",
     items: [
       { line: "So it is Sunday night, the school portal changed its login page, and Larkin has quietly stopped reading anything. Who finds out first, her or us?", voice: "responder" },
       { line: "Have you watched her at pickup, phone in one hand, trying to read this? Where does she squint? Where does she give up?", voice: "witness" },
@@ -164,7 +164,7 @@ const CONTENT = {
     { q: "A home screen gives every card the same size, weight, and spacing. What does the Reading ask?",
       a: ["What does the eye find first, and is that the most important thing?", "Can we add more cards?", "Can we make every card a brighter color?", "Is the code for the cards clean?"],
       why: "The Reading designs the sequence the eye follows. In The Crowded Briefing, everything had equal weight, so nothing landed." },
-    { q: "Larkin's user is exhausted. The palette is a default, high energy blue and the type is cramped. What does the Care say?",
+    { q: "The user is an exhausted parent. The palette is a default, high energy blue and the type is cramped. What does the Care say?",
       a: ["For a depleted user, visual quality is care made physical. Choose color and type that let her breathe.", "Colors are personal taste, so it does not matter.", "Add more content so the screen feels full.", "Make everything bigger and louder so she notices."],
       why: "Beauty as medicine. In The Type That Crammed, the copy promised to lighten her load while the type crowded her." },
     { q: "The Spark wants one bold, unexpected move. The Whole wants every surface to feel like one made thing. What is the right read?",
@@ -183,10 +183,10 @@ const CONTENT = {
       why: "Assay against the task, not the benchmark. A capability that works at demo scale and dies at product scale was never assayed." },
     { q: "To be safe, the team has the user approve every action the AI takes, forever. What does the Falconer see?",
       a: ["Oversight that has become the user's homework. Trust should be earned per call, on the record, so the leash can lengthen.", "The ideal design. More approvals mean more safety.", "A reason to remove the AI.", "A performance problem."],
-      why: "Autonomy is a gradient, not a toggle. In Larkin, a strict validator is what made silent calendar writes safe, so the confirmation never lands on her thumbs." },
+      why: "Autonomy is a gradient, not a toggle. In the Falconer's war story, a strict validator is what made silent calendar writes safe, so the confirmation never lands on the user's thumbs." },
     { q: "The prompt says \"never invent a date.\" Is that enough, according to the Luthier?",
       a: ["No. Intent lives in the prompt; guarantees live in the harness. Anything that must always hold is also enforced in code.", "Yes. A clear prompt is a guarantee.", "Yes, if the instruction is in capital letters.", "No. Remove the AI instead."],
-      why: "A prompt instruction is a request. Larkin's output validator is the guarantee standing between a hallucinated Tuesday and her real calendar." }
+      why: "A prompt instruction is a request. A validator in code is the guarantee standing between a hallucinated Tuesday and the user's real calendar." }
   ],
   merchant: [
     { q: "The team has a polished product and no idea who will pay for it. What does the Merchant want to hear first?",

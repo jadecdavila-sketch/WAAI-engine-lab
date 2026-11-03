@@ -739,3 +739,11 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 @media(max-width:440px){ #highlevel .disc-stage{--node:clamp(48px,15vw,72px);--r-open:calc(50vw - 72px);--h-open:calc(2*var(--r-open) + var(--node) + 60px)} }
 @media(max-width:760px){ #highlevel .lbl{font-size:12.5px!important} }
 @media(max-width:440px){ #highlevel .lbl{font-size:11px!important;white-space:normal;width:max-content;max-width:84px} }
+/* Jade, Nov 3: on wide screens the Council's title sits beside the closed medallion, level with its middle.
+   When the Council opens, the title steps back above it so the ring has room. Narrower screens keep it above. */
+@supports selector(:has(*)){ @media(min-width:1000px){
+  #highlevel .fig-council{position:relative}
+  #highlevel .fig-council figcaption{position:absolute;left:0;right:0;top:200px;transform:translateY(-50%);z-index:2;pointer-events:none;transition:opacity .4s}
+  #highlevel .fig-council figcaption span{max-width:17em}
+  #highlevel .fig-council:has(.disc-stage.open) figcaption{position:static;transform:none}
+} }
