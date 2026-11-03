@@ -739,3 +739,7 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 @media(max-width:440px){ #highlevel .disc-stage{--node:clamp(48px,15vw,72px);--r-open:calc(50vw - 72px);--h-open:calc(2*var(--r-open) + var(--node) + 60px)} }
 @media(max-width:760px){ #highlevel .lbl{font-size:12.5px!important} }
 @media(max-width:440px){ #highlevel .lbl{font-size:11px!important;white-space:normal;width:max-content;max-width:84px} }
+/* Jade, Nov 3: the Council's title sits centred over the medallion, like the North Star's */
+#highlevel .fig-council figcaption{align-items:center;text-align:center}
+#highlevel .fig-council figcaption b,#highlevel .fig-council figcaption span{padding:0 8px}
+#highlevel .fig-council figcaption{background:var(--cream);padding-top:6px;padding-bottom:6px;text-wrap:balance}
