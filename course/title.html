@@ -31,8 +31,6 @@
   .tnav a:hover{background:#fff;color:var(--ink)}
   .tnav a.prev{background:var(--cream);color:var(--ink)}
   .tnav a.prev:hover{background:var(--ink);color:#fff}
-  /* the footer words stop short of the Back and Next buttons */
-  @media(min-width:561px){ body.slide footer p{max-width:62%} }
   @media(max-width:560px){ .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
   @media(max-width:760px){
     .talk{padding:32px 0 48px}
@@ -55,9 +53,6 @@
 </div></main>
 <nav class="tnav" aria-label="Talk"><a class="next" href="why-a-framework.html">Next: why a framework? &rarr;</a></nav>
 
-<footer><div class="wrap">
-  <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
-</div></footer>
 <script src="assets/mark.js"></script>
 <script>
   CPMark.mount(document.getElementById('mark'));
