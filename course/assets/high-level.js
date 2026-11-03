@@ -66,7 +66,7 @@ ORDER.forEach((id,i)=>{
 });
 const hub=D('hub');
 function setOpen(on){stage.classList.toggle('open',on);
-  /* closed, the ring is one button; open, it is a group holding the nine voice buttons and the hub */
+  /* closed, the ring is one button; open, it is a group holding the nine portraits and the hub */
   if(on){ring.setAttribute('role','group');ring.removeAttribute('aria-expanded');ring.setAttribute('aria-label','The Council');ring.tabIndex=-1}
   else{ring.setAttribute('role','button');ring.setAttribute('aria-expanded','false');ring.setAttribute('aria-label','Open the Council');ring.tabIndex=0}
   hub.tabIndex=on?0:-1}
