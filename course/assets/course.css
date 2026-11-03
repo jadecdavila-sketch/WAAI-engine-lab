@@ -659,8 +659,9 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 #highlevel .sign .no{font-size:12px;font-weight:700;fill:var(--rust)}
 #highlevel .sign .big{font-size:19px;font-weight:700}
 #highlevel .sign .g{transition:transform .35s var(--ease);transform-box:fill-box;transform-origin:50% 100%}
-#highlevel .sign:hover .g,#highlevel .sign:focus-visible .g{transform:translateY(-6px)}
-#highlevel .sign:hover .board,#highlevel .sign:focus-visible .board{fill:var(--marigold)}
+@media(hover:hover){ #highlevel .sign:hover .g{transform:translateY(-6px)} #highlevel .sign:hover .board{fill:var(--marigold)} }
+#highlevel .sign:focus-visible .g{transform:translateY(-6px)}
+#highlevel .sign:focus-visible .board{fill:var(--marigold)}
 #highlevel .sign:focus-visible{outline:none}
 #highlevel .sign:focus-visible .board{stroke:var(--orange);stroke-width:4}
 #highlevel .stagelist{display:none;list-style:none;margin:10px 0 0;padding:0;columns:2;column-gap:20px}
@@ -729,3 +730,12 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 #highlevel .star-btn::after{display:none}
 #highlevel .fig-road #roadsvg,#highlevel .fig-council .disc-stage,#highlevel .fig-foundation .atlas{position:relative;z-index:1}
 #highlevel figcaption b,#highlevel figcaption span{background:var(--cream);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* review fixes: number signs plus the list below on tablets too, and the open Council sized to fit every screen */
+#highlevel .stagelist.show{display:block;margin:14px auto 0;padding:0 16px;width:100%;max-width:360px}
+#highlevel .disc-stage{--node:clamp(56px,16vw,150px);--r-open:min(330px,calc(50vw - var(--node)/2 - 28px));--h-open:calc(2*var(--r-open) + var(--node) + 90px)}
+#highlevel .lines{width:calc(2*var(--r-open));height:calc(2*var(--r-open))}
+@media(max-width:760px){ #highlevel .disc-stage{--node:clamp(64px,14vw,104px);--r-open:min(210px,calc(50vw - 84px));--h-open:calc(2*var(--r-open) + var(--node) + 70px)} }
+@media(max-width:440px){ #highlevel .disc-stage{--node:clamp(48px,15vw,72px);--r-open:calc(50vw - 72px);--h-open:calc(2*var(--r-open) + var(--node) + 60px)} }
+@media(max-width:760px){ #highlevel .lbl{font-size:12.5px!important} }
+@media(max-width:440px){ #highlevel .lbl{font-size:11px!important;white-space:normal;width:max-content;max-width:84px} }
