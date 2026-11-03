@@ -747,3 +747,13 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
   #highlevel .fig-council figcaption span{max-width:17em}
   #highlevel .fig-council:has(.disc-stage.open) figcaption{position:static;transform:none}
 } }
+/* Jade, Nov 3: the Council and Foundation titles open the problem they solve; signs and voices only lift on hover */
+#highlevel .hl-title{font:inherit;color:inherit;background:none;border:0;padding:0;margin:0;cursor:pointer;text-align:inherit;pointer-events:auto}
+#highlevel .hl-title b{text-decoration:underline;text-decoration-color:transparent;text-decoration-thickness:2px;text-underline-offset:5px;transition:text-decoration-color .2s,color .2s}
+#highlevel .hl-title:hover b,#highlevel .hl-title:focus-visible b{text-decoration-color:var(--rust);color:var(--ink)}
+#highlevel .hl-title:focus{outline:none}
+#highlevel .hl-title:focus-visible{outline:2px solid var(--rust);outline-offset:4px;border-radius:3px}
+#highlevel .sign,#highlevel .disc-stage.open .node{cursor:default}
+#highlevel .sign:focus{outline:none}
+#highlevel .stagelist li{font-size:15px;font-weight:700;color:var(--ink);padding:4px 0}
+#highlevel .stagelist li span{color:var(--rust);margin-right:6px;font-variant-numeric:tabular-nums}

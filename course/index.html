@@ -10,7 +10,7 @@
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/course.css?v=3">
+<link rel="stylesheet" href="assets/course.css?v=4">
 <link rel="stylesheet" href="assets/atlas.css">
 </head>
 <body data-page="home">
@@ -61,7 +61,7 @@
   </figure>
 
   <figure class="fig fig-council">
-    <figcaption><b>The Council</b><span>Nine voices, each reading the work through one lens.</span></figcaption>
+    <figcaption><button type="button" class="hl-title" data-problem="council" aria-label="The Council: the problem it solves"><b>The Council</b></button><span>Nine voices, each reading the work through one lens.</span></figcaption>
     <div class="disc-stage" id="stage">
       <div class="ring" id="ring" role="button" tabindex="0" aria-expanded="false" aria-label="Open the Council">
         <svg class="lines" id="lines" viewBox="-330 -330 660 660" aria-hidden="true"></svg>
@@ -71,7 +71,7 @@
   </figure>
 
   <figure class="fig fig-foundation">
-    <figcaption><b>The Foundation</b><span>A living map of the codebase, always current.</span> <button type="button" class="tapbtn" id="f-more">The problem it solves</button></figcaption>
+    <figcaption><button type="button" class="hl-title" data-problem="foundation" aria-label="The Foundation: the problem it solves"><b>The Foundation</b></button><span>A living map of the codebase, always current.</span></figcaption>
     <div class="wrap">
       <div class="atlas" id="atlas"></div>
       <div class="atlas-detail" id="atlas-detail" aria-live="polite"></div>
@@ -107,7 +107,7 @@
 <script src="assets/course.js"></script>
 <script src="assets/atlas.js"></script>
 <script src="assets/mark.js"></script>
-<script src="assets/high-level.js?v=2"></script>
+<script src="assets/high-level.js?v=3"></script>
 <script>Atlas.mount(document.getElementById('atlas'), document.getElementById('atlas-detail')); CPMark.mount(document.getElementById('cpmark'));</script>
 
 </body>
