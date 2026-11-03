@@ -31,7 +31,7 @@ const CONTENT = {
   /* Council: whose voice is this */
   whose: {
     title: "Whose voice is this?",
-    intro: "Twelve lines from a Council review of Larkin, a product for mothers of young children built by a Lab member. You will read its North Star in the next module. Pick the voice that said each line. By the end you will hear the lenses before you can name them, and you will see which ones you hear easily.",
+    intro: "Twelve lines from a Council review of Larkin, a product for mothers of young children built by a Lab member. Pick the voice that said each line. By the end you will hear the lenses before you can name them, and you will see which ones you hear easily.",
     items: [
       { line: "So it is Sunday night, the school portal changed its login page, and Larkin has quietly stopped reading anything. Who finds out first, her or us?", voice: "responder" },
       { line: "Have you watched her at pickup, phone in one hand, trying to read this? Where does she squint? Where does she give up?", voice: "witness" },
