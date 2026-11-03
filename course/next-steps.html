@@ -36,8 +36,6 @@
   .tnav a:hover{background:#fff;color:var(--ink)}
   .tnav a.prev{background:var(--cream);color:var(--ink)}
   .tnav a.prev:hover{background:var(--ink);color:#fff}
-  /* the footer words stop short of the Back and Next buttons */
-  @media(min-width:561px){ body.slide footer p{max-width:62%} }
   @media(max-width:560px){ .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
   @media(max-width:960px){ .steps{grid-template-columns:1fr 1fr} }
   @media(max-width:560px){ .steps{grid-template-columns:1fr} .then{flex-direction:column;align-items:flex-start;gap:10px} }
@@ -77,9 +75,6 @@
 </div></main>
 <nav class="tnav" aria-label="Talk"><a class="prev" href="agenda.html">&larr; Agenda</a><a class="next" href="index.html">The course home &rarr;</a></nav>
 
-<footer><div class="wrap">
-  <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
-</div></footer>
 <script>
   /* right arrow or space goes forward, left arrow goes back */
   document.addEventListener('keydown', e => {
