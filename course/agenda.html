@@ -49,8 +49,10 @@
   .tnav{position:fixed;right:22px;bottom:18px;display:flex;gap:10px;z-index:9}
   .tnav a{background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:9px 14px;border:2px solid var(--ink)}
   .tnav a:hover{background:#fff;color:var(--ink)}
-  .tnav a.prev{background:transparent;color:var(--ink)}
+  .tnav a.prev{background:var(--cream);color:var(--ink)}
   .tnav a.prev:hover{background:var(--ink);color:#fff}
+  /* the footer words stop short of the Back and Next buttons */
+  @media(min-width:701px){ body.slide footer p{max-width:62%} }
   @media(max-width:700px){ .block{grid-template-columns:40px 1fr;} .block .time{grid-column:2;text-align:left} .block .ctl{grid-column:2} .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
 </style>
 </head>
@@ -78,8 +80,8 @@
 (function(){
   /* the run of show, in minutes. Edit here. */
   const PLAN = [
+    { t: 'Welcome, why a framework, and the dorodango', d: 'Why we all build the same way. Then: Counterpoint is not a magic button. Building a product is still the slow craft of polishing.', m: 6 },
     { t: 'Intros', d: '30 seconds each: name, where you are dialing in from, one sentence on why you are here.', m: 10 },
-    { t: 'Welcome and the dorodango', d: 'Counterpoint is not a magic button. Building a product is still the slow craft of polishing.', m: 6 },
     { t: 'Counterpoint and the Council', d: 'The framework in one pass: the North Star, the Council, the Foundation. Nine voices, each with a lens.', m: 5 },
     { t: 'Two voices in the room', d: 'The Witness, then the Merchant. Introduce, they read and take the check, a minute of "was that your seat."', m: 18 },
     { t: 'The North Star', d: 'Counterpoint\'s own who and thesis aloud, the three Council reads, then the exercise as a group call out.', m: 16 },
