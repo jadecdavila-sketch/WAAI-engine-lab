@@ -21,7 +21,7 @@ function layout(){
   const H=Math.round(Math.min(560,Math.max(tiny?260:320,W*0.42)));
   const TOP=tiny?52:104, sx=W/(X1-X0), sy=H/(Y1-Y0);
   svg.setAttribute('viewBox','0 0 '+W+' '+(TOP+H)); svg.setAttribute('height',TOP+H);
-  const img=D('roadimg'); img.setAttribute('x',-X0*sx); img.setAttribute('y',TOP-Y0*sy); img.setAttribute('width',1024*sx); img.setAttribute('height',1024*sy);
+  const img=D('roadimg'); img.setAttribute('x',-X0*sx); img.setAttribute('y',TOP+(190-Y0)*sy); img.setAttribute('width',1024*sx); img.setAttribute('height',430*sy); /* road-only.webp is rows 190 to 620 of the illustration, the road alone */
   const m=D('mrect'); m.setAttribute('x',0); m.setAttribute('y',TOP); m.setAttribute('width',W); m.setAttribute('height',H);
   trail.setAttribute('d',smooth(PTS.map(([x,y])=>[+((x-X0)*sx).toFixed(1),+(TOP+(y-Y0)*sy).toFixed(1)])));
   const L=trail.getTotalLength(); signs.textContent='';
