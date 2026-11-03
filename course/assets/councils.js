@@ -1398,7 +1398,7 @@ const DEPTH={
     "stories": [
      {
       "title": "The Feature List With a Logo",
-      "description": "A founder's landing page listed eleven features in tidy rows. Visitors read it and left. When she finally asked three early users how they described the product to friends, all three said nearly the same eight words, and none of those words were on the page. She rewrote the headline in their words, and people started forwarding the link."
+      "description": "A founder's landing page listed every feature in tidy rows. Visitors read it and left. When she finally asked three early users how they described the product to friends, all three used nearly the same handful of words, and none of those words were on the page. She rewrote the headline in their words, and people started forwarding the link."
      },
      {
       "title": "The Room She Was Already In",
@@ -1443,7 +1443,7 @@ const DEPTH={
      },
      {
       "title": "The Ten Names on a Napkin",
-      "description": "A founder stopped working on her ad campaign and instead wrote down ten people by name who had the problem. She called each of them that week. Four agreed to a paid trial, two told her exactly why they would not pay, and those two reasons reshaped the product more than a month of building had."
+      "description": "A founder stopped working on her ad campaign and instead wrote down ten people by name who had the problem. She called each of them that week. Several agreed to a paid trial, a couple told her exactly why they would not pay, and those reasons reshaped the product more than a month of building had."
      },
      {
       "title": "The Quiet Non-Adopter",
@@ -1524,7 +1524,7 @@ const DEPTH={
     "stories": [
      {
       "title": "The Friend Who Wrote the Code",
-      "description": "A founder's college friend built the first version over a few weekends, as a favor. Nothing was written down. Two years later, when an investor asked who owned the code, the honest answer was \"probably him.\" A one page agreement at the start would have cost an afternoon. Untangling it later cost months and the friendship."
+      "description": "A founder's college friend built the first version over a few weekends, as a favor. Nothing was written down. Two years later, when an investor asked who owned the code, nobody could say for sure. A one page agreement at the start would have cost an afternoon. Untangling it later took months, a lawyer, and some strain on the friendship."
      },
      {
       "title": "The Privacy Policy From Another Product",
@@ -1532,7 +1532,7 @@ const DEPTH={
      },
      {
       "title": "No Entity, All Exposure",
-      "description": "A builder sold her product for a year as herself, with no company behind it. When a customer had a dispute, it was her personal savings on the line, not a business's. Forming an entity had felt like paperwork for later. Later had already arrived."
+      "description": "A builder sold her product for a year as herself, with no company behind it. When a customer had a dispute, she learned she was personally exposed, and had to ask a lawyer what that meant for her. Forming an entity had felt like paperwork for later. Later had already arrived."
      }
     ],
     "toolkit": {
