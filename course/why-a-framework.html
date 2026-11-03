@@ -15,10 +15,10 @@
   /* the talk slide: the wheel bleeds off the left edge, the words hold the right */
   body.slide{min-height:100vh;display:flex;flex-direction:column}
   .talk{flex:1;display:grid;grid-template-columns:minmax(0,auto) minmax(0,1fr);align-items:center;gap:clamp(32px,4.5vw,80px);padding:0 clamp(24px,4vw,64px) 0 0}
-  .wheel{margin:0;align-self:start;height:calc(100vh - 77px);min-height:440px;max-width:56vw;aspect-ratio:1;overflow:hidden;background:#8FB5BE}
+  .wheel{margin:0;align-self:start;height:calc(100vh - var(--foot,98px));min-height:440px;max-width:56vw;aspect-ratio:1;overflow:hidden;background:#8FB5BE}
   .wheel img{display:block;width:100%;height:100%;object-fit:cover;object-position:30% 50%;transform:scale(1.02);transition:transform 1.6s var(--ease)}
   .wheel:hover img{transform:scale(1.06)}
-  .words{max-width:34em;padding:40px 0 72px;align-self:center}
+  .words{max-width:34em;padding:24px 0;align-self:center}
   .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
   .talk h1{font-size:clamp(40px,5.6vw,84px);font-weight:900;font-stretch:88%;line-height:.95;letter-spacing:-.03em;margin:0}
   .rule{width:72px;height:4px;background:var(--orange);margin:30px 0 28px}
@@ -37,6 +37,7 @@
   /* the footer words stop short of the Back and Next buttons */
   @media(min-width:561px){ body.slide footer p{max-width:62%} }
   @media(max-width:560px){ .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
+  @media(min-width:861px) and (max-height:780px){ .words{padding:16px 0} .rule{margin:20px 0 18px} .reasons{gap:18px} .close{margin-top:22px} }
   @media(max-width:860px){
     .talk{grid-template-columns:1fr;gap:0;padding:0}
     .wheel{height:auto;width:100%;max-width:none;min-height:0;aspect-ratio:4/3}
@@ -65,6 +66,9 @@
   <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
 </div></footer>
 <script>
+  /* the wheel is as tall as the screen minus the footer, whatever height the footer wraps to */
+  const foot = () => document.documentElement.style.setProperty('--foot', document.querySelector('footer').offsetHeight + 'px');
+  foot(); addEventListener('resize', foot);
   /* right arrow or space goes forward, left arrow goes back */
   document.addEventListener('keydown', e => {
     if (e.target.closest('input,textarea')) return;
