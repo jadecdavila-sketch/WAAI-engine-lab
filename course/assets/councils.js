@@ -1189,11 +1189,11 @@ const DEPTH={
     "stories": [
      {
       "title": "The intelligence in the walls",
-      "description": "Larkin's most trusted AI never shows itself: the email pipeline that filters, gates urgency, parses, and stores before she wakes. The user never chats with it. The Dowser's definition of a well-placed well."
+      "description": "A family scheduling assistant's most trusted AI never shows itself: the email pipeline that filters, flags what is urgent, parses, and files before the user wakes. She never chats with it. That is the Dowser's definition of a well-placed well."
      },
      {
       "title": "The most expensive code",
-      "description": "From Larkin's own performance canon: the most expensive code is a model call that didn't need to happen, on a path where a cached or deterministic answer exists. Placement error, measured in dollars and milliseconds."
+      "description": "A team traced its slowest, costliest path and found a model call that did not need to happen: the answer was already cached, or a simple rule could have given it. The most expensive code is a model call on a path where a deterministic answer exists. Placement error, measured in dollars and milliseconds."
      },
      {
       "title": "The Chatbot Nobody Opened",
@@ -1233,7 +1233,7 @@ const DEPTH={
     "stories": [
      {
       "title": "The validator as the assay made permanent",
-      "description": "Larkin's output validator stands between a hallucinated Tuesday and her real calendar. The assay said: parsing is strong, and not strong enough to write silently unguarded. The architecture is the assay's honest conclusion, built."
+      "description": "A calendar assistant reads dates out of messy emails. The assay said parsing was strong, and not strong enough to write to someone's calendar unguarded. So the team put a strict validator between the model's output and the calendar, to stop a hallucinated Tuesday before it lands. The architecture is the assay's honest conclusion, built."
      },
      {
       "title": "The Demo That Met Real Inboxes",
@@ -1277,7 +1277,7 @@ const DEPTH={
     "stories": [
      {
       "title": "The refusal that was the design",
-      "description": "Larkin's calendar writes are silent: verify-before-write was explicitly considered and refused, because the confirmation would land on her thumbs at the worst hours. The strict validator is what made the silence safe. The bird flies free precisely because the training was severe. Binding precedent: every new silent action has to be argued fresh, with its own proof."
+      "description": "A calendar assistant writes events silently. Asking the user to confirm each one was considered and refused, because the confirmation would land on a tired parent's thumbs at the worst hours. A strict validator is what made the silence safe. The bird flies free precisely because the training was severe. Binding precedent: every new silent action has to be argued fresh, with its own proof."
      },
      {
       "title": "The Approve Button Nobody Read",
@@ -1321,7 +1321,7 @@ const DEPTH={
     "stories": [
      {
       "title": "The one-line, 24-hour event",
-      "description": "An edit to Larkin's hard-rules prompt invalidates the cache for every surface at once: a single prompt line became a day-long latency-and-cost event. Prompts are code; treat the edit like a migration."
+      "description": "A team edited one line of the shared rules prompt that every part of their product used. It invalidated the cache everywhere at once, and a single line became a day-long spike in latency and cost. Prompts are code; treat the edit like a migration."
      },
      {
       "title": "The prompt that broke its own law",
@@ -1329,7 +1329,7 @@ const DEPTH={
      },
      {
       "title": "The seam in the voice",
-      "description": "Two models share Larkin's work: one parses, one speaks, one dispatcher routes between them. Treat the seam as a single model and the voice tears. Multi-model systems are instruments with joints, and joints are where instruments fail."
+      "description": "Two models share one product's work: one parses, one speaks, and a dispatcher routes between them. Treat the seam as a single model and the voice tears. Multi-model systems are instruments with joints, and joints are where instruments fail."
      }
     ],
     "toolkit": {
