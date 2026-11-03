@@ -611,3 +611,131 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 .voice .chk{position:absolute;top:12px;right:12px;background:var(--teal);color:#fff;font-size:12px;font-weight:800;padding:4px 9px}
 .voice .chk:empty{display:none}
 .drawer .roster b a{color:inherit}
+
+/* ---------- the high level on the home page (Nov 3 2026): North Star, the Journey road, the Council medallion, the Foundation, joined by one thin centre line ---------- */
+:root{--board:#F8F3EA;--rust:#C0652F;--marigold:#ECB978;--dusty:#6E8E90;--olive:#7A7A3A;--brand:"Jost","Archivo",system-ui,sans-serif}/* the section: one scene, read top to bottom under one light. Every part is a figure with its caption BELOW it, same place, same size, every time. */
+
+#highlevel .hl-head{margin:0 0 28px}
+#highlevel .hl-head p{color:var(--mute);font-size:17px;max-width:60ch;margin:0}
+#highlevel .hl{position:relative}/* one soft column from the star to the ground, so the four parts sit in the same beam */
+
+#highlevel .beam{position:absolute;left:50%;top:60px;bottom:0;width:min(520px,70vw);transform:translateX(-50%);pointer-events:none;z-index:0;
+  background:radial-gradient(ellipse 50% 50% at 50% 0%,rgba(236,185,120,.34),transparent 70%),linear-gradient(90deg,transparent,rgba(236,185,120,.12) 40%,rgba(236,185,120,.16) 50%,rgba(236,185,120,.12) 60%,transparent);
+  -webkit-mask:linear-gradient(transparent,#000 6%,#000 92%,transparent);mask:linear-gradient(transparent,#000 6%,#000 92%,transparent)}
+#highlevel .fig{position:relative;z-index:1;margin:0;display:flex;flex-direction:column;align-items:center;width:100%}
+#highlevel .fig-road #roadsvg{width:100%}
+#highlevel .fig-council .disc-stage{width:100%}
+#highlevel .fig+.fig{margin-top:44px}
+#highlevel .fig-council{margin-top:40px!important}
+#highlevel figcaption{display:flex;flex-direction:column;align-items:center;text-align:center;margin:0 0 20px;max-width:46ch;padding:0 16px}
+#highlevel figcaption b{font-family:var(--brand);font-weight:700;font-size:clamp(21px,2.2vw,25px);letter-spacing:-.01em;line-height:1.1}
+#highlevel figcaption span{color:var(--mute);font-size:15px;margin-top:3px}
+#highlevel .fig-foundation .wrap{width:100%}
+#highlevel .tapbtn{font:inherit;font-size:14px;font-weight:700;color:var(--orange);background:none;border:0;border-bottom:2px solid var(--orange);padding:0;cursor:pointer;margin-top:8px}
+#highlevel .tapbtn:hover{color:var(--ink);border-color:var(--ink)}
+#highlevel .fig-star{padding-top:8px}
+#highlevel .fig-road{margin-top:64px!important}
+#highlevel .fig-road figcaption{margin-bottom:0}
+#highlevel .fig-council figcaption{margin-bottom:0}
+#highlevel .fig-foundation figcaption{margin-bottom:18px}/* 1. the star */
+
+
+#highlevel .star-btn{flex:none;width:132px;height:132px;border-radius:50%;border:2px solid var(--ink);background:var(--paper);cursor:pointer;padding:0;position:relative;
+  box-shadow:0 0 0 8px var(--cream),0 0 0 9.5px var(--rule),0 14px 30px -10px rgba(28,53,54,.35);transition:transform .4s var(--ease),box-shadow .4s var(--ease)}
+#highlevel .star-btn svg{width:84px;height:84px;display:block;margin:auto}
+#highlevel .star-btn:hover{transform:translateY(-3px);box-shadow:0 0 0 8px var(--cream),0 0 0 10px var(--marigold),0 18px 34px -10px rgba(28,53,54,.4)}
+#highlevel .star-btn::after{content:"";position:absolute;inset:-34px;border-radius:50%;background:radial-gradient(circle,rgba(236,185,120,.28),transparent 62%);z-index:-1;animation:glow 7s ease-in-out infinite}
+@keyframes glow{50%{opacity:.45;transform:scale(.94)}}
+@media(max-width:640px){ #highlevel .star-btn{width:104px;height:104px} #highlevel .star-btn svg{width:66px;height:66px} }/* 2. the road, edge to edge */
+
+
+#highlevel .road #roadsvg{display:block;width:100%;overflow:visible}
+#highlevel .sign{cursor:pointer}
+#highlevel .sign .post{stroke:var(--ink);stroke-width:3;stroke-linecap:round}
+#highlevel .sign .foot{fill:var(--ink)}
+#highlevel .sign .board{fill:var(--board);stroke:var(--ink);stroke-width:2.5;transition:fill .25s}
+#highlevel .sign text{font-family:var(--brand);font-weight:600;fill:var(--ink);text-anchor:middle;dominant-baseline:central;pointer-events:none}
+#highlevel .sign .nm{font-size:20px}
+#highlevel .sign .no{font-size:12px;font-weight:700;fill:var(--rust)}
+#highlevel .sign .big{font-size:19px;font-weight:700}
+#highlevel .sign .g{transition:transform .35s var(--ease);transform-box:fill-box;transform-origin:50% 100%}
+@media(hover:hover){ #highlevel .sign:hover .g{transform:translateY(-6px)} #highlevel .sign:hover .board{fill:var(--marigold)} }
+#highlevel .sign:focus-visible .g{transform:translateY(-6px)}
+#highlevel .sign:focus-visible .board{fill:var(--marigold)}
+#highlevel .sign:focus-visible{outline:none}
+#highlevel .sign:focus-visible .board{stroke:var(--orange);stroke-width:4}
+#highlevel .stagelist{display:none;list-style:none;margin:10px 0 0;padding:0;columns:2;column-gap:20px}
+#highlevel .stagelist li{margin:0 0 4px;break-inside:avoid}
+#highlevel .stagelist button{background:none;border:0;padding:4px 0;font-size:15px;font-weight:700;color:var(--ink);cursor:pointer;text-align:left}
+#highlevel .stagelist button span{color:var(--rust);margin-right:6px;font-variant-numeric:tabular-nums}
+@media(max-width:640px){ #highlevel .stagelist{display:block;margin:14px auto 0;padding:0 16px;width:100%;max-width:360px} }/* 3. the Council medallion, after the Discovery hub in the plugin */
+
+
+#highlevel .disc-stage{width:100%;--node:150px;--r-rest:74px;--r-open:330px;--h-rest:400px;--h-open:880px;
+  position:relative;height:var(--h-rest);transition:height .8s var(--ease);overflow:clip;display:flex;justify-content:center}
+#highlevel .disc-stage.open{height:var(--h-open)}
+#highlevel .ring{position:relative;width:900px;max-width:100%;height:100%;cursor:pointer;border:0;background:none;padding:0}
+#highlevel .disc-stage.open .ring{cursor:default}
+#highlevel .disc-stage:not(.open) .ring{animation:breathe 6s ease-in-out infinite}
+@keyframes breathe{50%{transform:scale(1.015)}}
+#highlevel .lines{position:absolute;top:50%;left:50%;width:660px;height:660px;transform:translate(-50%,-50%);pointer-events:none;overflow:visible}
+#highlevel .lines line{stroke:var(--rule);stroke-width:1;stroke-dasharray:240;stroke-dashoffset:240;opacity:0;transition:stroke-dashoffset .9s var(--ease),opacity .6s}
+#highlevel .lines circle{fill:none;stroke:var(--rule);stroke-dasharray:2 6;opacity:0;transition:opacity .8s .5s}
+#highlevel .disc-stage.open .lines line{stroke-dashoffset:0;opacity:1}
+#highlevel .disc-stage.open .lines circle{opacity:1}
+#highlevel .hub{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:136px;height:136px;border-radius:50%;
+  background-color:var(--dusty);background-image:linear-gradient(rgba(10,79,75,.55),rgba(10,79,75,.55)),url(img/patina.jpg);background-size:auto,480px 1152px;
+  color:var(--board);border:2px solid var(--dusty);display:flex;flex-direction:column;align-items:center;justify-content:center;
+  box-shadow:0 0 0 8px var(--cream);opacity:0;pointer-events:none;transition:opacity .6s .6s,box-shadow .3s;z-index:5;cursor:pointer;padding:0}
+#highlevel .hub b{font-family:var(--brand);font-size:20px;font-weight:700}
+#highlevel .hub small{font-size:11px;font-weight:700;opacity:.85}
+#highlevel .disc-stage.open .hub{opacity:1;pointer-events:auto}
+#highlevel .disc-stage.open .hub:hover{box-shadow:0 0 0 8px var(--cream),0 0 0 10px var(--orange-pale)}
+#highlevel .node{display:block;position:absolute;top:50%;left:50%;width:var(--node);height:var(--node);margin:calc(var(--node)/-2);border:0;padding:0;background:none;z-index:4;cursor:pointer;
+  transform:rotate(var(--a)) translateY(calc(-1*var(--r-rest))) rotate(calc(-1*var(--a)));transition:transform .9s var(--ease)}
+#highlevel .disc-stage.open .node{transform:rotate(var(--a)) translateY(calc(-1*var(--r-open))) rotate(calc(-1*var(--a)))}
+#highlevel .disc-stage:not(.open) .node{pointer-events:none}
+#highlevel .disc{display:block;width:100%;height:100%;border-radius:50%;background:var(--paper) center/cover no-repeat;
+  box-shadow:0 0 0 3px var(--cream),0 0 0 4.5px var(--ink),0 10px 24px rgba(28,53,54,.22);transition:transform .4s var(--ease),box-shadow .4s,opacity .4s}
+#highlevel .lbl{font-size:15px!important;position:absolute;top:calc(100% + 8px);background:var(--cream);padding:2px 8px;border-radius:4px;z-index:1;left:50%;transform:translateX(-50%);white-space:nowrap;font-weight:800;font-size:14px;opacity:0;transition:opacity .5s .6s;pointer-events:none;text-align:center;line-height:1.15}
+#highlevel .lbl small{display:block;font-weight:600;font-size:11.5px;color:var(--mute)}
+#highlevel .disc-stage.open .lbl{opacity:1}
+#highlevel .disc-stage.open .node:hover{z-index:9}
+#highlevel .disc-stage.open .node:hover .disc,#highlevel .node:focus-visible .disc{transform:scale(1.08);box-shadow:0 0 0 3px var(--cream),0 0 0 5px var(--orange-pale),0 0 0 11px rgba(236,185,120,.45)}
+#highlevel .disc-stage.open:has(.node:hover) .node:not(:hover) .disc{opacity:.6}
+#highlevel .node:focus-visible{outline:none}
+
+@media(max-width:760px){ #highlevel .disc-stage{--node:104px;--r-rest:50px;--r-open:210px;--h-rest:320px;--h-open:600px} #highlevel .lines{width:420px;height:420px} #highlevel .hub{width:96px;height:96px} #highlevel .hub b{font-size:13px} #highlevel .lbl{font-size:12px} #highlevel .lbl small{display:none} }
+@media(max-width:440px){ #highlevel .disc-stage{--node:72px;--r-rest:36px;--r-open:138px;--h-rest:240px;--h-open:420px} #highlevel .lines{width:276px;height:276px} #highlevel .hub{width:64px;height:64px;box-shadow:0 0 0 5px var(--cream)} #highlevel .hub small{display:none} #highlevel .lbl{font-size:10.5px;top:calc(100% + 4px)} }/* 4. the Foundation, as it is now */
+
+
+#highlevel .foundation .atlas{margin-top:0}/* round seven: every name but the star's sits on the page's left edge, aligned with the section heading */
+
+
+
+#highlevel .fig-road figcaption,#highlevel .fig-council figcaption,#highlevel .fig-foundation figcaption{align-self:stretch;align-items:flex-start;text-align:left;max-width:none;
+  width:100%;max-width:1120px;margin-left:auto;margin-right:auto;padding-left:max(28px,env(safe-area-inset-left,0px));padding-right:max(28px,env(safe-area-inset-right,0px))}
+@media(max-width:560px){ #highlevel .fig-road figcaption,#highlevel .fig-council figcaption,#highlevel .fig-foundation figcaption{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))} }/* round eight: no section heading, more air under the star, the Journey's name sits on the photo's top edge */
+
+
+#highlevel .fig-star{padding-top:56px}
+#highlevel .fig-road{margin-top:120px!important}
+#highlevel .fig-road figcaption{position:relative;z-index:2;margin-bottom:-100px}
+@media(max-width:640px){ #highlevel .fig-road{margin-top:88px!important} #highlevel .fig-road figcaption{margin-bottom:-50px} }
+#highlevel .fig-star{padding-top:0}
+@media(max-width:640px){ #highlevel .fig-road figcaption{max-width:200px;margin-left:0;margin-right:auto} }/* round twelve: the light becomes one thin line down the centre, star to ground, behind every picture */
+
+
+#highlevel .beam{background:#C9C0AE!important;width:1.5px!important;opacity:1;-webkit-mask:none!important;mask:none!important;top:0;bottom:auto}
+#highlevel .star-btn::after{display:none}
+#highlevel .fig-road #roadsvg,#highlevel .fig-council .disc-stage,#highlevel .fig-foundation .atlas{position:relative;z-index:1}
+#highlevel figcaption b,#highlevel figcaption span{background:var(--cream);box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* review fixes: number signs plus the list below on tablets too, and the open Council sized to fit every screen */
+#highlevel .stagelist.show{display:block;margin:14px auto 0;padding:0 16px;width:100%;max-width:360px}
+#highlevel .disc-stage{--node:clamp(56px,16vw,150px);--r-open:min(330px,calc(50vw - var(--node)/2 - 28px));--h-open:calc(2*var(--r-open) + var(--node) + 90px)}
+#highlevel .lines{width:calc(2*var(--r-open));height:calc(2*var(--r-open))}
+@media(max-width:760px){ #highlevel .disc-stage{--node:clamp(64px,14vw,104px);--r-open:min(210px,calc(50vw - 84px));--h-open:calc(2*var(--r-open) + var(--node) + 70px)} }
+@media(max-width:440px){ #highlevel .disc-stage{--node:clamp(48px,15vw,72px);--r-open:calc(50vw - 72px);--h-open:calc(2*var(--r-open) + var(--node) + 60px)} }
+@media(max-width:760px){ #highlevel .lbl{font-size:12.5px!important} }
+@media(max-width:440px){ #highlevel .lbl{font-size:11px!important;white-space:normal;width:max-content;max-width:84px} }
