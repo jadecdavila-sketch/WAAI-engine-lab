@@ -757,3 +757,6 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 #highlevel .sign:focus{outline:none}
 #highlevel .stagelist li{font-size:15px;font-weight:700;color:var(--ink);padding:4px 0}
 #highlevel .stagelist li span{color:var(--rust);margin-right:6px;font-variant-numeric:tabular-nums}
+#highlevel .fig-road figcaption{position:relative;z-index:2}
+/* Jade, Nov 3: no underlines on the titles; they turn orange on hover */
+#highlevel .hl-title b{text-decoration:none}
