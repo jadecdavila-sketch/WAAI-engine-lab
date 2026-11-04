@@ -24,6 +24,10 @@
   .step h3{font-size:clamp(20px,1.8vw,26px);font-weight:900;font-stretch:90%;line-height:1.1;margin:4px 0 0}
   .step p{margin:0;font-size:16px;line-height:1.45;color:var(--mute)}
   .step p b{color:var(--ink)}
+  .ready{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:7px}
+  .ready label{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.4;color:var(--ink);cursor:pointer}
+  .ready input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--orange);flex:none}
+  .ready input:checked + b,.ready input:checked ~ *{color:var(--mute)}
   .step .go{margin-top:auto;padding-top:10px;font-size:15px;font-weight:800;color:var(--teal-deep);text-decoration:none}
   .step .go:hover{color:var(--orange)}
   .step .go::after{content:"  \2192"}
@@ -68,13 +72,24 @@
     </div>
     <div class="step">
       <div class="n">4</div>
-      <h3>Come to session two</h3>
-      <p>Jade emails you the date. We install the Counterpoint plugin and you <b>write your own North Star</b>. No GitHub account yet? Make a free one before then. Bring a product idea.</p>
+      <h3>Get ready for session two</h3>
+      <p>Jade emails you the date. We install the Counterpoint plugin and you <b>write your own North Star</b>. Have these before then:</p>
+      <ul class="ready">
+        <li><label><input type="checkbox" data-ready="desktop"> <b>Claude Desktop</b> installed, from claude.ai/download</label></li>
+        <li><label><input type="checkbox" data-ready="pro"> A <b>Claude Pro</b> account, or higher</label></li>
+        <li><label><input type="checkbox" data-ready="github"> A free <b>GitHub</b> account</label></li>
+        <li><label><input type="checkbox" data-ready="idea"> A <b>product idea</b> to bring</label></li>
+      </ul>
     </div>
   </div>
 </div></main>
 <nav class="tnav" aria-label="Talk"><a class="prev" href="agenda.html">&larr; Agenda</a><a class="next" href="index.html">The course home &rarr;</a></nav>
 
+<script>
+  /* the readiness ticks stay on this device */
+  (function(){ const K='cf-ready'; let st={}; try{ st=JSON.parse(localStorage.getItem(K))||{} }catch(e){}
+    document.querySelectorAll('[data-ready]').forEach(b=>{ b.checked=!!st[b.dataset.ready]; b.addEventListener('change',()=>{ st[b.dataset.ready]=b.checked; try{ localStorage.setItem(K,JSON.stringify(st)) }catch(e){} }); }); })();
+</script>
 <script>
   /* right arrow or space goes forward, left arrow goes back */
   document.addEventListener('keydown', e => {
