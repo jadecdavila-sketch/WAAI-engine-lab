@@ -760,3 +760,13 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 #highlevel .fig-road figcaption{position:relative;z-index:2}
 /* Jade, Nov 3: no underlines on the titles; they turn orange on hover */
 #highlevel .hl-title b{text-decoration:none}
+/* Jade, Nov 4: the home hero carries the motto, like the title slide */
+.hero .motto{display:flex;align-items:center;gap:16px;margin:clamp(18px,2vw,28px) 0 28px;font-size:13px;font-weight:700;letter-spacing:.34em;color:var(--ink)}
+.hero .motto::before,.hero .motto::after{content:"";width:40px;height:3px;background:var(--orange);flex:none}
+/* Jade, Nov 4: the Begin button lives at the bottom of the home page, and the line under the header is lighter */
+.begin.end{text-align:right;margin:8px 0 72px}
+.begin.end .btn{font-size:17px;padding:14px 24px}
+header.hero.home{border-bottom:0}/* the grid below marks the edge (Jade, Nov 4) */
+/* Jade, Nov 4: the framework sits on the graph-paper grid again, under its own title, as in the first course */
+#highlevel{--cream:var(--paper);background-color:var(--paper);background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);background-size:64px 64px;background-position:center top;padding:48px 0 64px;border-bottom:2px solid #C9C0AE}
+#highlevel .hl-head{margin:0 auto 36px}
