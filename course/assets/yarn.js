@@ -46,6 +46,7 @@
   size();
   if(window.ResizeObserver)new ResizeObserver(size).observe(beam); else addEventListener('resize',size);
   const still=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)');
-  hl.addEventListener('mouseenter',()=>{ if(still&&still.matches)return; goal=1; start(); });
-  hl.addEventListener('mouseleave',()=>{ goal=0; });
+  /* only a real mouse sets it swaying: a tap on a phone would leave it running */
+  hl.addEventListener('pointerenter',e=>{ if(e.pointerType!=='mouse'||(still&&still.matches))return; goal=1; start(); });
+  hl.addEventListener('pointerleave',()=>{ goal=0; });
 })();
