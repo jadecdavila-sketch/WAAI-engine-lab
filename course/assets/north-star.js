@@ -22,7 +22,7 @@ const NS_COUNTERPOINT = {
     { generic: "Invite your team.", specific: "A volunteer who joins the pod midway catches up by reading the Foundation.", note: "The pod" },
     { generic: "Deployment successful.", specific: "The docs match the code today. Every flow you changed came back to your map.", note: "The build" },
     { generic: "Great job!", specific: "Your Council met Tuesday. The Merchant wants to know who pays.", note: "The review" },
-    { generic: "Congratulations on completing the course.", specific: "Your code is CP-XXXX. Session two is where you write your own North Star.", note: "This course" }
+    { generic: "Congratulations on completing the course.", specific: "You passed. Session two is where you write your own North Star.", note: "This course" }
   ],
   antipatterns: [
     { text: "Marking something as decided that she never confirmed.", from: "Discovery" },

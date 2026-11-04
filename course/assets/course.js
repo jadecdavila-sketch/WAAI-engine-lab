@@ -79,7 +79,7 @@
   function paintBegin(){
     const b = $('#begin'); if (!b) return;
     const m = nextToDo();
-    if (!m) { b.innerHTML = '<a class="btn teal" href="quiz.html">You have finished. See your code again</a>'; return; }
+    if (!m) { b.innerHTML = '<a class="btn teal" href="request-access.html">You have finished. Save your seat in session two</a>'; return; }
     const started = Object.keys(state).length > 0;
     const first = m.id === 'council' && !started;
     b.innerHTML = `<a class="btn" href="${m.href}">${first ? 'Begin with Module 1, The Council' : (m.id === 'quiz' ? 'Take the quiz' : 'Continue: ' + m.title)}</a>`;

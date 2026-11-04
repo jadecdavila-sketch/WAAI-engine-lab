@@ -30,8 +30,6 @@
   .ask .done{display:none}
   .ask.sent .done{display:block}
   .ask.sent form{display:none}
-  .ask .code{margin:0 0 18px}
-  .ask.passed #codefield{display:none}
   .steps{max-width:680px}
   .steps ol{padding-left:22px}
   .steps li{margin:0 0 8px}
@@ -48,8 +46,8 @@
     <div>
       <p class="kicker">After the quiz</p>
       <h1>You finished Counterpoint Foundations</h1>
-      <p class="lede">Your completion code is below. Send this short form and you are on the list for the second onboarding workshop, where you get Counterpoint itself. Jade reads every request herself.</p>
-      <div class="meta"><span><b>About 2 minutes</b></span><span><b>You need</b> your completion code and a GitHub account</span></div>
+      <p class="lede">Send this short form and you are on the list for the second onboarding workshop, where you get Counterpoint itself. Jade reads every request herself.</p>
+      <div class="meta"><span><b>About 2 minutes</b></span><span><b>You need</b> a GitHub account</span></div>
     </div>
     <div class="ico cpmark" id="cpmark"></div>
   </div>
@@ -71,14 +69,8 @@
         <div class="f">
           <label for="name">Your name, as you want it on the Lab roster</label>
           <input id="name" name="name" type="text" autocomplete="name" required>
-          <p class="note" id="name-note">Your completion code comes from your name, so the same name always gives the same code.</p>
         </div>
-        <div id="codebox"></div>
-        <div class="f" id="codefield">
-          <label for="code">Your completion code</label>
-          <input id="code" name="code" type="text" autocomplete="off" placeholder="CP-XXXX-XXXX" required>
-          <p class="note" id="code-note">You got it at the end of the quiz. Lost it? Take the quiz again on this device and the code appears here by itself.</p>
-        </div>
+        <p class="note" id="elsewhere" style="margin:-6px 0 20px" hidden>Passed the quiz on a different device? That is fine. Send this anyway and Jade will check.</p>
         <div class="f">
           <label for="email">Your email</label>
           <input id="email" name="email" type="email" autocomplete="email" required>
@@ -124,44 +116,14 @@
   /* Where requests go: the web app address of the roster script (set-up-the-form.md). Empty means the form is not live yet. */
   const ENDPOINT = 'https://script.google.com/macros/s/AKfycbwsQYztRyB4jmtu5XoPPC8HrxiHwyACenl8qwLiDffjzzKiv6VT09WeRLPWEPW9Vz83/exec';
   const {$, makeCode} = CF;
-  const form = $('#form'), out = $('#out'), ask = $('#ask'), codeNote = $('#code-note');
-  const clean = c => c.trim().toUpperCase().replace(/\s+/g, '').replace(/^CP-?/, '').replace(/-/g, '');
-  const LOST = 'You got it at the end of the quiz. Lost it? Take the quiz again on this device and the code appears here by itself.';
+  const form = $('#form'), out = $('#out'), ask = $('#ask');
 
-  /* Typing a code by hand (the quiz was passed on another device): say whether it matches the name. */
-  function checkCode(){
-    const n = $('#name').value.trim(), c = clean($('#code').value);
-    if (!n || c.length < 8) { codeNote.className = 'note'; codeNote.textContent = LOST; return null; }
-    const ok = makeCode(n).replace(/^CP-/, '').replace(/-/g, '') === c;
-    codeNote.className = ok ? 'note good' : 'note warn';
-    codeNote.textContent = ok ? 'This code matches that name.' : 'This code does not match that name. Check the spelling, or take the quiz again on this device. You can still send the request and Jade will look.';
-    return ok;
-  }
-
-  /* The quiz was passed on this device: the code is made from the name as it is typed, shown in the box, and no code is typed. */
+  /* Members never see a code any more (Jade, Nov 4). The roster still gets one, made from the name, when the quiz
+     was passed on this device. Otherwise it gets OTHER-DEVICE, which the roster marks as not matching, so Jade checks. */
   let passed = false;
   try { passed = !!(CF.state && CF.state.passed); } catch (e) {}
-  const box = $('#codebox');
-  function paintCode(){
-    const n = $('#name').value.trim();
-    box.innerHTML = '';
-    if (!n) { $('#code').value = ''; return; }
-    const code = makeCode(n); $('#code').value = code;
-    try { CF.state.codeName = n; CF.save(); } catch (e) {}
-    const c = CF.h('div', {class:'c', 'aria-label': code});
-    [...code].forEach((ch, k) => c.append(CF.h('span', {style:'animation-delay:' + (k * 45) + 'ms', 'aria-hidden':'true'}, ch)));
-    box.append(CF.h('div', {class:'code'}, CF.h('img', {class:'mk', src:'assets/img/mark-small-clear.svg', alt:''}),
-      CF.h('p', {style:'color:#BFB8AA;font-size:12.5px;font-weight:700;margin:0 0 6px'}, 'Your completion code'), c));
-  }
-  if (passed) {
-    ask.classList.add('passed');
-    try { if (CF.state.codeName && !$('#name').value) $('#name').value = CF.state.codeName; } catch (e) {}
-    paintCode();
-    $('#name').addEventListener('input', paintCode);
-  } else {
-    $('#name').addEventListener('input', checkCode);
-    $('#code').addEventListener('input', checkCode);
-  }
+  if (!passed) $('#elsewhere').hidden = false;
+  try { if (passed && CF.state.codeName && !$('#name').value) $('#name').value = CF.state.codeName; } catch (e) {}
 
   /* Send stays off until the terms box is ticked. */
   const terms = $('#terms'), sendBtn = $('#send');
@@ -171,10 +133,9 @@
   form.addEventListener('submit', async (ev) => {
     ev.preventDefault();
     out.className = 'out'; out.textContent = '';
-    const name = $('#name').value.trim(), code = $('#code').value.trim(), email = $('#email').value.trim(), github = $('#github').value.trim().replace(/^@/, ''), notes = $('#notes').value.trim();
+    const name = $('#name').value.trim(), code = passed && name ? makeCode(name) : 'OTHER-DEVICE', email = $('#email').value.trim(), github = $('#github').value.trim().replace(/^@/, ''), notes = $('#notes').value.trim();
     const missing = [];
     if (!name) missing.push('your name');
-    if (!code) missing.push('your completion code');
     if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) missing.push('an email that looks right');
     if (!github || !/^[A-Za-z0-9](?:[A-Za-z0-9]|-(?=[A-Za-z0-9])){0,38}$/.test(github)) missing.push('a GitHub username (letters, numbers and single hyphens)');
     if (!$('#terms').checked) missing.push('the terms box');
@@ -182,12 +143,12 @@
     if (!ENDPOINT) { out.className = 'out bad'; out.textContent = 'This form is not taking requests yet. Ask in the Lab channel.'; return; }
     const send = $('#send'); send.disabled = true; send.textContent = 'Sending';
     try {
-      const r = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name, code, email, github, notes, terms: true, codeMatches: passed ? true : checkCode() === true, page: location.href }) });
+      const r = await fetch(ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'text/plain' }, body: JSON.stringify({ name, code, email, github, notes, terms: true, codeMatches: passed, page: location.href }) });
       const j = await r.json();
       if (!j || !j.ok) throw new Error(j && j.error || 'no answer');
       ask.classList.add('sent');
     } catch (e) {
-      out.className = 'out bad'; out.textContent = 'The request did not go through. Nothing was lost; your answers are still here. Try again in a minute, or post your name and code in the Lab channel and Jade will take it from there.';
+      out.className = 'out bad'; out.textContent = 'The request did not go through. Nothing was lost; your answers are still here. Try again in a minute, or post your name in the Lab channel and Jade will take it from there.';
       send.textContent = 'Send my request'; gate();
     }
   });

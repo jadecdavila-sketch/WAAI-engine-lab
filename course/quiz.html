@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The quiz, Counterpoint Foundations</title>
-<meta name="description" content="The Counterpoint Foundations quiz and completion code.">
+<meta name="description" content="The Counterpoint Foundations quiz.">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -23,7 +23,7 @@
     <div>
       <p class="kicker">Finish</p>
       <h1>The quiz</h1>
-      <p class="lede">Fifteen scenarios, five per module. When you get twelve right, you get a completion code to post in the Lab channel. Take it as many times as you like. Every question explains its answer either way.</p>
+      <p class="lede">Fifteen scenarios, five per module. Get twelve right and a short form saves your seat in session two. Take it as many times as you like. Every question explains its answer either way.</p>
       <div class="meta"><span><b>About 12 minutes</b></span><span><b>Pass mark</b> 12 of 15</span></div>
     </div>
     <div class="ico cpmark" id="cpmark"></div>
@@ -35,16 +35,6 @@
 
 <section>
   <div class="quizbox" id="quizbox"></div>
-  <div class="verify" id="verify">
-    <h3 style="font-size:20px;font-weight:900;font-stretch:90%">Verify a completion code</h3>
-    <p class="hint" style="margin:0 0 12px">For facilitators. Enter the name as the member typed it. Capitals and extra spaces do not matter.</p>
-    <div class="row">
-      <div><label for="v-name">Name</label><input id="v-name" type="text" autocomplete="off"></div>
-      <div><label for="v-code">Code</label><input id="v-code" type="text" autocomplete="off" placeholder="CP-XXXX-XXXX"></div>
-      <button class="btn" id="v-go" type="button">Check</button>
-    </div>
-    <div class="out" id="v-out" aria-live="polite"></div>
-  </div>
 </section>
 
 </div>
@@ -93,8 +83,8 @@
     box.innerHTML = '';
     box.append(head(Q.questions.length + ' questions'));
     const b = h('div', {class:'qb'});
-    b.append(h('p', {style:'font-size:16px;max-width:87.5%'}, 'The questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. At the end you see your score by module and, if you passed, a box for your name. That gives you your code.'));
-    if (state.passed) b.append(h('p', {class:'hint'}, 'You have already passed on this device. The same name gives the same code if you need it again.'));
+    b.append(h('p', {style:'font-size:16px;max-width:87.5%'}, 'The questions come in a random order and the answers are shuffled, so a retake is a real retake. Each answer explains itself. At the end you see your score by module and, if you passed, a short form that saves your seat in session two.'));
+    if (state.passed) b.append(h('p', {class:'hint'}, 'You have already passed on this device.'));
     b.append(h('button', {class:'btn', type:'button', onclick: start}, state.passed ? 'Take it again' : 'Start the quiz'));
     box.append(b);
   }
@@ -143,8 +133,8 @@
     b.append(r);
     if (passed) {
       state.passed = true; state.bestScore = Math.max(state.bestScore || 0, score); save(); CF.paintScore();
-      b.append(h('p', {style:'font-size:15px'}, 'Your completion code is ready. The next page shows it and puts you on the list for the second onboarding workshop.'));
-      b.append(h('p', {style:'margin:14px 0 0'}, h('a', {class:'btn', href:'request-access.html'}, 'Get my completion code')));
+      b.append(h('p', {style:'font-size:15px'}, 'The next page is a short form that puts you on the list for the second onboarding workshop.'));
+      b.append(h('p', {style:'margin:14px 0 0'}, h('a', {class:'btn', href:'request-access.html'}, 'Save my seat in session two')));
     } else {
       const weak = [1,2,3].filter(m => byMod[m] < 4).map(m => MOD[m]);
       const list = weak.length > 1 ? weak.slice(0, -1).join(', ') + ' and ' + weak[weak.length - 1] : weak[0];
@@ -156,19 +146,6 @@
   }
   intro();
 
-  /* verify */
-  const vbox = $('#verify');
-  function showVerify(){ vbox.classList.add('on'); vbox.scrollIntoView({block:'center'}); $('#v-name').focus(); }
-  if (location.hash === '#verify') showVerify();
-  window.addEventListener('hashchange', () => { if (location.hash === '#verify') showVerify(); });
-  $('#v-go').addEventListener('click', () => {
-    const n = $('#v-name').value, c = $('#v-code').value.trim().toUpperCase().replace(/\s+/g, '').replace(/^CP-?/, '').replace(/-/g, '');
-    const out = $('#v-out');
-    if (!n.trim() || !c) { out.textContent = 'Enter both a name and a code.'; out.style.color = 'var(--mute)'; return; }
-    const ok = makeCode(n).replace(/^CP-/, '').replace(/-/g, '') === c;
-    out.textContent = ok ? 'Valid. This code matches that name.' : 'No match. Check the spelling of the name, or ask the member to get the code again from the quiz page.';
-    out.style.color = ok ? 'var(--teal-deep)' : 'var(--orange)';
-  });
 })();
 </script>
 
