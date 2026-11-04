@@ -760,3 +760,6 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 #highlevel .fig-road figcaption{position:relative;z-index:2}
 /* Jade, Nov 3: no underlines on the titles; they turn orange on hover */
 #highlevel .hl-title b{text-decoration:none}
+/* Jade, Nov 4: the home hero carries the motto, like the title slide */
+.hero .motto{display:flex;align-items:center;gap:16px;margin:clamp(18px,2vw,28px) 0 28px;font-size:13px;font-weight:700;letter-spacing:.34em;color:var(--ink)}
+.hero .motto::before,.hero .motto::after{content:"";width:40px;height:3px;background:var(--orange);flex:none}
