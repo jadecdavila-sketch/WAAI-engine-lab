@@ -767,3 +767,6 @@ a.voice:hover{transform:translateY(-3px);box-shadow:0 4px 10px rgba(28,53,54,.10
 .begin.end{text-align:center;margin:8px 0 72px}
 .begin.end .btn{font-size:17px;padding:14px 24px}
 header.hero.home{border-bottom:2px solid #C9C0AE}
+/* Jade, Nov 4: the framework sits on the graph-paper grid again, under its own title, as in the first course */
+#highlevel{--cream:var(--paper);background-color:var(--paper);background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);background-size:64px 64px;background-position:center top;padding:48px 0 64px;border-bottom:2px solid #C9C0AE}
+#highlevel .hl-head{margin:0 auto 36px}
