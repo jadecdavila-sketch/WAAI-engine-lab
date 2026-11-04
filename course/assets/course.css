@@ -770,3 +770,5 @@ header.hero.home{border-bottom:0}/* the grid below marks the edge (Jade, Nov 4) 
 /* Jade, Nov 4: the framework sits on the graph-paper grid again, under its own title, as in the first course */
 #highlevel{--cream:var(--paper);background-color:var(--paper);background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);background-size:64px 64px;background-position:center top;padding:48px 0 64px;border-bottom:2px solid #C9C0AE}
 #highlevel .hl-head{margin:0 auto 36px}
+/* Jade, Nov 4: the line that joins the framework is teal, so it reads against the grid */
+#highlevel .beam{background:var(--teal)!important;width:2px!important}
