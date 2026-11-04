@@ -110,16 +110,19 @@
     state.blocks[i] = { start: now, end: null, rang: false }; state.running = i; save(); paint();
   }
   function stop(i){ state.blocks[i].end = Date.now(); if (state.running === i) state.running = null; save(); paint(); }
-  /* when a block's time runs out, the next one starts on its own, from the exact moment the last one ended */
+  /* when a block's time runs out, the next one starts on its own, from the exact moment the last one ended.
+     It only moves into a block that has not been started yet (so "Start again" on an earlier row never wipes later ones),
+     and it ignores a timer left running from a session hours ago. */
+  let autoAt = 0;
   function advance(){
     let moved = false;
     while (state.running != null && state.running < PLAN.length - 1) {
       const r = state.running, b = state.blocks[r], due = b.start + PLAN[r].m * 60000;
-      if (Date.now() < due) break;
+      if (Date.now() < due || state.blocks[r + 1].start != null || Date.now() - due > 3 * 3600000) break;
       b.end = due; b.rang = true;
       state.blocks[r + 1] = { start: due, end: null, rang: false }; state.running = r + 1; moved = true;
     }
-    if (moved) { save(); ring(); }
+    if (moved) { save(); ring(); autoAt = Date.now(); }
   }
   function paint(){
     advance();
@@ -143,6 +146,8 @@
   document.addEventListener('keydown', e => {
     if (e.target.closest('input,textarea,button')) return;
     const nxt = document.querySelector('.tnav a.next'), prv = document.querySelector('.tnav a.prev');
+    /* a Space pressed just after the chime moved things on would skip a block, so it waits 15 seconds */
+    if (e.key === ' ' && Date.now() - autoAt < 15000) { e.preventDefault(); return; }
     if (e.key === ' ') { e.preventDefault(); const n = state.running == null ? state.blocks.findIndex(b => b.start == null) : state.running + 1; if (n >= 0 && n < PLAN.length) start(n); else if (state.running != null) stop(state.running); }
     if ((e.key === 'ArrowRight' || e.key === 'PageDown') && nxt) { e.preventDefault(); location.href = nxt.href; }
     if ((e.key === 'ArrowLeft' || e.key === 'PageUp') && prv) { e.preventDefault(); location.href = prv.href; }
