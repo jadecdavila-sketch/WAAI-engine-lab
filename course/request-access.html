@@ -30,6 +30,15 @@
   .ask .done{display:none}
   .ask.sent .done{display:block}
   .ask.sent form{display:none}
+  /* the same "get ready" box as the Next steps slide; ticks share its cf-ready memory on this device */
+  .getready{border:2px solid var(--ink);background:var(--cream);padding:20px 22px 22px;margin:22px 0 0}
+  .getready h3{font-size:21px;font-weight:900;font-stretch:90%;line-height:1.1;margin:0 0 8px}
+  .getready p{margin:0;font-size:15.5px;line-height:1.45;color:var(--mute)}
+  .getready p b{color:var(--ink)}
+  .ready{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:8px}
+  .ready label{display:flex;gap:10px;align-items:flex-start;font-size:15px;line-height:1.4;color:var(--ink);cursor:pointer;font-weight:500;margin:0}
+  .ready input{width:18px;height:18px;margin:2px 0 0;accent-color:var(--orange);flex:none}
+  .ready input:checked + span{color:var(--mute);text-decoration:line-through;text-decoration-color:var(--rule)}
   .steps{max-width:680px}
   .steps ol{padding-left:22px}
   .steps li{margin:0 0 8px}
@@ -94,7 +103,15 @@
       </form>
       <div class="done" aria-live="polite">
         <p style="font-size:17px;font-weight:800;margin:0 0 8px">Your request is in.</p>
-        <p>You are on the list for the second onboarding workshop. There is nothing else to do right now. Jade will be in touch at the email you gave. If you hear nothing in a couple of weeks, ask in the Lab channel.</p>
+        <p>You are on the list for the second onboarding workshop. Jade will email you the date at the address you gave. If you hear nothing in a couple of weeks, ask in the Lab channel.</p>
+        <div class="getready">
+          <h3>Get ready for session two</h3>
+          <p>We install the Counterpoint plugin and you <b>write your own North Star</b>. Have these before then:</p>
+          <ul class="ready">
+            <li><label><input type="checkbox" data-ready="desktop"> <span><b>Claude Desktop</b> installed, from claude.ai/download</span></label></li>
+            <li><label><input type="checkbox" data-ready="pro"> <span>A <b>Claude Pro</b> account, or higher</span></label></li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
@@ -106,6 +123,11 @@
 <footer><div class="wrap">
   <p style="margin:0">Counterpoint Foundations is the entry course for the WAAI AI Engine Lab. Counterpoint by Jade Davila, licensed to Women Applying AI.</p>
 </div></footer>
+<script>
+  /* the readiness ticks stay on this device, shared with the Next steps slide */
+  (function(){ const K='cf-ready'; let st={}; try{ st=JSON.parse(localStorage.getItem(K))||{} }catch(e){}
+    document.querySelectorAll('[data-ready]').forEach(b=>{ b.checked=!!st[b.dataset.ready]; b.addEventListener('change',()=>{ st[b.dataset.ready]=b.checked; try{ localStorage.setItem(K,JSON.stringify(st)) }catch(e){} }); }); })();
+</script>
 <script src="assets/data.js?v=2"></script>
 <script src="assets/content.js?v=2"></script>
 <script src="assets/course.js"></script>
