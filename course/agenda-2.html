@@ -67,7 +67,7 @@
     <div class="total" id="total">0:00</div>
   </div>
   <div class="blocks" id="blocks"></div>
-  <p class="foot"><span><kbd>Space</kbd> starts the next block. When a block runs out of time, the next one starts on its own. <kbd>&larr;</kbd> goes back to the course home. Reset on a block sets it back to zero without starting it.</span><button type="button" id="reset">Reset all timers</button></p>
+  <p class="foot"><span><kbd>Space</kbd> starts the next block. When a block runs out of time, the next one starts on its own. Reset on a block sets it back to zero without starting it.</span><button type="button" id="reset">Reset all timers</button></p>
 </div></main>
 <nav class="tnav" aria-label="Talk"><a class="prev" href="index.html">&larr; The course home</a></nav>
 
@@ -151,7 +151,6 @@
     if (e.key === ' ' && Date.now() - autoAt < 15000) { e.preventDefault(); return; }
     if (e.key === ' ') { e.preventDefault(); const n = state.running == null ? state.blocks.findIndex(b => b.start == null) : state.running + 1; if (n >= 0 && n < PLAN.length) start(n); else if (state.running != null) stop(state.running); }
     if ((e.key === 'ArrowRight' || e.key === 'PageDown') && nxt) { e.preventDefault(); location.href = nxt.href; }
-    if ((e.key === 'ArrowLeft' || e.key === 'PageUp') && prv) { e.preventDefault(); location.href = prv.href; }
   });
   paint(); setInterval(paint, 500);
 })();
