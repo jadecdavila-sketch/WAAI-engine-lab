@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Session two agenda, Counterpoint Foundations</title>
+<meta name="description" content="The run of show for session two, with a timer for each block.">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="assets/img/favicon-32.png" type="image/png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/course.css">
+<style>
+  body.slide{min-height:100vh;display:flex;flex-direction:column}
+  .talk{flex:1;display:flex;flex-direction:column;justify-content:center;padding:40px 0 88px}
+  .talk .kicker{margin:0 0 10px;font-size:14px;letter-spacing:.14em}
+  .talk h1{font-size:clamp(36px,5.2vw,68px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 10px}
+  .top-line{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;gap:10px 24px;margin:0 0 22px}
+  .top-line h1{margin:0}
+  .top-line .lede{font-size:clamp(16px,1.4vw,19px);color:var(--mute);margin:0}
+  .total{font-variant-numeric:tabular-nums;font-size:clamp(18px,1.8vw,24px);font-weight:900;font-stretch:90%;white-space:nowrap}
+  .total small{font-weight:600;color:var(--mute);font-size:.7em;margin-left:8px}
+  .blocks{display:grid;gap:10px;counter-reset:b}
+  .block{display:grid;grid-template-columns:52px 1fr auto auto;gap:14px 18px;align-items:center;background:var(--paper);border:2px solid var(--ink);padding:14px 18px;position:relative;transition:border-color .2s,background .2s}
+  .block .n{font-size:26px;font-weight:900;font-stretch:90%;color:var(--orange);line-height:1}
+  .block h3{font-size:clamp(17px,1.5vw,21px);font-weight:900;font-stretch:90%;line-height:1.15;margin:0}
+  .block p{margin:3px 0 0;font-size:14px;line-height:1.4;color:var(--mute)}
+  .block .time{font-variant-numeric:tabular-nums;text-align:right;min-width:118px}
+  .block .time b{display:block;font-size:clamp(22px,2.2vw,30px);font-weight:900;font-stretch:90%;line-height:1}
+  .block .time span{font-size:12.5px;color:var(--mute)}
+  .block .ctl{display:flex;gap:6px}
+  .block button{font:inherit;font-size:13px;font-weight:800;padding:8px 14px;border:2px solid var(--ink);background:var(--ink);color:#fff;cursor:pointer}
+  .block button.alt{background:transparent;color:var(--ink)}
+  .block button:hover{background:var(--orange);border-color:var(--orange);color:#fff}
+  .block button:disabled{opacity:.35;cursor:default}
+  .block .bar{grid-column:1/-1;height:4px;background:var(--sand);overflow:hidden}
+  .block .bar i{display:block;height:100%;width:0;background:var(--teal);transition:width .5s linear}
+  .block.live{border-color:var(--orange);box-shadow:0 10px 26px rgba(28,53,54,.12)}
+  .block.live .bar i{background:var(--orange)}
+  .block.over .time b{color:var(--orange)}
+  .block.over .bar i{background:var(--orange);width:100%!important}
+  .block.done{opacity:.72}
+  .block.done .n{color:var(--teal)}
+  .foot{display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;margin:16px 0 0;font-size:13.5px;color:var(--mute)}
+  .foot button{font:inherit;font-size:13px;font-weight:700;padding:6px 12px;border:1.5px solid var(--rule);background:transparent;color:var(--ink);cursor:pointer}
+  .foot button:hover{border-color:var(--orange);color:var(--orange)}
+  .foot kbd{font-family:inherit;border:1px solid var(--rule);padding:1px 6px;border-radius:3px;background:var(--paper)}
+  .tnav{position:fixed;right:22px;bottom:18px;display:flex;gap:10px;z-index:9}
+  .tnav a{background:var(--ink);color:#fff;text-decoration:none;font-size:13px;font-weight:800;padding:9px 14px;border:2px solid var(--ink)}
+  .tnav a:hover{background:#fff;color:var(--ink)}
+  .tnav a.prev{background:var(--cream);color:var(--ink)}
+  .tnav a.prev:hover{background:var(--ink);color:#fff}
+  @media(max-width:700px){ .block{grid-template-columns:40px 1fr;} .block .time{grid-column:2;text-align:left} .block .ctl{grid-column:2} .tnav{position:static;justify-content:flex-end;padding:0 24px 12px} }
+</style>
+</head>
+<body class="slide">
+<div class="top"><div class="wrap">
+  <a class="brand" href="index.html"><img src="assets/img/mark-small-clear.svg" alt="Counterpoint mark">Counterpoint<span>Foundations</span></a>
+  <p class="where">Session two, the run of show</p>
+</div></div>
+
+<main class="talk"><div class="wrap">
+  <p class="kicker">Session two · Discovery, hands on</p>
+  <div class="top-line">
+    <h1>Agenda</h1>
+    <div class="total" id="total">0:00</div>
+  </div>
+  <div class="blocks" id="blocks"></div>
+  <p class="foot"><span><kbd>Space</kbd> starts the next block. When a block runs out of time, the next one starts on its own. Reset on a block sets it back to zero without starting it.</span><button type="button" id="reset">Reset all timers</button></p>
+</div></main>
+<nav class="tnav" aria-label="Talk"><a class="prev" href="index.html">&larr; The course home</a></nav>
+
+<script>
+(function(){
+  /* the run of show, in minutes. Edit here. */
+  const PLAN = [
+    { t: 'Welcome and what today is', d: 'Session one was the why. Today you get your hands on the tool. Nobody needs to finish anything.', m: 5 },
+    { t: 'Get into the tool', d: 'Install the Counterpoint plugin, start a project called Savings Circle, open the Discovery page.', m: 15 },
+    { t: 'Three ideas: pain, jobs, objects', d: 'The intro slides. Meet Ama, read the brief, then what a job is and what an object is.', m: 5 },
+    { t: 'North Star', d: 'Paste the brief. Shape who it is for and what working means, in your own words.', m: 7 },
+    { t: 'Context', d: 'A few facts about the product: what kind of thing it is, the brand, the rules it lives by.', m: 5 },
+    { t: 'Jobs', d: 'Let the Architect draft jobs. Keep one, change one, throw one out.', m: 10 },
+    { t: 'Objects', d: 'Ask for objects and look at the map. Find the Circle, the Member, the Contribution. Add one the Architect missed.', m: 10 },
+    { t: 'Personas', d: 'Meet Ama and a member as the tool sees them. Does it sound like the women you know?', m: 3 },
+    { t: 'Flows', d: 'Draft one flow and follow it step by step. Where does a person have to decide something?', m: 10 },
+    { t: 'Architecture', d: 'The sitemap and the systems map: where every page lives and what the product talks to.', m: 10 },
+    { t: 'Share back, next steps and Q&A', d: 'One thing that surprised you. Then how pods and projects get picked, and questions. The door stays open.', m: 10 }
+  ];
+  const KEY = 'cf-agenda-2-v3';
+  const TOTAL = PLAN.reduce((a, p) => a + p.m, 0);
+  let state = load();
+  function load(){ try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.blocks && s.blocks.length === PLAN.length) return s; } catch (e) {} return { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; }
+  /* when a block's time is up, a short piece of Jade's music plays once (Nova gravació 481, the first ten seconds of music) */
+  let BELL = null;
+  function ring(){ try { BELL = BELL || new Audio('assets/time-up.mp3'); BELL.volume = .8; BELL.currentTime = 0; const p = BELL.play(); if (p && p.catch) p.catch(() => {}); } catch (e) {} }
+  function save(){ try { localStorage.setItem(KEY, JSON.stringify(state)); } catch (e) {} }
+  const pad = n => (n < 10 ? '0' : '') + n;
+  const fmt = ms => { const s = Math.max(0, Math.round(ms / 1000)); return Math.floor(s / 60) + ':' + pad(s % 60); };
+  const spent = i => { const b = state.blocks[i]; if (b.start == null) return 0; return (b.end == null ? Date.now() : b.end) - b.start; };
+  const host = document.getElementById('blocks'), rows = [];
+  PLAN.forEach((p, i) => {
+    const row = document.createElement('div'); row.className = 'block';
+    row.innerHTML = `<div class="n">${i + 1}</div><div><h3></h3><p></p></div><div class="time"><b>0:00</b><span>of ${p.m}:00</span></div><div class="ctl"><button type="button" class="go">Start</button><button type="button" class="alt stop" hidden>Stop</button><button type="button" class="alt zero" hidden>Reset</button></div><div class="bar"><i></i></div>`;
+    row.querySelector('h3').textContent = p.t; row.querySelector('p').textContent = p.d;
+    row.querySelector('.go').addEventListener('click', e => { start(i); e.currentTarget.blur(); });
+    row.querySelector('.stop').addEventListener('click', () => stop(i));
+    row.querySelector('.zero').addEventListener('click', e => { state.blocks[i] = { start: null, end: null, rang: false }; if (state.running === i) state.running = null; save(); paint(); e.currentTarget.blur(); });
+    host.append(row); rows.push(row);
+  });
+  function start(i){
+    const now = Date.now();
+    if (state.running != null && state.running !== i) { state.blocks[state.running].end = now; }
+    state.blocks[i] = { start: now, end: null, rang: false }; state.running = i; save(); paint();
+  }
+  function stop(i){ state.blocks[i].end = Date.now(); if (state.running === i) state.running = null; save(); paint(); }
+  /* when a block's time runs out, the next one starts on its own, from the exact moment the last one ended.
+     It only moves into a block that has not been started yet (so "Start again" on an earlier row never wipes later ones),
+     and it ignores a timer left running from a session hours ago. */
+  let autoAt = 0;
+  function advance(){
+    let moved = false;
+    while (state.running != null && state.running < PLAN.length - 1) {
+      const r = state.running, b = state.blocks[r], due = b.start + PLAN[r].m * 60000;
+      if (Date.now() < due || state.blocks[r + 1].start != null || Date.now() - due > 3 * 3600000) break;
+      b.end = due; b.rang = true;
+      state.blocks[r + 1] = { start: due, end: null, rang: false }; state.running = r + 1; moved = true;
+    }
+    if (moved) { save(); ring(); autoAt = Date.now(); }
+  }
+  function paint(){
+    advance();
+    let total = 0;
+    PLAN.forEach((p, i) => {
+      const b = state.blocks[i], row = rows[i], ms = spent(i), over = ms > p.m * 60000; total += ms;
+      if (over && state.running === i && !b.rang) { b.rang = true; save(); ring(); }
+      row.querySelector('.time b').textContent = fmt(ms);
+      row.querySelector('.bar i').style.width = Math.min(100, ms / (p.m * 600)) + '%';
+      row.classList.toggle('live', state.running === i);
+      row.classList.toggle('over', over);
+      row.classList.toggle('done', b.end != null && state.running !== i);
+      row.querySelector('.go').textContent = b.start == null ? 'Start' : (state.running === i ? 'Running' : 'Start again');
+      row.querySelector('.zero').hidden = !(b.start != null && state.running !== i);
+      row.querySelector('.go').disabled = state.running === i;
+      row.querySelector('.stop').hidden = state.running !== i;
+    });
+    const t = document.getElementById('total'); t.innerHTML = fmt(total) + '<small>of ' + TOTAL + ':00</small>'; t.style.color = total > TOTAL * 60000 ? 'var(--orange)' : '';
+  }
+  document.getElementById('reset').addEventListener('click', e => { state = { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; save(); paint(); e.currentTarget.blur(); });
+  document.addEventListener('keydown', e => {
+    if (e.target.closest('input,textarea,button')) return;
+    const nxt = document.querySelector('.tnav a.next'), prv = document.querySelector('.tnav a.prev');
+    /* a Space pressed just after the chime moved things on would skip a block, so it waits 15 seconds */
+    if (e.key === ' ' && Date.now() - autoAt < 15000) { e.preventDefault(); return; }
+    if (e.key === ' ') { e.preventDefault(); const n = state.running == null ? state.blocks.findIndex(b => b.start == null) : state.running + 1; if (n >= 0 && n < PLAN.length) start(n); else if (state.running != null) stop(state.running); }
+    if ((e.key === 'ArrowRight' || e.key === 'PageDown') && nxt) { e.preventDefault(); location.href = nxt.href; }
+  });
+  paint(); setInterval(paint, 500);
+})();
+</script>
+</body>
+</html>
