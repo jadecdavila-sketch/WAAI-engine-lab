@@ -78,16 +78,16 @@
     { t: 'Welcome and what today is', d: 'Session one was the why. Today you get your hands on the tool. Nobody needs to finish anything.', m: 5 },
     { t: 'Get into the tool', d: 'Install the Counterpoint plugin, start a project called Savings Circle, open the Discovery page.', m: 15 },
     { t: 'Three ideas: pain, jobs, objects', d: 'The intro slides. Meet Ama, read the brief, then what a job is and what an object is.', m: 5 },
-    { t: 'North Star', d: 'Paste the brief. Shape who it is for and what working means, in your own words.', m: 10 },
+    { t: 'North Star', d: 'Paste the brief. Shape who it is for and what working means, in your own words.', m: 7 },
     { t: 'Context', d: 'A few facts about the product: what kind of thing it is, the brand, the rules it lives by.', m: 5 },
     { t: 'Jobs', d: 'Let the Architect draft jobs. Keep one, change one, throw one out.', m: 10 },
     { t: 'Objects', d: 'Ask for objects and look at the map. Find the Circle, the Member, the Contribution. Add one the Architect missed.', m: 10 },
     { t: 'Personas', d: 'Meet Ama and a member as the tool sees them. Does it sound like the women you know?', m: 3 },
-    { t: 'Flows', d: 'Draft one flow and follow it step by step. Where does a person have to decide something?', m: 9 },
-    { t: 'Architecture', d: 'The sitemap and the systems map: where every page lives and what the product talks to.', m: 8 },
+    { t: 'Flows', d: 'Draft one flow and follow it step by step. Where does a person have to decide something?', m: 10 },
+    { t: 'Architecture', d: 'The sitemap and the systems map: where every page lives and what the product talks to.', m: 10 },
     { t: 'Share back, next steps and Q&A', d: 'One thing that surprised you. Then how pods and projects get picked, and questions. The door stays open.', m: 10 }
   ];
-  const KEY = 'cf-agenda-2-v2';
+  const KEY = 'cf-agenda-2-v3';
   const TOTAL = PLAN.reduce((a, p) => a + p.m, 0);
   let state = load();
   function load(){ try { const s = JSON.parse(localStorage.getItem(KEY)); if (s && s.blocks && s.blocks.length === PLAN.length) return s; } catch (e) {} return { blocks: PLAN.map(() => ({ start: null, end: null })), running: null }; }
