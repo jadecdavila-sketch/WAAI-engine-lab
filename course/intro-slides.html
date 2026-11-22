@@ -36,6 +36,12 @@ main{flex:1;min-height:0;overflow-y:auto;display:flex}
 .kicker{margin:0 0 12px;font-size:14px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange)}
 h1{font-size:clamp(34px,5vw,72px);font-weight:900;font-stretch:88%;line-height:1;letter-spacing:-.02em;margin:0 0 28px;text-wrap:balance;max-width:18ch}
 h1.wide{max-width:24ch}
+.motto{display:flex;align-items:center;gap:16px;margin:clamp(20px,2.4vw,34px) 0 0;font-size:13px;font-weight:700;letter-spacing:.34em;color:var(--ink)}
+.motto::before,.motto::after{content:"";width:40px;height:3px;background:var(--orange);flex:none}
+.first h1.two{margin-bottom:0}
+.first h1.two{font-size:clamp(30px,calc((100vw - max(28px,50vw - 532px) - 36px)/15.7),112px);white-space:nowrap;line-height:1;letter-spacing:-.03em;max-width:none}
+.first h1.two em{font-style:normal;color:var(--orange)}
+@media(max-width:700px){ .first h1.two{white-space:normal} .first h1.two br{display:none} }
 .first h1{font-size:clamp(44px,7.4vw,116px);line-height:.94;letter-spacing:-.035em;max-width:12ch}
 .lede{font-size:clamp(17px,1.5vw,21px);color:var(--mute);margin:0 0 32px;max-width:60ch}
 .lede b{color:var(--ink)}
@@ -106,9 +112,8 @@ svg.map{display:block;width:100%;min-width:440px;height:auto}
 <main>
 <section class="talk first" data-slide><div class="wrap">
   <p class="kicker">Session two · Discovery</p>
-  <h1>Three ideas before we open the tool.</h1>
-  <div class="rule"></div>
-  <p class="lede">Counterpoint is about to ask you about jobs and objects. Ten minutes on why we start with Discovery, and what those words mean, will make the rest of today much easier.</p>
+  <h1 class="two">Understand what you are building<br><em>before</em> you build it.</h1>
+  <p class="motto" lang="es">LA PRISA MATA</p>
 </div></section>
 
 <section class="talk" data-slide hidden><div class="wrap">
